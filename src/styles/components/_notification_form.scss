@@ -1,0 +1,34 @@
+.btn-notify{
+    transform: none;
+    &:hover{
+        color: initial;
+    }
+    &:focus{
+        color: initial;
+    }
+    &:active{
+        color: initial;
+    }
+}
+.fa-12{
+    line-height: unset;
+}
+
+.notify-form{
+    margin-top: 10px;
+    font-size: 14px;
+    label,select,input{font-size: 14px;line-height: 1.5;}
+    .form-group{
+        margin-bottom: 0px;
+    }
+    label{
+        padding-left: 15px;
+        padding-top: 8px;
+    }
+    
+    .row{
+        & [class^="col-"]{
+            margin-bottom: 0 !important;
+        }
+    } 
+}
