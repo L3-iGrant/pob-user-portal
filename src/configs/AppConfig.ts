@@ -6,5 +6,6 @@ export const COMPANY_PREFIX_PATH = "/company";
 export const PROCUREMENT_BUYER_PREFIX_PATH = "/procurement-buyer";
 export const PROCUREMENT_SUPPLIER_PREFIX_PATH = "/procurement-supplier";
 export const ISSUER_ADMIN_PREFIX_PATH = "/issuer-admin";
+export const API_BASE_URL = 'https://igrant-pob.herokuapp.com';
 export default AppRouteConfig
 
