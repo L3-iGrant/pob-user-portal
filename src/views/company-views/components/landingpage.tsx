@@ -6,6 +6,9 @@ import WalletDetailsPage from './walletdetailspage';
 import WalletConfigurationsPage from './walletconfigurationspage';
 import ViewCredentialsPage from './viewcredentialspage';
 import styled from "styled-components";
+import authService from 'services/authService';
+import { useHistory } from "react-router-dom";
+import axiosService from 'services/axiosService';
 
 const { Search } = Input;
 const { Footer } = Layout;
@@ -25,6 +28,7 @@ const StyledFooter = styled.div`
 const StyledText = styled.h3`
     color: #40a9ff;
     font-size: 20px;
+    cursor: pointer;
 `;
 
 const StyledTextH1 = styled.h1`
@@ -51,6 +55,28 @@ export const LandingPage = () => {
     const [openWalletDetailsDrawer, setOpenWalletDetailsDrawer] = useState(false);
     const [openWalletConfigurationsDrawer, setOpenWalletConfigurationsDrawer] = useState(false);
     const [openViewCredentialsDrawer, setOpenViewCredentialsDrawer] = useState(false);
+    const history = useHistory();
+
+    const checkPermission = async () => {
+        try {
+            const email = axiosService.getUserEmail();
+            if (email) {
+                const responseUserType = await authService.getUserType(email);
+                if (responseUserType.toLowerCase() !== 'company') {
+                    onLogoutClick();
+                }
+            } else {
+                onLogoutClick();
+            }
+        } catch (e) {
+            onLogoutClick();
+        }
+    };
+
+    const onLogoutClick = async () => {
+        await authService.logoutUser();
+        history.push("/");
+    };
 
     const showRequestCredentialsDrawer = () => {
         setOpenRequestCredentialsDrawer(true);
@@ -120,7 +146,7 @@ export const LandingPage = () => {
                                     </Row>
                                     <Row>
                                         <Col span={12}></Col>
-                                        <Col span={12}><StyledText>Logout</StyledText></Col>
+                                        <Col span={12}><StyledText onClick={onLogoutClick}>Logout</StyledText></Col>
                                     </Row>
                                 </Col>
                             </Row>

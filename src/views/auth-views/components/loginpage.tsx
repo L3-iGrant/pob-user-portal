@@ -10,6 +10,9 @@ import {
 import nextImage from "../../../assets/img/logo/next2.png";
 import logo200Image from "../../../assets/img/logo/iGrant_210_55_BW.svg";
 import styled from "styled-components";
+import { useState } from 'react';
+import { useHistory } from "react-router-dom";
+import authService from "services/authService";
 
 const formStyle = {
     padding: "2rem",
@@ -24,6 +27,7 @@ const inputStyleImg = {
     borderTopWidth: 0,
     borderRightWidth: 1.2,
     borderBottomRightRadius: 14,
+    borderTopRightRadius: 0,
     backgroundColor: "white",
 };
 
@@ -61,19 +65,41 @@ const textStyle = {
 
 const StyledLink = styled.a`
     color: white;
-    font-weight: bold;
+    font-size: 14px;
 `;
 
 export const LoginPage = () => {
+    const history = useHistory();
+    const [loginState, setLoginState] = useState(true);
+    const [loginLoaderState, setLoginLoaderState] = useState(false);
+    const [email, setEmail] = useState<string | undefined>(undefined);
+    const [password, setPassword] = useState<string | undefined>(undefined);
+    const [loginMessage, setLoginMessage] = useState<string>('');
+
+    const onSignInClick = async (email: string, password: string) => {
+        setLoginState(true);
+        setLoginLoaderState(true);
+        const response = await authService.loginUser(email, password);
+        // console.log(response);
+        setLoginState(response);
+        setLoginLoaderState(false);
+        if (response) {
+            const responseUserType = await authService.getUserType(email);
+            // console.log(responseUserType);
+            history.push(`/${responseUserType.toLowerCase()}/`);
+        } else {
+            setLoginMessage('Failed to login');
+        }
+    }
+
     return (
         <div>
             <div className="text-center pb-2">
                 <img
                     src={logo200Image}
                     className="rounded"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", width: "20vw" }}
                     alt="logo"
-                    onClick={() => { }}
                 />
             </div>
             <Form onSubmit={() => { }} style={formStyle}>
@@ -81,8 +107,7 @@ export const LoginPage = () => {
                     <Input
                         style={inputStyleEmail}
                         name="user_id"
-                        value={''}
-                        onChange={() => { }}
+                        onChange={(e: any) => { setEmail(e.target.value); }}
                         required
                     />
                     <div style={divStyle} />
@@ -90,8 +115,7 @@ export const LoginPage = () => {
                         <Input
                             style={inputStylePwd}
                             name="user_password"
-                            value={''}
-                            onChange={() => { }}
+                            onChange={(e: any) => { setPassword(e.target.value); }}
                             onKeyPress={() => { }}
                             required
                         />
@@ -101,12 +125,13 @@ export const LoginPage = () => {
                                     src={nextImage}
                                     style={{ cursor: "pointer" }}
                                     alt=">>"
-                                    onClick={() => { }}
+                                    onClick={() => { onSignInClick(email as string, password as string); }}
                                 />
                             </InputGroupText>
                         </InputGroupAddon>
                     </InputGroup>
                 </FormGroup>
+                <div>{loginMessage}</div>
                 <div className="col text-center pt-1">
                     <pre>
                         <Label style={{ height: "42px", fontSize: "12px" }}></Label>
