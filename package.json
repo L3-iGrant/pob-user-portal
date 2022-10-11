@@ -19,10 +19,17 @@
     "@types/uuid": "^8.3.4",
     "antd": "^4.23.3",
     "axios": "^0.27.2",
+    "bootstrap": "4.0.0",
     "react": "^18.2.0",
+    "react-bootstrap-table-next": "^4.0.3",
     "react-css-theme-switcher": "^0.3.0",
     "react-dom": "^18.2.0",
+    "react-infinite-calendar": "^2.3.1",
     "react-json-view": "^1.21.3",
+    "react-loader-spinner": "^2.3.0",
+    "react-notification-system": "^0.2.17",
+    "react-otp-input": "^1.0.1",
+    "react-phone-input-2": "^2.13.5",
     "react-redux": "^8.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.1",
@@ -30,12 +37,9 @@
     "styled-components": "^5.3.6",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4",
-    "bootstrap": "4.0.0",
-    "react-infinite-calendar": "^2.3.1",
-    "react-loader-spinner": "^2.3.0",
-    "react-notification-system": "^0.2.17",
-    "react-otp-input": "^1.0.1",
-    "react-phone-input-2": "^2.13.5"
+    "@material-ui/core": "^3.9.2",
+    "@khanacademy/react-multi-select": "^0.3.2",
+    "material-ui": "^0.20.2"
   },
   "scripts": {
     "build-css": "sass --load-path=./src --load-path=./node_modules ./src/styles/reduction.scss ./src/styles/reduction.css",
@@ -65,7 +69,8 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.49.9",
-    "npm-run-all": "^4.1.2"
+    "@types/react-bootstrap-table-next": "^4.0.18",
+    "npm-run-all": "^4.1.2",
+    "sass": "^1.49.9"
   }
 }
