@@ -49,30 +49,21 @@ const columns = [
     },
 ]
 
-export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean; showViewCredentialsDrawer: any; }) => {
+const camelToTitle = (camelCase:string) => camelCase
+  .replace(/([A-Z])/g, (match) => ` ${match}`)
+  .replace(/^./, (match) => match.toUpperCase())
+  .trim();
 
-    const data: any[] = [
-        {
-            key: '1',
-            attribute: 'Entity name effective',
-            value: 'December 10, 1994',
-        },
-        {
-            key: '2',
-            attribute: 'Registration date',
-            value: '1999',
-        },
-        {
-            key: '3',
-            attribute: 'Entity status effective',
-            value: 'August 12, 2022',
-        },
-        {
-            key: '4',
-            attribute: 'Expiry date',
-            value: 'August 11, 2023',
+export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean; showViewCredentialsDrawer: any; data:any; }) => {
+
+    console.log(props.data);
+    const table: any[] = (props.data || []).map( (entry:any, key:any) => {
+        return {
+            key,
+            attribute: camelToTitle(entry.name.split('.').at(-1)),
+            value: entry.value
         }
-    ];
+    })
 
     return (
         <Modal backdrop="static" unmountOnClose={true} isOpen={props.open}>
@@ -95,7 +86,7 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
                     <Row>
                         <BootstrapTable
                             id="btPurpose"
-                            data={data}
+                            data={table}
                             bootstrap4={true}
                             keyField="id"
                             hover={true}

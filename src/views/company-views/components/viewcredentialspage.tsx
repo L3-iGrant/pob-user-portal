@@ -7,7 +7,7 @@ import {
 import { Card as CardReact, CardBody, CardTitle, CardText } from "reactstrap";
 import { Card, Row, Col } from "antd";
 import styled from "styled-components";
-import credentialLogo from '../../../assets/img/reactlogo.png';
+import credentialLogo from '../../../assets/img/icons/bolagsverket.png';
 
 const colDispStyle = {
     fontSize: "14px",
@@ -124,7 +124,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
                                             <CardTitle className="mb-0">CERTIFICATE OF REGISTRATION</CardTitle>
                                         </Col>
                                         <Col span={8}>
-                                            <img src={credentialLogo} style={{ width: "100px" }} alt="credential" />
+                                            <img src={credentialLogo} style={{ width: "50px" }} alt="credential" />
                                         </Col>
                                     </Row>
                                     <CardText style={{ fontSize: "14px", marginTop: "10px", marginBottom: "0px" }}>
