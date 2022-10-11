@@ -1,14 +1,17 @@
-import { Col, Row, Card, Input, Avatar, Button, Layout, Divider } from 'antd';
+import { Col, Row, Card, Input, Avatar, Button, Layout, Divider, Space } from 'antd';
 import { UserOutlined, HomeFilled, WalletOutlined, BellOutlined, SettingOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RequestCredentialsPage from "./requestcredentialspage";
 import WalletDetailsPage from './walletdetailspage';
 import WalletConfigurationsPage from './walletconfigurationspage';
 import ViewCredentialsPage from './viewcredentialspage';
+import ViewSelectedCredentialPage from './viewselectedcredentialpage';
 import styled from "styled-components";
 import authService from 'services/authService';
 import { useHistory } from "react-router-dom";
 import axiosService from 'services/axiosService';
+import companyService from 'services/companyService';
+
 
 const { Search } = Input;
 const { Footer } = Layout;
@@ -33,10 +36,19 @@ const StyledText = styled.h3`
 
 const StyledTextH1 = styled.h1`
     font-size: 30px;
+    margin-bottom: 20px;
+`;
+
+const StyledCompanyHeader = styled.h1`
+    font-size: 45px;
+    text-align: left;
 `;
 
 const StyledTextH2 = styled.h2`
-    font-size: 25px;
+    font-size: 30px;
+    font-weight: 400;
+    text-align: left;
+    padding-left: 20px;
 `;
 
 const StyledButton = styled(Button)`
@@ -47,14 +59,23 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledFooterLink = styled.a`
-    color: #505050;
+    flex: 1;
+    justify-content: "center";
+    align-items: "center";
+    color :'white';
+    font-size: "0.8rem";
+    text-align: "center";
+    margin-bottom:'22px';
 `;
+
 
 export const LandingPage = () => {
     const [openRequestCredentialsDrawer, setOpenRequestCredentialsDrawer] = useState(false);
     const [openWalletDetailsDrawer, setOpenWalletDetailsDrawer] = useState(false);
     const [openWalletConfigurationsDrawer, setOpenWalletConfigurationsDrawer] = useState(false);
     const [openViewCredentialsDrawer, setOpenViewCredentialsDrawer] = useState(false);
+    const [openViewSelectedCredentialDrawer, setOpenViewSelectedCredentialDrawer] = useState(false);
+    const [walletData, setWalletData] = useState({});
     const history = useHistory();
 
     const checkPermission = async () => {
@@ -73,8 +94,40 @@ export const LandingPage = () => {
         }
     };
 
+    const getConnections = async () => {
+        const data = await companyService.getConnections();
+        const invitation_ids: any = {};
+        (data.invitation_data || []).map(
+            (x: any) => {
+                const key: string = x[0];
+                invitation_ids[key] = x[1];
+            }
+        )
+        if (data) {
+            console.log({ data, invitation_ids });
+            const keys = Object.keys(invitation_ids);
+            data.result?.slice().reverse().every((element: any) => {
+                if (element.state === 'active') {
+                    console.log(element);
+                    if (keys.includes(element.connection_id)) {
+                        console.log("found match");
+                        let walletData = invitation_ids[element.connection_id];
+                        walletData = walletData.replace("b'", '')
+                        walletData = walletData.slice(0, -1)
+                        walletData = JSON.parse(walletData);
+                        setWalletData(walletData);
+                        return false;
+                    }
+                    return true;
+                }
+                return true;
+            });
+        }
+    };
+
     const onLogoutClick = async () => {
         await authService.logoutUser();
+        localStorage.removeItem('token');
         history.push("/");
     };
 
@@ -110,12 +163,26 @@ export const LandingPage = () => {
         setOpenViewCredentialsDrawer(false);
     };
 
+    const showViewSelectedCredentialDrawer = () => {
+        setOpenViewSelectedCredentialDrawer(true);
+    };
+
+    const onViewSelectedCredentialDrawerClose = () => {
+        setOpenViewSelectedCredentialDrawer(false);
+    };
+
     const onSearch = (value: string) => console.log(value);
+
+    useEffect(() => {
+        setTimeout(() => {
+            getConnections();
+        }, 500)
+    }, []);
 
     return (
         <div>
             <div>
-                <Row>
+                <Row gutter={16}>
                     <Col span={24}>
                         <StyledCardDefault style={{
                             margin: "20px",
@@ -124,11 +191,11 @@ export const LandingPage = () => {
                             borderColor: "black",
                             backgroundColor: "#F5F5F5"
                         }}>
-                            <Row>
-                                <Col span={6}>
-                                    <StyledTextH1>My Company Portal</StyledTextH1>
+                            <Row style={{ 'alignItems': 'center' }}>
+                                <Col span={8}>
+                                    <StyledCompanyHeader>My Company Portal</StyledCompanyHeader>
                                 </Col>
-                                <Col span={6}>
+                                <Col span={4}>
                                     <Search
                                         placeholder="input search text"
                                         allowClear
@@ -138,15 +205,17 @@ export const LandingPage = () => {
                                 </Col>
                                 <Col span={6}></Col>
                                 <Col span={2}>
-                                    <Avatar size={64} icon={<UserOutlined />} onClick={showViewCredentialsDrawer} />
+                                    <Avatar size={64} icon={<UserOutlined />} onClick={() => { }} />
                                 </Col>
-                                <Col span={4}>
+                                <Col span={4} style={{ textAlign: 'right' }}>
                                     <Row>
-                                        <StyledTextH1>Johan Eriksson</StyledTextH1>
+                                        <Col span={24}>
+                                            <StyledTextH1>Johan Eriksson</StyledTextH1>
+                                        </Col>
+
                                     </Row>
                                     <Row>
-                                        <Col span={12}></Col>
-                                        <Col span={12}><StyledText onClick={onLogoutClick}>Logout</StyledText></Col>
+                                        <Col span={24}><StyledText onClick={onLogoutClick}>Logout</StyledText></Col>
                                     </Row>
                                 </Col>
                             </Row>
@@ -156,7 +225,7 @@ export const LandingPage = () => {
                 <Row>
                     <Col span={24}>
                         <StyledCardDefault style={{
-                            margin: "20px",
+                            margin: " 0 20px 20px 20px ",
                             overflow: "hidden",
                             backgroundColor: "#F5F5F5",
                             borderWidth: "0px"
@@ -174,10 +243,11 @@ export const LandingPage = () => {
                 </Row>
                 <Row>
                     <Col span={6}>
-                        <StyledTextH2>Welcome Johan Eriksson</StyledTextH2>
+                        <StyledTextH2>Welcome Johan Eriksson!</StyledTextH2>
                     </Col>
                 </Row>
-                <Row>
+
+                <Row style={{ 'paddingTop': '20px' }}>
                     <Col span={12}>
                         <StyledCardDefault style={{
                             marginLeft: "20px",
@@ -185,9 +255,13 @@ export const LandingPage = () => {
                             overflow: "hidden",
                             borderWidth: "thin",
                             borderColor: "#ddd",
+                            padding: "30px 40px",
+                            minHeight: "225px"
                         }}>
-                            <Row>
-                                <StyledTextH1>Certificate of registration and register extract</StyledTextH1>
+                            <Row style={{ 'textAlign': 'center' }}>
+                                <Col span={24}>
+                                    <StyledTextH1>Certificate of registration and register extract</StyledTextH1>
+                                </Col>
                             </Row>
                             <Row>
                                 <StyledButton type="primary" block size={"large"} onClick={showRequestCredentialsDrawer}>Request Now</StyledButton>
@@ -201,14 +275,21 @@ export const LandingPage = () => {
                             overflow: "hidden",
                             borderWidth: "thin",
                             borderColor: "#ddd",
-                        }}>
-                            <Row>
-                                <Col span={20}></Col>
-                                <Col span={2}>
-                                    <BellOutlined style={{ fontSize: '35px' }} />
-                                </Col>
-                                <Col span={2}>
+                            padding: "30px 40px",
+                            minHeight: "225px"
+                        }}
+
+                        >
+                            <Row style={{ 'position': 'absolute', 'top': '20px', 'right': '20px' }}>
+                                <Space>
+                                    <BellOutlined style={{ fontSize: '35px' }} onClick={showViewCredentialsDrawer} />
                                     <SettingOutlined style={{ fontSize: '35px' }} onClick={showWalletConfigurationsDrawer} />
+                                </Space>
+
+                            </Row>
+                            <Row>
+                                <Col>
+                                    &nbsp;
                                 </Col>
                             </Row>
                             <Row>
@@ -225,29 +306,17 @@ export const LandingPage = () => {
                 </Row>
             </div>
             <StyledFooter>
-                <Divider></Divider>
                 <Footer style={{ textAlign: 'center', backgroundColor: 'white' }}>
-                    <Row>
-                        <Col span={24}>
-                            <div><StyledFooterLink href="/company/">Features</StyledFooterLink> | <StyledFooterLink href="/company/">About</StyledFooterLink> | <StyledFooterLink href="/company/">Testimonials</StyledFooterLink> | <StyledFooterLink href="/company/">Contact</StyledFooterLink> | <StyledFooterLink href="/company/">Team</StyledFooterLink></div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            Bolagsverket SE -851 81 Sundsvall Sweden
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            © Bolagsverket, Sweden
-                        </Col>
-                    </Row>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&copy;&nbsp;2017-{new Date().getFullYear()} LCubed AB, Sweden&nbsp;&nbsp;&nbsp;<StyledFooterLink href="https://igrant.io/privacy.html#cookies" target="_blank" rel="noopener noreferrer" >Cookies Policy</StyledFooterLink> &nbsp;| &nbsp;<StyledFooterLink href="https://igrant.io/terms.html" target="_blank" rel="noopener noreferrer" >Terms of Service</StyledFooterLink> &nbsp;| &nbsp;
+                        <StyledFooterLink href="https://igrant.io/privacy.html#privacy" target="_blank" rel="noopener noreferrer" >Privacy Policy</StyledFooterLink>
+                    </div>
                 </Footer>
             </StyledFooter>
             <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} />
-            <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} />
+            <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} walletData={walletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} />
-            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} />
+            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} />
+            <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialDrawer} showViewCredentialsDrawer={showViewCredentialsDrawer} />
         </div>
     );
 };

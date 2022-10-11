@@ -118,6 +118,7 @@ export const LoginPage = () => {
                             onChange={(e: any) => { setPassword(e.target.value); }}
                             onKeyPress={() => { }}
                             required
+                            type="password"
                         />
                         <InputGroupAddon addonType="append">
                             <InputGroupText style={inputStyleImg}>

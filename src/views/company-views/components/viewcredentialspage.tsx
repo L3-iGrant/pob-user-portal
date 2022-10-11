@@ -1,51 +1,77 @@
-import { Drawer, Alert, Row, Table } from 'antd';
+// import { Drawer, Alert, Row, Table } from 'antd';
+import {
+    Modal,
+    CardImg,
+    ModalFooter,
+} from "reactstrap";
+import { Card as CardReact, CardBody, CardTitle, CardText } from "reactstrap";
+import { Card, Row, Col } from "antd";
 import styled from "styled-components";
-import ReactJson from 'react-json-view';
+import credentialLogo from '../../../assets/img/reactlogo.png';
 
-const StyledInfoSections = styled.div`
-    margin-bottom: 10px;
-`;
-
-const StyledAlert = styled(Alert)`
-    background-color: #ddd;
-    border-color: #505050;
-`;
-
-const StyledTable = styled(Table)`
-    border: 1px solid #ddd;
-    border-radius: 5px;
-`;
-
-const columns: any[] = [
-    {
-        title: <h3>{'Attribute'}</h3>,
-        dataIndex: 'attribute',
-        key: 'attribute',
-    },
-    {
-        title: <h3>{'Value'}</h3>,
-        dataIndex: 'value',
-        key: 'value',
-    }
-];
-
-const dummyJsonData = {
-    "isbn": "123-456-222",
-    "author":
-    {
-        "lastname": "Doe",
-        "firstname": "Jane"
-    },
-    "editor":
-    {
-        "lastname": "Smith",
-        "firstname": "Jane"
-    },
-    "title": "The Ultimate Database Study Guide",
-    "category": ["Non-Fiction", "Technology"]
+const colDispStyle = {
+    fontSize: "14px",
+    cursor: "pointer",
+    padding: ".35rem",
+    borderWidth: "1px solid !important",
+    borderColor: "#dee2e6",
 };
 
-export const ViewCredentialsPage = (props: { onClose: any; open: boolean; }) => {
+const headerDispStyle = {
+    backgroundColor: "#f0f0f0",
+    padding: ".35rem",
+    fontWeight: "bold",
+    border: "solid",
+    borderWidth: "0px 1px 3px 1px",
+    borderColor: "#dee2e6",
+};
+
+const headerStyle = {
+    fontSize: "16px",
+    backgroundColor: "white",
+    display: "flex",
+    alignItems: "center",
+};
+
+const btnSz = {
+    height: "1.8rem",
+    width: "10rem",
+    padding: 0,
+    fontSize: "12px",
+};
+
+const StyledAlert = styled(Card)`
+    background-color: white;
+    border-color: #ddd;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 10px;
+    height: 90%;
+`;
+
+const StyledEmptyCredentialsMessage = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
+
+const columns = [
+    {
+        dataField: "attribute",
+        text: "Attribute",
+        headerStyle: { ...headerDispStyle, width: "50%" },
+        style: colDispStyle,
+    },
+    {
+        dataField: "value",
+        text: "Value",
+        headerStyle: { ...headerDispStyle, width: "50%" },
+        style: colDispStyle,
+    },
+]
+
+export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showViewSelectedCredentialDrawer: any; }) => {
 
     const data: any[] = [
         {
@@ -71,48 +97,53 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; }) => 
     ];
 
     return (
-        <Drawer title="VIEW CREDENTIALS" placement="right" onClose={props.onClose} open={props.open}>
-            <p>
-                <StyledAlert
-                    message={
-                        <div>
-                            <StyledInfoSections>
-                                <h3>Registration credential verified</h3>
-                                <div>Cryptographically verified Sep, 01 2022 at 11:09 am Credential Issued: Nov 11, 2021</div>
-                            </StyledInfoSections>
-                            <StyledInfoSections>
-                                <h3>The following verifications were successfully completed:</h3>
-                                <ul>
-                                    <li>Credential issuer is Bolagsverket, Sverige</li>
-                                    <li>Credential is held by Bygg AB</li>
-                                    <li>Credential is valid</li>
-                                    <li>Credential is tamper-free</li>
-                                </ul>
-                            </StyledInfoSections>
-                        </div>}
-                    type="info"
-                />
-            </p>
-            <p>
-                <Row>
-                    <h3>CREDENTIALS</h3>
-                </Row>
-                <Row>
-                    <StyledTable columns={columns} dataSource={data} bordered pagination={false} />
-                </Row>
-            </p>
-            <p>
-                <Row>
-                    <h3>PROOF DETAILS</h3>
-                </Row>
-                <Row>
-                    <StyledAlert
-                        message={<ReactJson src={dummyJsonData} enableClipboard={false} />}
-                        type="info"
-                    />
-                </Row>
-            </p>
-        </Drawer>
+        <Modal backdrop="static" unmountOnClose={true} isOpen={props.open}>
+            <div className="modal-content">
+                <div className="modal-header" style={headerStyle}>
+
+                    <h3 style={{ marginBottom: "0px", fontWeight: "bold" }}>VIEW CREDENTIALS</h3>
+
+                    <button type="button" className="close" aria-label="Close" onClick={props.onClose}>
+                        <span aria-hidden="true">×</span>
+                    </button>
+
+                </div>
+                <div className="modal-body-without-top-padding" style={{ paddingTop: "0" }}>
+                    <div>
+                        Below is the list of available credentials in your wallet.
+                    </div>
+                    <StyledAlert>
+                        <Row>
+                            <CardReact onClick={() => {
+                                // props.onClose();
+                                props.showViewSelectedCredentialDrawer();
+                            }} style={{ minHeight: "100px", minWidth: "100%", borderRadius: "40px", borderColor: "#505050" }}>
+                                <CardBody>
+                                    <Row style={{ 'alignItems': 'center', height: '38px' }}>
+                                        <Col span={16}>
+                                            <CardTitle className="mb-0">CERTIFICATE OF REGISTRATION</CardTitle>
+                                        </Col>
+                                        <Col span={8}>
+                                            <img src={credentialLogo} style={{ width: "100px" }} alt="credential" />
+                                        </Col>
+                                    </Row>
+                                    <CardText style={{ fontSize: "14px", marginTop: "10px", marginBottom: "0px" }}>
+                                        Bygg AB, Sweden
+                                    </CardText>
+                                    <CardText style={{ fontSize: "14px" }}>
+                                        Issued by: Bolagsverket, Sweden
+                                    </CardText>
+                                </CardBody>
+                            </CardReact>
+                        </Row>
+                        {/* <StyledEmptyCredentialsMessage>Empty, no credentials existing</StyledEmptyCredentialsMessage> */}
+                    </StyledAlert>
+                </div>
+                <ModalFooter className="modal-footer">
+                    <button style={btnSz} className="btn btn-default" onClick={props.onClose}>Cancel</button>
+                </ModalFooter>
+            </div>
+        </Modal >
     );
 };
 

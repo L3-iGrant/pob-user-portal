@@ -211,7 +211,7 @@ input::-webkit-inner-spin-button {
   height: 65px !important;
   overflow: hidden !important;
   width: 100% !important;
-  z-index: 1200 !important;
+  // z-index: 1200 !important;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -229,7 +229,7 @@ input::-webkit-inner-spin-button {
   bottom: 60px !important;
   flex: 1 1 auto;
   width: 100%;
-  padding: 0rem 1rem !important;
+  padding: 0rem 2rem !important;
   overflow: auto !important;
 }
 

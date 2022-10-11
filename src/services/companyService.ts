@@ -22,6 +22,21 @@ class CompanyService {
         return invitationAccepted;
     }
 
+    public async getConnections() {
+        try {
+            const response = await axiosService.get(ApiRouteConfig.getConnection);
+            const status = response?.status;
+            if (status === 200) {
+                return response.data
+            }
+            return null;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return null;
+    }
+
     public static get Instance() {
         return this._instance || (this._instance = new this());
     }
