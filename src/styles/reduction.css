@@ -4434,35 +4434,12 @@ tbody.collapse.show {
 .close:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
+
 button.close {
   padding: 0;
   background-color: transparent;
   border: 0;
   -webkit-appearance: none;
-}
-
-.back {
-  float: left;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #000;
-  opacity: 0.5;
-}
-.back:hover, .back:focus {
-  color: #000;
-  text-decoration: none;
-  opacity: 0.75;
-}
-.back:not(:disabled):not(.disabled) {
-  cursor: pointer;
-}
-button.back {
-  padding-right: 10px;
-  background-color: transparent;
-  border: 0;
-  -webkit-appearance: none;
-  margin-top: -2px;
 }
 
 .modal-open {
@@ -4539,7 +4516,7 @@ button.back {
   align-items: flex-start;
   justify-content: space-between;
   padding: 1rem;
-  /* border-bottom: 1px solid #e9ecef; */
+  border-bottom: 1px solid #e9ecef;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 }
@@ -8717,17 +8694,6 @@ input::-webkit-inner-spin-button {
   bottom: 60px !important;
   flex: 1 1 auto;
   width: 100%;
-  padding: 0rem 1rem !important;
-  overflow: auto !important;
-}
-
-.modal-body-without-top-padding-2 {
-  position: absolute !important;
-  top: 60px !important;
-  left: 0px !important;
-  bottom: 60px !important;
-  flex: 1 1 auto;
-  width: 100%;
   padding: 0rem 2rem !important;
   overflow: auto !important;
 }
@@ -9355,6 +9321,64 @@ span,
 .non-blurry-text {
   color: grey;
   text-shadow: none;
+}
+
+.back {
+  float: left;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  opacity: 0.5;
+}
+
+.back:hover, .back:focus {
+  color: #000;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+.back:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+
+button.back {
+  padding-right: 10px;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  margin-top: -2px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1rem;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+}
+
+.modal-body-without-top-padding {
+  position: absolute !important;
+  top: 60px !important;
+  left: 0px !important;
+  bottom: 60px !important;
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 0rem 1rem !important;
+  overflow: auto !important;
+}
+
+.modal-body-without-top-padding-2 {
+  position: absolute !important;
+  top: 60px !important;
+  left: 0px !important;
+  bottom: 60px !important;
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 0rem 2rem !important;
+  overflow: auto !important;
 }
 
 .card-img-left {

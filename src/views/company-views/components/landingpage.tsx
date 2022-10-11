@@ -11,6 +11,8 @@ import authService from 'services/authService';
 import { useHistory } from "react-router-dom";
 import axiosService from 'services/axiosService';
 import companyService from 'services/companyService';
+import walletIcon from '../../../assets/img/icons/wallet.png';
+
 
 
 const { Search } = Input;
@@ -76,6 +78,8 @@ export const LandingPage = () => {
     const [openViewCredentialsDrawer, setOpenViewCredentialsDrawer] = useState(false);
     const [openViewSelectedCredentialDrawer, setOpenViewSelectedCredentialDrawer] = useState(false);
     const [walletData, setWalletData] = useState({});
+    const [certificates, setCertificates] = useState<string[]>([]);
+    const [lastCertificateData, setLastCertificateData] = useState<any>({});
     const history = useHistory();
 
     const checkPermission = async () => {
@@ -96,6 +100,8 @@ export const LandingPage = () => {
 
     const getConnections = async () => {
         const data = await companyService.getConnections();
+        setWalletData(data);
+        return;
         const invitation_ids: any = {};
         (data.invitation_data || []).map(
             (x: any) => {
@@ -173,11 +179,33 @@ export const LandingPage = () => {
 
     const onSearch = (value: string) => console.log(value);
 
+    const getCertificates = async () => {
+        const data = await companyService.getCertificates();
+        setCertificates(['a4ba07c9-c7ed-4376-b5d7-043913c03921']);
+        console.log({data});
+    }
+
     useEffect(() => {
         setTimeout(() => {
             getConnections();
+            getCertificates()
         }, 500)
     }, []);
+
+    useEffect(() => {
+        console.log("Here", certificates);
+        if(certificates.length > 0){
+            (async () => {
+                const exchangeId = certificates[certificates.length - 1];
+                if(exchangeId){
+                    const data = await companyService.checkCertificate(exchangeId);
+                    setLastCertificateData(data);
+                }
+            })();
+            
+
+        }
+    }, [certificates.join(',')])
 
     return (
         <div>
@@ -264,7 +292,11 @@ export const LandingPage = () => {
                                 </Col>
                             </Row>
                             <Row>
-                                <StyledButton type="primary" block size={"large"} onClick={showRequestCredentialsDrawer}>Request Now</StyledButton>
+                                <StyledButton type="primary" block size={"large"} 
+                                    onClick={showRequestCredentialsDrawer} 
+                                    disabled={lastCertificateData?.state !== 'credential_acked'}>
+                                        Request Now
+                                </StyledButton>
                             </Row>
                         </StyledCardDefault>
                     </Col>
@@ -295,7 +327,7 @@ export const LandingPage = () => {
                             <Row>
                                 <Col span={8}></Col>
                                 <Col span={1}>
-                                    <WalletOutlined onClick={showWalletDetailsDrawer} style={{ fontSize: '50px', color: '#ddd' }} />
+                                    <img src={walletIcon} />
                                 </Col>
                                 <Col span={8} onClick={showWalletDetailsDrawer}>
                                     <StyledTextH1>My wallet</StyledTextH1>
@@ -316,7 +348,8 @@ export const LandingPage = () => {
             <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} walletData={walletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} />
             <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} />
-            <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialDrawer} showViewCredentialsDrawer={showViewCredentialsDrawer} />
+            <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialDrawer} showViewCredentialsDrawer={showViewCredentialsDrawer} 
+                data={lastCertificateData.credential_proposal_dict?.credential_proposal?.attributes || []} />
         </div>
     );
 };

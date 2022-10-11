@@ -109,10 +109,10 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; walletDa
                                 Agent service endpoint
                             </StyledWalletDiv>
                             <StyledWalletDiv>
-                                <StyledAnchor>{walletData.serviceEndpoint}</StyledAnchor>
+                                <StyledAnchor>{walletData.AgentServiceEndpoint}</StyledAnchor>
                             </StyledWalletDiv>
-                            <StyledWalletDiv>Agent label: {walletData.label}</StyledWalletDiv>
-                            <StyledWalletDiv>DID: {(walletData['@type'] || '').split(';')[0]}</StyledWalletDiv>
+                            <StyledWalletDiv>Ledger Name: {walletData.LedgerName}</StyledWalletDiv>
+                            <StyledWalletDiv>Ledger URL: {walletData.LedgerURL}</StyledWalletDiv>
                         </StyledAlert>
                     </div> : null}
                     <div>

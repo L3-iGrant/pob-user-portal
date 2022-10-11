@@ -37,6 +37,37 @@ class CompanyService {
         return null;
     }
 
+    public async getCertificates() {
+        try {
+            const response = await axiosService.get(ApiRouteConfig.getCertificates);
+            const status = response?.status;
+            if (status === 200) {
+                return response.data
+            }
+            return null;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return null;
+    }
+
+    public async checkCertificate(certificateID:string) {
+        try {
+            const response = await axiosService.get(ApiRouteConfig.checkCertificate + 
+                '?credential_exchange_id=' + certificateID);
+            const status = response?.status;
+            if (status === 200) {
+                return response.data
+            }
+            return null;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return null;
+    }
+
     public static get Instance() {
         return this._instance || (this._instance = new this());
     }
