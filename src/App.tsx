@@ -7,13 +7,11 @@ import "../src/styles/reduction.css";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/" component={Views} />
-        </Switch>
-      </Router>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" component={Views} />
+      </Switch>
+    </Router>
   );
 }
 

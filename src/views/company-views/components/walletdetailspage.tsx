@@ -16,14 +16,6 @@ const StyledActionButton = styled.div`
     width: 100%;
 `;
 
-const StyledAlert = styled(Card)`
-    background-color: #ddd;
-    border-color: #505050;
-    font-size: 12px;
-    font-weight: 400;
-    margin-top: 0px;
-`;
-
 const StyledWalletDiv = styled.div`
     font-size: 12px;
     font-weight: 600;
@@ -72,18 +64,18 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; walletDa
     return (
         <Modal backdrop="static" unmountOnClose={true} isOpen={props.open}>
             <div className="modal-content">
-                <div className="modal-header" style={headerStyle}>
+                <div className="modal-header model-header-style" style={headerStyle}>
 
-                    <h3 style={{ marginBottom: "0px", fontWeight: "bold" }}>MY WALLET</h3>
+                    <h3 >MY WALLET - SETTINGS</h3>
 
                     <button type="button" className="close" aria-label="Close" onClick={props.onClose}>
                         <span aria-hidden="true">×</span>
                     </button>
 
                 </div>
-                <div className="modal-body-without-top-padding" style={{ paddingTop: "0" }}>
+                <div className="modal-body modal-content-text" style={{ paddingTop: "0" }}>
                     <div>
-                        This provides information on your wallet connected to Bolagsverket, Sweden.
+                        This is the details of your company wallet which you can use to share your credentials with any third-party.
                     </div>
                     <div>
                         <FormControlLabel
@@ -97,14 +89,14 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; walletDa
                                 color="default"
 
                             />}
-                            label={<span style={{ fontSize: '14px', fontFamily: 'Helvetica, Helvetica neue' }}>Default Wallet (Provided by Bolagsverket)</span>}
+                            label={<span className="modal-sub-header-text">Default Wallet (Provided by Bolagsverket)</span>}
                         />
                     </div>
                     {selectedValue === 'a' ? <div>
-                        <StyledAlert>
-                            <h1 style={{ 'fontSize': '20px', 'fontWeight': 600 }}>
-                                Wallet Details
-                            </h1>
+                        <div className="card card-body">
+                            <p className="card-text-override">
+                                <strong>Wallet Details</strong>
+                            </p>
                             <StyledWalletDiv>
                                 Agent service endpoint
                             </StyledWalletDiv>
@@ -113,9 +105,9 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; walletDa
                             </StyledWalletDiv>
                             <StyledWalletDiv>Ledger Name: {walletData.LedgerName}</StyledWalletDiv>
                             <StyledWalletDiv>Ledger URL: {walletData.LedgerURL}</StyledWalletDiv>
-                        </StyledAlert>
+                        </div>
                     </div> : null}
-                    <div>
+                    <div style={{'paddingTop': '10px'}}>
                         <FormControlLabel
                             value="Data Source"
                             control={<Radio
@@ -126,14 +118,14 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; walletDa
                                 inputProps={{ 'aria-label': 'B' }}
                                 color="default"
                             />}
-                            label={<span style={{ fontSize: '14px', fontFamily: 'Helvetica, Helvetica neue' }}>Own Wallet (Configure)</span>}
+                            label={<span className="modal-sub-header-text">Not Configured (Configure)</span>}
                         />
                     </div>
                     {selectedValue === 'b' ? <div>
-                        <StyledAlert>
-                            <h1 style={{ 'fontSize': '20px', 'fontWeight': 600 }}>
-                                Wallet Details
-                            </h1>
+                        <div className="card card-body">
+                             <p className="card-text-override">
+                                <strong>Wallet Details</strong>
+                            </p>
                             <StyledWalletDiv>
                                 Agent service endpoint
                             </StyledWalletDiv>
@@ -142,7 +134,7 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; walletDa
                             </StyledWalletDiv>
                             <StyledWalletDiv>Agent label: {walletData.label}</StyledWalletDiv>
                             <StyledWalletDiv>DID: {(walletData['@type'] || '').split(';')[0]}</StyledWalletDiv>
-                        </StyledAlert>
+                        </div>
                     </div> : null}
                 </div>
                 <ModalFooter className="modal-footer">
