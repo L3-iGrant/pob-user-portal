@@ -61,25 +61,24 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; }) 
     return (
         <Modal backdrop="static" unmountOnClose={true} isOpen={props.open}>
             <div className="modal-content">
-                <div className="modal-header" style={headerStyle}>
+                <div className="modal-header model-header-style" style={headerStyle}>
 
-                    <h3 style={{ marginBottom: "0px", fontWeight: "bold" }}>REQUEST CREDENTIALS</h3>
+                    <h3>REQUEST CREDENTIALS</h3>
 
                     <button type="button" className="close" aria-label="Close" onClick={props.onClose}>
                         <span aria-hidden="true">×</span>
                     </button>
 
                 </div>
-                <div className="modal-body-without-top-padding" style={{ paddingTop: "0" }}>
+                <div className="modal-body" style={{ paddingTop: "0" }}>
                     {/* <Drawer title="REQUEST CREDENTIALS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}> */}
-                    <p>
+                    <p className="modal-content-text">
                         You are about to request credentials from Bolagsverket, Sweden. Confirm the details below and click submit the request to issue credentials.
                     </p>
-                    <p>
+                    <p className="modal-content-text">
                         Requested credential: Certificate of registration and register extract
                     </p>
-                    <p>Once submitted, the requested credentials will be issued to the <StyledLink href="/company/">configured wallet</StyledLink>.</p>
-                    {/* </Drawer> */}
+                    <p className="modal-content-text">Once submitted, the requested credentials will be issued to the <StyledLink href="/company/">configured wallet</StyledLink>.</p>
                 </div>
                 <ModalFooter className="modal-footer">
 

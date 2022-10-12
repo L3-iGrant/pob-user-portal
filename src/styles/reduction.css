@@ -9357,6 +9357,7 @@ button.back {
   padding: 1rem;
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
+  border-bottom: 0px !important;
 }
 
 .modal-body-without-top-padding {
@@ -9379,6 +9380,65 @@ button.back {
   width: 100%;
   padding: 0rem 2rem !important;
   overflow: auto !important;
+}
+
+.styled-textarea {
+  color: rgb(73, 80, 87);
+  border-width: 0px 0px 1.2px;
+  padding: 0px 0px 0px 2px;
+  border-radius: 0px;
+  font-size: 16px;
+  background-color: rgb(255, 255, 255);
+  border-bottom-color: lightgray;
+  cursor: auto;
+}
+
+.model-header-style {
+  font-size: 16px !important;
+  background-color: rgb(238, 238, 238) !important;
+  display: flex !important;
+  flex-flow: row wrap;
+}
+.model-header-style h3 {
+  margin-right: auto;
+  margin-block: auto;
+  display: flex;
+}
+
+.modal-header-text {
+  padding: 0px;
+  font-size: 20px;
+  font-weight: 800;
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-radius: 0px;
+  border-color: rgb(255, 255, 255);
+  border-bottom-style: solid;
+}
+
+.modal-sub-header-text {
+  color: rgb(33, 37, 41);
+  font-size: 16px;
+  padding-bottom: 1px;
+  flex-basis: 100%;
+}
+
+.modal-content-text {
+  padding: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgb(108, 117, 125);
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-radius: 0px;
+  border-color: rgb(255, 255, 255);
+  border-bottom-style: solid;
+}
+
+.card-text-override {
+  font-weight: 400;
+  color: black;
+  font-size: 16px;
 }
 
 .card-img-left {

@@ -30,9 +30,6 @@ const StyledTextP1 = styled.p`
     font-size: 18px;
 `;
 
-const StyledTextP2 = styled.p`
-    font-size: 13px;
-`;
 
 const StyledTextP3 = styled.p<{ status: boolean }>`
     font-size: 16px;
@@ -92,23 +89,23 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; }
     return (
         <Modal backdrop="static" unmountOnClose={true} isOpen={props.open}>
             <div className="modal-content">
-                <div className="modal-header" style={headerStyle}>
+                <div className="modal-header model-header-style" style={headerStyle}>
 
-                    <h3 style={{ marginBottom: "0px", fontWeight: "bold" }}>CONFIGURE WALLET</h3>
+                    <h3>MY WALLET - CONFIGURE</h3>
 
                     <button type="button" className="close" aria-label="Close" onClick={props.onClose}>
                         <span aria-hidden="true">×</span>
                     </button>
 
                 </div>
-                <div className="modal-body-without-top-padding" style={{ paddingTop: "0" }}>
-                    <p>
+                <div className="modal-body" style={{ paddingTop: "0" }}>
+                    <p className='modal-content-text'>
                         Here, you can configure your own external wallet where you can save your credentials etc.
                     </p>
-                    <StyledTextP1>Wallet Configurations</StyledTextP1>
-                    <StyledTextP2>Connection invitation</StyledTextP2>
+                    <StyledTextP1 className='modal-header-text'>Wallet Configurations</StyledTextP1>
+                    <div className='modal-sub-header-text' >Connection invitation</div>
                     <p>
-                        <TextArea rows={12} onChange={(e) => { console.log(e.target.value); setInvitationUrl(e.target.value); }} />
+                        <TextArea className='styled-textarea' rows={8} onChange={(e) => { console.log(e.target.value); setInvitationUrl(e.target.value); }} />
                     </p>
                     <StyledTextP3 status={acceptInvitationStatus}>{acceptInvitationMessage}</StyledTextP3>
                 </div>

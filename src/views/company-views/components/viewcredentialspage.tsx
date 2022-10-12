@@ -40,15 +40,6 @@ const btnSz = {
     fontSize: "12px",
 };
 
-const StyledAlert = styled(Card)`
-    background-color: white;
-    border-color: #ddd;
-    font-size: 12px;
-    font-weight: 400;
-    margin-top: 10px;
-    height: 90%;
-`;
-
 const StyledEmptyCredentialsMessage = styled.div`
     position: absolute;
     top: 50%;
@@ -99,45 +90,45 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
     return (
         <Modal backdrop="static" unmountOnClose={true} isOpen={props.open}>
             <div className="modal-content">
-                <div className="modal-header" style={headerStyle}>
+                <div className="modal-header model-header-style" style={headerStyle}>
 
-                    <h3 style={{ marginBottom: "0px", fontWeight: "bold" }}>VIEW CREDENTIALS</h3>
+                    <h3>VIEW CREDENTIALS</h3>
 
                     <button type="button" className="close" aria-label="Close" onClick={props.onClose}>
                         <span aria-hidden="true">×</span>
                     </button>
 
                 </div>
-                <div className="modal-body-without-top-padding" style={{ paddingTop: "0" }}>
-                    <div>
+                <div className="modal-body" style={{ paddingTop: "0" }}>
+                    <div className="modal-content-text">
                         Below is the list of available credentials in your wallet.
                     </div>
-                    <StyledAlert>
+                    <div className="pt-3">
                         <Row>
                             <CardReact onClick={() => {
                                 // props.onClose();
                                 props.showViewSelectedCredentialDrawer();
-                            }} style={{ minHeight: "100px", minWidth: "100%", borderRadius: "40px", borderColor: "#505050" }}>
+                            }} style={{  width: "100%", borderRadius: "20px", borderColor: "#505050" }}>
                                 <CardBody>
-                                    <Row style={{ 'alignItems': 'center', height: '38px' }}>
+                                    <Row >
                                         <Col span={16}>
                                             <CardTitle className="mb-0">CERTIFICATE OF REGISTRATION</CardTitle>
+                                            <CardText style={{ fontSize: "14px", marginTop: "10px", marginBottom: "0px" }}>
+                                                Bygg AB, Sweden
+                                            </CardText>
+                                            <CardText style={{ fontSize: "14px" }}>
+                                                Issued by: Bolagsverket, Sweden
+                                            </CardText>
                                         </Col>
-                                        <Col span={8}>
+                                        <Col span={8} className="text-center">
                                             <img src={credentialLogo} style={{ width: "50px" }} alt="credential" />
                                         </Col>
                                     </Row>
-                                    <CardText style={{ fontSize: "14px", marginTop: "10px", marginBottom: "0px" }}>
-                                        Bygg AB, Sweden
-                                    </CardText>
-                                    <CardText style={{ fontSize: "14px" }}>
-                                        Issued by: Bolagsverket, Sweden
-                                    </CardText>
+                                    
                                 </CardBody>
                             </CardReact>
                         </Row>
-                        {/* <StyledEmptyCredentialsMessage>Empty, no credentials existing</StyledEmptyCredentialsMessage> */}
-                    </StyledAlert>
+                    </div>
                 </div>
                 <ModalFooter className="modal-footer">
                     <button style={btnSz} className="btn btn-default" onClick={props.onClose}>Cancel</button>
