@@ -4,7 +4,8 @@ const ApiRouteConfig = {
   acceptInvitation: '/connections/accept_invitation',
   getConnection: '/connections/',
   getCertificates: '/certificates/',
-  checkCertificate: '/certificates/check'
+  checkCertificate: '/certificates/check',
+  requestCertificate: '/certificates/request'
 };
 
 export default ApiRouteConfig
