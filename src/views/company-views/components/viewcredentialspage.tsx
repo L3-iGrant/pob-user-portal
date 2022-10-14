@@ -92,7 +92,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
             <div className="modal-content">
                 <div className="modal-header model-header-style" style={headerStyle}>
 
-                    <h3>VIEW CREDENTIALS</h3>
+                    <h3>MY WALLET - VIEW CREDENTIALS</h3>
 
                     <button type="button" className="close" aria-label="Close" onClick={props.onClose}>
                         <span aria-hidden="true">×</span>

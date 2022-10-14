@@ -129,7 +129,7 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; }
                             }
                             setLoadStatus(false);
                         }}
-                    >Submit</button>
+                    >CONNECT</button>
 
                 </ModalFooter>
             </div>

@@ -49,6 +49,13 @@ const columns = [
     },
 ]
 
+const btnSz = {
+    height: "1.8rem",
+    width: "10rem",
+    padding: 0,
+    fontSize: "12px",
+};
+
 const camelToTitle = (camelCase: string) => camelCase
     .replace(/([A-Z])/g, (match) => ` ${match}`)
     .replace(/^./, (match) => match.toUpperCase())
@@ -99,6 +106,9 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
                         ></BootstrapTable>
                     </Row>
                 </div>
+                <ModalFooter className="modal-footer">
+                    <button style={btnSz} className="btn btn-default" onClick={props.onClose}>Cancel</button>
+                </ModalFooter>
             </div>
         </Modal >
     );

@@ -8,6 +8,7 @@ const LOGO_HEIGHT = 27;
 
 const StyledLink = styled.a`
     color: #40a9ff;
+    font-size: 10px;
 `;
 
 export const Logo = () => (

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import authService from "services/authService";
 import '../../../styles/components/login.css';
 import loginIcon from '../../../assets/img/login/arrow.png';
-import defaultLogo from '../../../assets/img/login/igrant.io_200X200.jpg';
+import defaultLogo from '../../../assets/img/icons/pob_logo.png';
 import { antIcon } from "./antIcon";
 import { Logo } from './Logo';
 import { Form, Input, Checkbox, Divider, Spin } from "antd";
@@ -98,7 +98,7 @@ export const LoginPage = () => {
             </div>
             <div className='login-footer-container'>
                 <div className="login-footer">
-                    <p className='copyright'>Copyright © 2019 LCubed AB, Sweden. All rights reserved.</p>
+                    <p className='copyright'>Copyright © 2023-2025 Bolagsverket, Sweden</p>
                     <Logo />
                 </div>
             </div>

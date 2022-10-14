@@ -12,8 +12,9 @@ import authService from 'services/authService';
 import { useHistory } from "react-router-dom";
 import axiosService from 'services/axiosService';
 import companyService from 'services/companyService';
-import headerLogo from '../../../assets/img/reactlogo.png';
+import headerLogo from '../../../assets/img/icons/pob_logo.png';
 import walletIcon from '../../../assets/img/icons/wallet.png';
+import FooterView from 'views/components/footer';
 const { useBreakpoint } = Grid;
 
 
@@ -22,16 +23,34 @@ const { Search } = Input;
 const { Footer } = Layout;
 
 const StyledCardDefault = styled(Card)`
+    padding: 30px 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
 `;
 
 const StyledHeaderCardDefault = styled(Card)`
     .ant-card-body {
         padding: 8px;
     }
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
 `;
 
 const StyledBreadCrumbCardDefault = styled(Card)`
@@ -57,6 +76,8 @@ const StyledText = styled.h3`
 const StyledTextH1 = styled.h1`
     font-size: 18px;
     margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
 `;
 
 const StyledTextName = styled.h1`
@@ -96,10 +117,18 @@ const StyledTextH2 = styled.h2`
 `;
 
 const StyledButton = styled(Button)`
-    border-color: #1890ff;
-    background: #1890ff;
     background-color: black;
     border-color: #505050;
+
+    :focus {
+        background-color: black;
+    }
+
+    :hover {
+            background-color: #fff;
+    border: 1px solid #DFDFDF;
+    color: #031313;
+    }
 `;
 
 /* const StyledFooterLink = styled.a`
@@ -229,7 +258,8 @@ export const LandingPage = () => {
 
     const getCertificates = async () => {
         const data = await companyService.getCertificates();
-        setCertificates(['a4ba07c9-c7ed-4376-b5d7-043913c03921']);
+        const certificates = (data.certificates || []).map( (x:any) => x.credential_exchange_id);
+        setCertificates(certificates);
         console.log({ data });
     }
 
@@ -263,16 +293,10 @@ export const LandingPage = () => {
             <div style={{ maxWidth: '1080px', margin: 'auto' }}>
                 <Row gutter={16}>
                     <Col span={24}>
-                        <StyledHeaderCardDefault style={{
-                            marginTop: "20px",
-                            marginBottom: "20px",
-                            overflow: "hidden",
-                            borderWidth: "thin",
-                            borderColor: "black"
-                        }}>
+                        <StyledHeaderCardDefault >
                             <Row style={{ 'alignItems': 'center' }}>
                                 <Col lg={1} md={1} sm={1} xs={1}>
-                                    <img src={headerLogo} style={{ width: "100px", marginLeft: "-10px" }} alt="header" />
+                                    <img src={headerLogo} style={{ width: "80px", marginLeft: "-10px" }} alt="header" />
                                 </Col>
                                 <Col lg={10} md={20} sm={20} xs={20}>
                                     {!isMobile ? <StyledCompanyHeader>MyCompany Portal</StyledCompanyHeader> : <StyledCompanyHeaderMobile>MyCompany Portal</StyledCompanyHeaderMobile>}
@@ -298,7 +322,7 @@ export const LandingPage = () => {
                                                     </CardBody>
                                                     <ListGroup flush>
                                                         <ListGroupItem tag="button" action className="border-0 border-light bg-light" onClick={onLogoutClick}>
-                                                            <LogoutOutlined /> Signout
+                                                            <LogoutOutlined /> Logout
                                                         </ListGroupItem>
                                                     </ListGroup>
                                                 </ReactStrapCard>
@@ -332,14 +356,8 @@ export const LandingPage = () => {
                 </Row>
                 <Row style={{ 'paddingTop': '20px' }} gutter={[16, 16]}>
                     <Col lg={12} md={24} sm={24} xs={24}>
-                        <StyledCardDefault style={{
-                            overflow: "hidden",
-                            borderWidth: "thin",
-                            borderColor: "#ddd",
-                            padding: "30px 40px",
-                            minHeight: "225px"
-                        }}>
-                            <Row style={{ 'textAlign': 'left' }}>
+                        <StyledCardDefault >
+                            <Row className='text-center'>
                                 <StyledTextH1>Certificate of registration and register extract</StyledTextH1>
                             </Row>
                             <Row>
@@ -349,27 +367,22 @@ export const LandingPage = () => {
                                     Request Now
                                 </StyledButton>
                             </Row>
-                            <Row style={{ 'textAlign': 'center' }}>
-                                <div style={{ color: "green", fontSize: "9px" }}>
-                                    Your request is being processed. Once processed, your configured wallet will be notified.
-                                </div>
-                            </Row>
+                             {
+                                lastCertificateData?.state !== 'credential_acked' && 
+                                <Row style={{ 'textAlign': 'center' }}>
+                                    <div style={{ color: "green", fontSize: "10px", marginLeft: 'auto', marginRight: 'auto', paddingTop: "10px" }}>
+                                        Your request is being processed. Once processed, your configured wallet will be notified.
+                                    </div>
+                                </Row>
+                            }
                         </StyledCardDefault>
                     </Col>
                     <Col lg={12} md={24} sm={24} xs={24}>
-                        <StyledCardDefault style={{
-                            overflow: "hidden",
-                            borderWidth: "thin",
-                            borderColor: "#ddd",
-                            padding: "30px 40px",
-                            minHeight: "225px"
-                        }}
-
-                        >
+                        <StyledCardDefault>
                             <Row style={{ 'position': 'absolute', 'top': '20px', 'right': '20px' }}>
                                 <Space>
-                                    <BellOutlined style={{ fontSize: '35px' }} onClick={showViewCredentialsDrawer} />
-                                    <SettingOutlined style={{ fontSize: '35px' }} onClick={showWalletConfigurationsDrawer} />
+                                    <BellOutlined style={{ fontSize: '30px' }} onClick={showViewCredentialsDrawer} />
+                                    <SettingOutlined style={{ fontSize: '30px' }} onClick={showWalletConfigurationsDrawer} />
                                 </Space>
                             </Row>
                             <Row>
@@ -387,7 +400,7 @@ export const LandingPage = () => {
                             </Row>
                             <Row style={{ 'textAlign': 'center' }}>
                                 <Col span={24}>
-                                    <div style={{ color: "green", fontSize: "9px" }}>
+                                    <div style={{ color: "green", fontSize: "10px" }}>
                                         New certificate in your wallet. Click to view.
                                     </div>
                                 </Col>
@@ -396,37 +409,8 @@ export const LandingPage = () => {
                     </Col>
                 </Row>
             </div>
-            {/* <StyledFooter>
-                <Footer style={{ textAlign: 'center', backgroundColor: 'white' }}>
-                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&copy;&nbsp;2017-{new Date().getFullYear()} LCubed AB, Sweden&nbsp;&nbsp;&nbsp;<StyledFooterLink href="https://igrant.io/privacy.html#cookies" target="_blank" rel="noopener noreferrer" >Cookies Policy</StyledFooterLink> &nbsp;| &nbsp;<StyledFooterLink href="https://igrant.io/terms.html" target="_blank" rel="noopener noreferrer" >Terms of Service</StyledFooterLink> &nbsp;| &nbsp;
-                        <StyledFooterLink href="https://igrant.io/privacy.html#privacy" target="_blank" rel="noopener noreferrer" >Privacy Policy</StyledFooterLink>
-                    </div>
-                </Footer>
-            </StyledFooter> */}
-            <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)' }}>
-                <Divider></Divider>
-                <Footer style={{ textAlign: 'center', backgroundColor: 'rgb(18, 6, 57)' }}>
-                    <Row>
-                        <Col span={24}>
-                            <div style={{ marginTop: "-45px", marginBottom: "20px", color: 'white' }}><StyledFooterLink href="/company/">Features</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">About</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">Testimonials</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">Contact</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">Team</StyledFooterLink></div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <div style={{ fontWeight: "bold", color: 'white', fontSize: '10px' }}>
-                                Bolagsverket SE -851 81 Sundsvall Sweden
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <div style={{ color: 'white', fontSize: '10px' }}>
-                                © Bolagsverket, Sweden
-                            </div>
-                        </Col>
-                    </Row>
-                </Footer></StyledFooter>
-            <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} />
+            <FooterView />
+            <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} getCertificates={getCertificates} />
             <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} walletData={walletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} />
             <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} />

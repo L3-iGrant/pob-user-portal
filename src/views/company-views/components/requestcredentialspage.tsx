@@ -8,18 +8,8 @@ import {
     Button,
 } from "reactstrap";
 import styled from "styled-components";
+import companyService from 'services/companyService';
 
-const StyledActionButton = styled.div`
-    margin-bottom: 10px;
-    width: 100%;
-`;
-
-const StyledButton = styled(Button)`
-    border-color: #1890ff;
-    background: #1890ff;
-    background-color: #505050;
-    border-color: #505050;
-`;
 
 const StyledLink = styled.a`
     color: #40a9ff;
@@ -40,7 +30,7 @@ const btnSz = {
     fontSize: "12px",
 };
 
-export const RequestCredentialsPage = (props: { onClose: any; open: boolean; }) => {
+export const RequestCredentialsPage = (props: { onClose: any; open: boolean; getCertificates: ()=>{} }) => {
     /* const footerActionButtons = () => {
         return (
             <div>
@@ -87,7 +77,11 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; }) 
                     <button
                         style={btnSz}
                         className="btn btn-default"
-                        onClick={() => { }}
+                        onClick={async () => {
+                            await companyService.requestCertificate();
+                            props.onClose();
+                            props.getCertificates();
+                         }}
                     >Submit</button>
 
                 </ModalFooter>
