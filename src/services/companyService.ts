@@ -5,6 +5,57 @@ class CompanyService {
     private static _instance: CompanyService;
     private constructor() { }
 
+    public async getCertificateSchemaIdByOrganisationId(organisationId: string) {
+        let certificateSchemaIdList: any[] = [];
+        try {
+            const response = await axiosService.get(`${ApiRouteConfig.certificatesSchemaRoute}?organisation_id=${organisationId}`);
+            certificateSchemaIdList = response.data.results.map( (x:any)=> x.schema_id );
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return certificateSchemaIdList;
+    }
+
+    public async getCertificateSchemaAttributeBySchemaIdAndOrganisationId(organisationId: string, schemaId: string) {
+        let certificateSchemaAttribute: any = {};
+        try {
+            const response = await axiosService.get(`${ApiRouteConfig.certificatesSchemaAttributeRoute}?organisation_id=${organisationId}&schema_id=${schemaId}`);
+            certificateSchemaAttribute = response.data.schema;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return certificateSchemaAttribute;
+    }
+
+    public async submitCredentialRequest() {
+        let submitCredentialRequestState: boolean = false;
+        try {
+            await axiosService.get(ApiRouteConfig.certificateRequestRoute);
+            submitCredentialRequestState = true;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return submitCredentialRequestState;
+    }
+
+    public async getCertificates() {
+        try {
+            const response = await axiosService.get(ApiRouteConfig.getCertificates);
+            const status = response?.status;
+            if (status === 200) {
+                return response.data
+            }
+            return null;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return null;
+    }
+
     public async acceptInvitation(invitationUrl: string) {
         let invitationAccepted = false;
         try {
@@ -37,24 +88,9 @@ class CompanyService {
         return null;
     }
 
-    public async getCertificates() {
+    public async checkCertificate(certificateID: string) {
         try {
-            const response = await axiosService.get(ApiRouteConfig.getCertificates);
-            const status = response?.status;
-            if (status === 200) {
-                return response.data
-            }
-            return null;
-        }
-        catch (e: any) {
-            console.log(e);
-        }
-        return null;
-    }
-
-    public async checkCertificate(certificateID:string) {
-        try {
-            const response = await axiosService.get(ApiRouteConfig.checkCertificate + 
+            const response = await axiosService.get(ApiRouteConfig.checkCertificate +
                 '?credential_exchange_id=' + certificateID);
             const status = response?.status;
             if (status === 200) {
@@ -68,20 +104,6 @@ class CompanyService {
         return null;
     }
 
-    public async requestCertificate() {
-        try {
-            const response = await axiosService.get(ApiRouteConfig.requestCertificate);
-            const status = response?.status;
-            if (status === 200) {
-                return response.data
-            }
-            return null;
-        }
-        catch (e: any) {
-            console.log(e);
-        }
-        return null;
-    }
 
     public static get Instance() {
         return this._instance || (this._instance = new this());

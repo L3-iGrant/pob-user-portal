@@ -1,11 +1,10 @@
-const AppRouteConfig = {};
-
-export const HOME_PREFIX_PATH = "/";
-export const AUTH_PREFIX_PATH = "/auth";
-export const COMPANY_PREFIX_PATH = "/company";
-export const PROCUREMENT_BUYER_PREFIX_PATH = "/procurement-buyer";
-export const PROCUREMENT_SUPPLIER_PREFIX_PATH = "/procurement-supplier";
-export const ISSUER_ADMIN_PREFIX_PATH = "/issuer-admin";
+export const HOME_PREFIX_PATH = '/';
+export const AUTH_PREFIX_PATH = '/auth';
+export const COMPANY_PREFIX_PATH = '/company';
+export const PROCUREMENT_BUYER_PREFIX_PATH = '/procurement-buyer';
+export const PROCUREMENT_SUPPLIER_PREFIX_PATH = '/procurement-supplier';
+export const ISSUER_ADMIN_PREFIX_PATH = '/issuer-admin';
 export const API_BASE_URL = 'https://igrant-pob.herokuapp.com';
-export default AppRouteConfig
-
+export const BOLAGSVERKET_ID = '624c025d7eff6f000164bb94';
+export const SKATTEVERKET_ID = '634962e936ba8800015c497c';
+export const REQUEST_CREDENTIAL_SUBMIT_ENABLED = 'GsMTo44BktRxUFjRVxR1nL:2:Certificate of registration and register extract:1.0.0';
