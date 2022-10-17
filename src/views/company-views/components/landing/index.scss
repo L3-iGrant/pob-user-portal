@@ -1,0 +1,40 @@
+.account-popup-content {
+    padding: 16px;
+    .ant-divider.ant-divider-horizontal {
+        margin: 12px 0 ;
+    }
+}
+
+.account-popup {
+    border-radius: 5px;
+}
+
+.ant-popover-inner {
+    border-radius: 10px !important;
+}
+
+
+.ant-carousel {
+    .slick-prev, .slick-next {
+        color: lightgray !important;
+        font-size: 30px !important;
+    }
+
+    .slick-prev { 
+        left: -20px !important;       
+    }
+
+    .slick-next {
+        right: -15px !important;
+    }
+}
+
+.user-legend {
+    .menu-dropdown {
+        margin-top: 9px;
+    }
+}
+
+.account-popup {
+    padding-top: 40px !important;
+}

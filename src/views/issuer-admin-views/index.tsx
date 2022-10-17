@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import { ISSUER_ADMIN_PREFIX_PATH } from "configs/AppConfig";
 import Loading from "components/shared-components/Loading";
-import LandingPage from "./components/landingpage";
+import LandingPage from "./components/landing";
 
 export const IssuerAdminView = () => {
   return (
