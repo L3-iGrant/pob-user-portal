@@ -43,7 +43,7 @@ const camelToTitle = (camelCase: string) => camelCase
     .replace(/^./, (match) => match.toUpperCase())
     .trim();
 
-export const RequestCredentialsPage = (props: { onClose: any; open: boolean; organisationId: string; schemaId: string; schemaTitle: string; onRequestCredentialSubmit: any }) => {
+export const RequestCredentialsPage = (props: { onClose: any; open: boolean; organisationId: string; schemaId: string; schemaTitle: string; onRequestCredentialSubmit: any; showWalletDetailsDrawer: any; }) => {
     const [dataAttributes, setDataAttributes] = useState<any[]>([]);
     const [submitLoader, setSubmitLoader] = useState<boolean>(false);
 
@@ -98,7 +98,10 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
                 You are about to request credentials from Bolagsverket, Sweden. Confirm the details below and click submit the request to issue credentials.
             </p>
             <p>{`Requested credential: ${props.schemaTitle}`}</p>
-            <p>Once submitted, the requested credentials will be issued to the <StyledLink href="/company/">configured wallet</StyledLink>.</p>
+            <p>Once submitted, the requested credentials will be issued to the <StyledLink onClick={()=>{
+                props.showWalletDetailsDrawer();
+                props.onClose();
+            }}>configured wallet</StyledLink>.</p>
             <p>
                 <StyledTable columns={columns} dataSource={dataAttributes} bordered pagination={false} />
             </p>

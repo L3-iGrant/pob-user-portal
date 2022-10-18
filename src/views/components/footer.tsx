@@ -21,7 +21,12 @@ export const FooterView = () => {
             <Footer style={{ textAlign: 'center', backgroundColor: 'rgb(18, 6, 57)' }}>
                 <Row>
                     <Col span={24}>
-                        <div style={{ marginTop: "-45px", marginBottom: "20px", color: 'white' }}><StyledFooterLink href="/company/">Features</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">About</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">Testimonials</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">Contact</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<StyledFooterLink href="/company/">Team</StyledFooterLink></div>
+                        <div style={{ marginTop: "-45px", marginBottom: "20px", color: 'white' }}> 
+                            <StyledFooterLink >Features</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            <StyledFooterLink >About</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            <StyledFooterLink >Testimonials</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            <StyledFooterLink >Contact</StyledFooterLink>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                            <StyledFooterLink >Team</StyledFooterLink></div>
                     </Col>
                 </Row>
                 <Row>
