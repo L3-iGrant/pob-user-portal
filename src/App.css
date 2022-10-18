@@ -136,3 +136,7 @@ body {
   border-color: rgb(18, 6, 57);
   background-color: rgb(18, 6, 57);
 }
+
+.ant-drawer-body {
+  padding: 20px !important;
+}

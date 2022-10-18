@@ -6,12 +6,12 @@ import {CloseCircleOutlined} from "@ant-design/icons";
 
 const StyledWalletDiv = styled.div`
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 400;
 `;
 
 const StyledAnchor = styled.a`
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 400;
     color: blue !important;
 `;
 
@@ -61,9 +61,6 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
             closable={false}  extra={
             <CloseCircleOutlined onClick={props.onClose}/>
          }>
-            <p>
-                This provides information on your wallet connected to Bolagsverket, Sweden.
-            </p>
             <p onClick={() => {
                 props.onClose();
                 props.showWalletConfigurationsDrawer();
@@ -77,20 +74,17 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                             <Radio value="a">Default Wallet (Provided by Bolagsverket)</Radio>
                         </div>
                         <StyledContainer>
-                            <p>
+                            <p style={{marginBottom: '0px'}}>
                                 <strong>Wallet Details</strong>
                             </p>
-                            <StyledWalletDiv>
-                                Agent service endpoint
-                            </StyledWalletDiv>
                             <StyledWalletDiv>
                                 <StyledAnchor>{walletData.AgentServiceEndpoint}</StyledAnchor>
                             </StyledWalletDiv>
                             <StyledWalletDiv>Ledger Name: {walletData.LedgerName}</StyledWalletDiv>
-                            <StyledWalletDiv>Ledger URL: {walletData.LedgerURL}</StyledWalletDiv>
+                            <StyledWalletDiv>Ledger URL: <StyledAnchor href={walletData.LedgerURL}>{walletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
                         </StyledContainer>
-                        <div>
-                            <Radio value="b">Not Configured (Configure)</Radio>
+                        <div style={{marginTop: '10px'}}>
+                            <Radio value="b">Own Wallet (Configure)</Radio>
                         </div>
                         {/* {selectedValue === 'b' ?
                             <StyledContainer>

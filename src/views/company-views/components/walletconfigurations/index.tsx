@@ -20,7 +20,7 @@ const StyledTitle = styled.div`
 `;
 
 const StyledSubTitle = styled.div`
-    font-size: 20px;
+    font-size: 18px;
 `;
 
 const StyledDescription = styled.div`
@@ -91,7 +91,7 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
                 <StyledDescription>Connection URL</StyledDescription>
             </p>
             <p>
-                <TextArea rows={5} placeholder="Wallet Configurations" onChange={(e) => { setInvitationUrl(e.target.value) }} />
+                <TextArea rows={5} placeholder="Connection Invitation URL" onChange={(e) => { setInvitationUrl(e.target.value) }} />
             </p>
             <p>
                 <StyledMessage status={acceptInvitationStatus}>{acceptInvitationMessage}</StyledMessage>
