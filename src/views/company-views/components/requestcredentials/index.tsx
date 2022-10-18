@@ -3,6 +3,7 @@ import { REQUEST_CREDENTIAL_SUBMIT_ENABLED } from 'configs/AppConfig';
 import { Key, useEffect, useState } from 'react';
 import companyService from 'services/companyService';
 import styled from "styled-components";
+import {CloseCircleOutlined} from "@ant-design/icons";
 
 const StyledActionButton = styled.div`
     margin-bottom: 10px;
@@ -92,7 +93,10 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
     }
 
     return (
-        <Drawer title="REQUEST CREDENTIALS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}>
+        <Drawer title="REQUEST CREDENTIALS" placement="right" closable={false} onClose={props.onClose} open={props.open} footer={footerActionButtons()}
+         extra={
+            <CloseCircleOutlined onClick={props.onClose}/>
+         }>
             <p>
                 You are about to request credentials from Bolagsverket, Sweden. Confirm the details below and click submit the request to issue credentials.
             </p>

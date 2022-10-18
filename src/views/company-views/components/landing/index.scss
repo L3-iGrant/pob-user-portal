@@ -1,7 +1,7 @@
 .account-popup-content {
-    padding: 16px;
+    padding: 0 15px;
     .ant-divider.ant-divider-horizontal {
-        margin: 12px 0 ;
+        margin: 8px 0 ;
     }
 }
 
@@ -31,10 +31,14 @@
 
 .user-legend {
     .menu-dropdown {
-        margin-top: 9px;
+        margin-top: 5px;
+        font-size: 10px;
     }
 }
 
-.account-popup {
-    padding-top: 40px !important;
+@media all and (min-device-width: 768px) {
+    .account-popup {
+        padding-top: 30px !important;
+    }
 }
+

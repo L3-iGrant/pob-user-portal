@@ -2,6 +2,7 @@ import { Alert, Button, Drawer, Radio, Row, Space } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import { useEffect, useState } from 'react';
 import styled from "styled-components";
+import {CloseCircleOutlined} from "@ant-design/icons";
 
 const StyledWalletDiv = styled.div`
     font-size: 12px;
@@ -56,7 +57,10 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
     }
 
     return (
-        <Drawer title="YOUR WALLET" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}>
+        <Drawer title="MY WALLET - SETTINGS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}
+            closable={false}  extra={
+            <CloseCircleOutlined onClick={props.onClose}/>
+         }>
             <p>
                 This provides information on your wallet connected to Bolagsverket, Sweden.
             </p>

@@ -7,4 +7,4 @@ export const ISSUER_ADMIN_PREFIX_PATH = '/issuer-admin';
 export const API_BASE_URL = 'https://igrant-pob.herokuapp.com';
 export const BOLAGSVERKET_ID = '624c025d7eff6f000164bb94';
 export const SKATTEVERKET_ID = '634962e936ba8800015c497c';
-export const REQUEST_CREDENTIAL_SUBMIT_ENABLED = 'GsMTo44BktRxUFjRVxR1nL:2:Certificate of registration and register extract:1.0.0';
+export const REQUEST_CREDENTIAL_SUBMIT_ENABLED = 'GsMTo44BktRxUFjRVxR1nL:2:Certificate Of Registration:2.0.0';
