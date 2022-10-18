@@ -1,4 +1,4 @@
-import { LeftCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { LeftCircleOutlined, LeftOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Drawer, Input, Row, Space } from 'antd';
 import { useState } from 'react';
 import companyService from 'services/companyService';
@@ -78,7 +78,7 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
         <Drawer title="MY WALLET - CONFIGURE" placement="right" onClose={()=>{
             props.onClose();
             props.showWalletDetailsDrawer();
-        }} open={props.open} footer={footerActionButtons()}  closable={true} closeIcon={<LeftCircleOutlined/>}  extra={
+        }} open={props.open} footer={footerActionButtons()}  closable={true} closeIcon={<LeftOutlined/>}  extra={
             <CloseCircleOutlined onClick={props.onClose}/>
          }>
             <p>
