@@ -61,10 +61,7 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
             closable={false}  extra={
             <CloseCircleOutlined onClick={props.onClose}/>
          }>
-            <p onClick={() => {
-                props.onClose();
-                props.showWalletConfigurationsDrawer();
-            }}>
+            <p>
                 This is the details of your company wallet which you can use to share your credentials with any third-party.
             </p>
             <p>

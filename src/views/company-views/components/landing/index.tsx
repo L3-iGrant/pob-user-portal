@@ -489,14 +489,14 @@ export const LandingPage = () => {
                 </Row>
                 <Row gutter={[16, 16]}>
                     <Col span={24} className="carousel-coloumn-width mt-16">
-                        <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} dots={true} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />}>
+                        <CarouselWrapper infinite={false} slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} dots={true} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />}>
                             {carouselSchemaList}
                         </CarouselWrapper>
                     </Col>
                 </Row>
             </div>
             <FooterView />
-            <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} organisationId={selectedOrganisationId} schemaId={selectedSchemaId} schemaTitle={selectedSchemaTitle} onRequestCredentialSubmit={onRequestCredentialSubmit} />
+            <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} organisationId={selectedOrganisationId} schemaId={selectedSchemaId} schemaTitle={selectedSchemaTitle} onRequestCredentialSubmit={onRequestCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer}/>
             <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} showWalletConfigurationsDrawer={showWalletConfigurationsDrawer} walletData={walletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} showWalletDetailsDrawer={showWalletDetailsDrawer} />
             <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} />
