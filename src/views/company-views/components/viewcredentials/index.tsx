@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import companyService from 'services/companyService';
 import styled from "styled-components";
 import credentialLogo from '../../../../assets/img/icons/bolagsverket.png';
+import {CloseCircleOutlined} from "@ant-design/icons";
 
 const StyledSubheader = styled.div`
     font-size: 13px;
@@ -104,7 +105,10 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
     }
 
     return (
-        <Drawer title="MY WALLET - VIEW CREDENTIALS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}>
+        <Drawer title="MY WALLET - VIEW CREDENTIALS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}
+         closable={false}  extra={
+            <CloseCircleOutlined onClick={props.onClose}/>
+         }>
             <p>
                 <StyledSubheader>Below is the list of available credentials in your wallet.</StyledSubheader>
             </p>

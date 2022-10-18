@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { Drawer, Alert, Row, Table, Col, Card, Button, Space } from 'antd';
-import { LeftCircleOutlined } from '@ant-design/icons';
+import { Drawer, Alert, Row, Table, Col, Popconfirm, Button, Space } from 'antd';
+import { LeftOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
+import {CloseCircleOutlined} from "@ant-design/icons";
 
 const columns: any[] = [
     {
@@ -26,8 +27,8 @@ const StyledActionButton = styled.div`
     width: 100%;
 `;
 
-const StyledLeftCircleOutlined = styled(LeftCircleOutlined)`
-    font-size: 25px;
+const StyledDeleteOutlined = styled(DeleteOutlined)`
+    font-size: 20px;
     cursor: pointer;
 `;
 
@@ -41,13 +42,14 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
                     <StyledActionButton>
                         <Button block size={"middle"} onClick={() => {
                             props.onClose();
-                            props.onViewCredentialsDrawerClose();
                         }}>Cancel</Button>
                     </StyledActionButton>
                 </Row>
             </div>
         );
     }
+
+    const [open, setOpen] = useState(false);
 
     const camelToTitle = (camelCase: string) => camelCase
     .replace(/([A-Z])/g, (match) => ` ${match}`)
@@ -68,14 +70,29 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
         return tempData;
     };
     return (
-        <Drawer title="VIEW CREDENTIALS" placement="right" onClose={() => {
-            props.onClose();
-            props.onViewCredentialsDrawerClose();
-        }} open={props.open} extra={
-            <Space>
-                <StyledLeftCircleOutlined onClick={props.onClose} />
-            </Space>
-        } footer={footerActionButtons()}>
+        <Drawer title="VIEW CREDENTIALS" placement="right" onClose={() => {props.onClose();}} 
+            open={props.open} 
+            extra={
+                <Space>
+                 <Popconfirm
+                    title="Are you sure delete this certificate?"
+                    open={open}
+                    onOpenChange={(newOpen: boolean)=> {setOpen(newOpen);}}
+                    onConfirm={()=>{}}
+                    onCancel={()=>{
+                        setOpen(false);
+                    }}
+                    okText="Yes"
+                    cancelText="No"
+                >
+                        <DeleteOutlined />
+                </Popconfirm> 
+                 <CloseCircleOutlined onClick={props.onClose}/>
+                </Space>               
+            } 
+            footer={footerActionButtons()}
+            closeIcon={<LeftOutlined/>}
+        >
             <p>
                 <StyledTable columns={columns} dataSource={updateAttributesTable(props.selectedViewCredentialAttributes)} bordered pagination={false} />
             </p>

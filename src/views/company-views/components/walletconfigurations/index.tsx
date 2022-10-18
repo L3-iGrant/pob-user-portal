@@ -1,4 +1,4 @@
-import { LeftCircleOutlined } from '@ant-design/icons';
+import { LeftCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { Button, Drawer, Input, Row, Space } from 'antd';
 import { useState } from 'react';
 import companyService from 'services/companyService';
@@ -70,7 +70,7 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
                             }
                             setLoadStatus(false);
                         }}
-                        >Connect</StyledButton>
+                        >CONNECT</StyledButton>
                     </StyledActionButton>
                 </Row>
             </div>
@@ -78,14 +78,12 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
     }
 
     return (
-        <Drawer title="MY WALLET - CONFIGURE" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()} extra={
-            <Space>
-                <StyledLeftCircleOutlined onClick={() => {
-                    props.onClose();
-                    props.showWalletDetailsDrawer();
-                }} />
-            </Space>
-        }>
+        <Drawer title="MY WALLET - CONFIGURE" placement="right" onClose={()=>{
+            props.onClose();
+            props.showWalletDetailsDrawer();
+        }} open={props.open} footer={footerActionButtons()}  closable={true} closeIcon={<LeftCircleOutlined/>}  extra={
+            <CloseCircleOutlined onClick={props.onClose}/>
+         }>
             <p>
                 <StyledTitle>Here, you can configure your wallet, save your credentials to your mobile wallet etc.</StyledTitle>
             </p>
@@ -93,7 +91,7 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
                 <StyledSubTitle>Wallet Configurations</StyledSubTitle>
             </p>
             <p>
-                <StyledDescription>Connection invitation</StyledDescription>
+                <StyledDescription>Connection URL</StyledDescription>
             </p>
             <p>
                 <TextArea rows={5} placeholder="Wallet Configurations" onChange={(e) => { setInvitationUrl(e.target.value) }} />

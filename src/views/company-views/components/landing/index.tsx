@@ -33,13 +33,15 @@ const StyledCardDefault = styled(Card)`
 `;
 
 const StyledSubheaderText = styled.div`
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
+    font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 `;
 
 const StyledCompanyHeader = styled.div`
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 `;
 
 const StyledCompanyLogo = styled.img`
@@ -56,8 +58,9 @@ const StyledSubHeaderCard = styled(Card)`
 `;
 
 const StyledUserName = styled.div`
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
+    font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 `;
 
 const StyledSubUserName = styled.div`
@@ -65,7 +68,8 @@ const StyledSubUserName = styled.div`
 `;
 
 const StyledMyWalletTitle = styled.div`
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
 `;
 
@@ -78,7 +82,8 @@ const StyledSettingOutlined = styled(SettingOutlined)`
 `;
 
 const StyledRequestCompanyCertificateTitle = styled.div`
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 600;
 `;
 
 const StyledCredentialIssuerSelect = styled(Select)`
@@ -87,7 +92,7 @@ const StyledCredentialIssuerSelect = styled(Select)`
 
 const StyledCarouselCard = styled(Card)`
     border-radius: 1.25rem;
-    height: 90px;
+    height: auto;
     border: 1px solid black;
     cursor: pointer;
 `;
@@ -126,6 +131,7 @@ const StyledAccountPopoverTitle = styled.div`
 
 const StyledAccountPopoverSubTitle = styled.div`
     font-size: 15px;
+    color: gray;
 `;
 
 const StyledPopoverLogout = styled.div`
@@ -137,6 +143,7 @@ const StyledPopoverLogout = styled.div`
 const StyledRequestCredentialProgressMessage = styled.div`
     color: green;
     font-size: 10px;
+    margin-top: 6px;
 `;
 
 export const LandingPage = () => {
@@ -277,14 +284,13 @@ export const LandingPage = () => {
             const issuerID = item.split(':')[3].split('%')[1]
             const issuer = issuerID === BOLAGSVERKET_ID ? 'Bolagsverket' : 'Skatteverket'
             const logo = issuerID === BOLAGSVERKET_ID ? bolagsverketLogo : skatteverketLogo
-            return { 
-                title: item.split('%')[0].split(':')[2], 
-                subTitle: `Issued by: ${capitalizeFirstLetter(issuer)}, Sweden`, 
-                schemaId: item.split('%')[0], organisationId: item.split('%')[1] ,
+            return {
+                title: item.split('%')[0].split(':')[2],
+                subTitle: `Issued by: ${capitalizeFirstLetter(issuer)}, Sweden`,
+                schemaId: item.split('%')[0], organisationId: item.split('%')[1],
                 logo
             };
         });
-        // console.log(carouselSchemaListTemp);
         updateCarouselCards(carouselSchemaListTemp);
     };
 
@@ -482,8 +488,8 @@ export const LandingPage = () => {
                     </Col>
                 </Row>
                 <Row gutter={[16, 16]}>
-                    <Col span={24} className="max-width-1080 mt-16">
-                        <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : 3} dots={true} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />}>
+                    <Col span={24} className="carousel-coloumn-width mt-16">
+                        <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} dots={true} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />}>
                             {carouselSchemaList}
                         </CarouselWrapper>
                     </Col>
