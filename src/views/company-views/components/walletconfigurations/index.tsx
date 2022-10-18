@@ -12,10 +12,7 @@ const StyledActionButton = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-    border-color: #1890ff;
-    background: #1890ff;
-    background-color: #505050;
-    border-color: #505050;
+
 `;
 
 const StyledTitle = styled.div`
