@@ -91,10 +91,10 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
                         onConfirm={async () => {
                             const response = await companyService.deleteCertificate('6343ecbb6de5d70001ac038e', props.selectedViewCredentialReferent);
                             if (response) {
-                                openSuccessNotification('Delete successful', `Successfully deleted certificate (referent: ${props.selectedViewCredentialReferent})`);
+                                openSuccessNotification('Delete successful', `Successfully deleted certificate`);
                                 props.onClose();
                             } else {
-                                openErrorNotification('Delete failed', `Failed to delete certificate (referent: ${props.selectedViewCredentialReferent})`);
+                                openErrorNotification('Delete failed', `Failed to delete certificate`);
                             }
                         }}
                         onCancel={() => {
