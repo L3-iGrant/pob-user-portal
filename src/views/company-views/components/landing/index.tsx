@@ -1,22 +1,24 @@
-import { Col, Row, Card, Input, Avatar, Space, Select, Carousel, Popover, Divider, notification } from 'antd';
-import { SettingOutlined, DownOutlined, LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
-import RequestCredentialsPage from "../requestcredentials";
-import WalletDetailsPage from '../walletdetails';
-import WalletConfigurationsPage from '../walletconfigurations';
-import ViewCredentialsPage from '../viewcredentials';
-import styled from "styled-components";
-import authService from 'services/authService';
-import { useHistory } from "react-router-dom";
-import FooterView from 'views/components/footer';
-import headerLogo from '../../../../assets/img/icons/pob_logo.png';
-import walletIcon from '../../../../assets/img/icons/wallet.png';
-import bolagsverketLogo from '../../../../assets/img/icons/bolagsverket.png';
-import skatteverketLogo from '../../../../assets/img/icons/skatteverket_logo.jpg'
-import companyService from '../../../../services/companyService';
-import { BOLAGSVERKET_ID, SKATTEVERKET_ID } from 'configs/AppConfig';
 import './index.scss';
+
+import { Avatar, Card, Carousel, Col, Divider, Input, Popover, Row, Select, Space, notification } from 'antd';
+import { BOLAGSVERKET_ID, SKATTEVERKET_ID } from 'configs/AppConfig';
+import { DownOutlined, LeftOutlined, MenuOutlined, RightOutlined, SettingOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+
+import FooterView from 'views/components/footer';
+import RequestCredentialsPage from "../requestcredentials";
+import ViewCredentialsPage from '../viewcredentials';
 import ViewSelectedCredentialPage from '../viewselectedcredential';
+import WalletConfigurationsPage from '../walletconfigurations';
+import WalletDetailsPage from '../walletdetails';
+import authService from 'services/authService';
+import bolagsverketLogo from '../../../../assets/img/icons/bolagsverket.png';
+import companyService from '../../../../services/companyService';
+import headerLogo from '../../../../assets/img/icons/pob_logo.png';
+import skatteverketLogo from '../../../../assets/img/icons/skatteverket_logo.jpg'
+import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import walletIcon from '../../../../assets/img/icons/wallet.png';
 
 const { Search } = Input;
 

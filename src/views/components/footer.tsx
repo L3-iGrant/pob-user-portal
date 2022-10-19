@@ -1,6 +1,8 @@
-import styled from "styled-components";
-import { Col, Row, Layout, Divider } from 'antd';
 import './footer.scss';
+
+import { Col, Divider, Layout, Row } from 'antd';
+
+import styled from "styled-components";
 
 const { Footer } = Layout;
 
