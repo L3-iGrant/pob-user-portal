@@ -17,8 +17,8 @@ const StyledFooterLink = styled.a`
 
 export const FooterView = () => {
     return (
-        <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)', zIndex: 10000 }} className="footer-container">
-            <Divider></Divider>
+        <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)'}} className="footer-container">
+            <Divider ></Divider>
             <Footer style={{ textAlign: 'center', backgroundColor: 'rgb(18, 6, 57)' }}>
                 <Row>
                     <Col span={24}>

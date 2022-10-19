@@ -1,5 +1,5 @@
 import { Col, Row, Card, Input, Avatar, Space, Select, Carousel, Popover, Divider, notification } from 'antd';
-import { SettingOutlined, DownOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { SettingOutlined, DownOutlined, LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import RequestCredentialsPage from "../requestcredentials";
 import WalletDetailsPage from '../walletdetails';
@@ -107,6 +107,7 @@ const StyledCarouselCardSubTitle = styled.div`
 `;
 
 const CarouselWrapper = styled(Carousel)`
+    bacground-color: #F5F5F5;
   > .slick-dots li button {
     margin-top: 55px;
     width: 10px;
@@ -479,7 +480,7 @@ export const LandingPage = () => {
                                         </Col>
                                         <Col xs={3} md={0} style={{ textAlign: 'right' }}>
                                             <Popover placement="bottomRight" content={accountPopOverContent()} trigger="click" overlayClassName='account-popup'>
-                                                <Avatar />
+                                                <MenuOutlined size={18}/>
                                             </Popover>
                                         </Col>
                                     </Row>
@@ -539,7 +540,8 @@ export const LandingPage = () => {
                     </Col>
                 </Row>
                 <Row gutter={[16, 16]}>
-                    <Col span={24} className="mt-16 max-width-1080 pb-30">
+                    <Col span={24} className="mt-16 max-width-1080 pb-54" 
+                    style={{ "backgroundColor": '#F5F5F5'}}>
                         <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />} {...settings}>
                             {carouselSchemaList}
                         </CarouselWrapper>
