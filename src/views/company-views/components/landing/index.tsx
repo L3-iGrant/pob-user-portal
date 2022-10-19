@@ -1,24 +1,22 @@
-import './index.scss';
-
-import { Avatar, Card, Carousel, Col, Divider, Input, Popover, Row, Select, Space, notification } from 'antd';
-import { BOLAGSVERKET_ID, SKATTEVERKET_ID } from 'configs/AppConfig';
-import { DownOutlined, LeftOutlined, MenuOutlined, RightOutlined, SettingOutlined } from '@ant-design/icons';
+import { Col, Row, Card, Input, Avatar, Space, Select, Carousel, Popover, Divider, notification } from 'antd';
+import { SettingOutlined, DownOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
-
-import FooterView from 'views/components/footer';
 import RequestCredentialsPage from "../requestcredentials";
-import ViewCredentialsPage from '../viewcredentials';
-import ViewSelectedCredentialPage from '../viewselectedcredential';
-import WalletConfigurationsPage from '../walletconfigurations';
 import WalletDetailsPage from '../walletdetails';
-import authService from 'services/authService';
-import bolagsverketLogo from '../../../../assets/img/icons/bolagsverket.png';
-import companyService from '../../../../services/companyService';
-import headerLogo from '../../../../assets/img/icons/pob_logo.png';
-import skatteverketLogo from '../../../../assets/img/icons/skatteverket_logo.jpg'
+import WalletConfigurationsPage from '../walletconfigurations';
+import ViewCredentialsPage from '../viewcredentials';
 import styled from "styled-components";
+import authService from 'services/authService';
 import { useHistory } from "react-router-dom";
+import FooterView from 'views/components/footer';
+import headerLogo from '../../../../assets/img/icons/pob_logo.png';
 import walletIcon from '../../../../assets/img/icons/wallet.png';
+import bolagsverketLogo from '../../../../assets/img/icons/bolagsverket.png';
+import skatteverketLogo from '../../../../assets/img/icons/skatteverket_logo.jpg'
+import companyService from '../../../../services/companyService';
+import { BOLAGSVERKET_ID, SKATTEVERKET_ID } from 'configs/AppConfig';
+import './index.scss';
+import ViewSelectedCredentialPage from '../viewselectedcredential';
 
 const { Search } = Input;
 
@@ -109,7 +107,6 @@ const StyledCarouselCardSubTitle = styled.div`
 `;
 
 const CarouselWrapper = styled(Carousel)`
-    bacground-color: #F5F5F5;
   > .slick-dots li button {
     margin-top: 55px;
     width: 10px;
@@ -482,7 +479,7 @@ export const LandingPage = () => {
                                         </Col>
                                         <Col xs={3} md={0} style={{ textAlign: 'right' }}>
                                             <Popover placement="bottomRight" content={accountPopOverContent()} trigger="click" overlayClassName='account-popup'>
-                                                <MenuOutlined size={18}/>
+                                                <Avatar />
                                             </Popover>
                                         </Col>
                                     </Row>
@@ -542,8 +539,7 @@ export const LandingPage = () => {
                     </Col>
                 </Row>
                 <Row gutter={[16, 16]}>
-                    <Col span={24} className="mt-16 max-width-1080 pb-54" 
-                    style={{ "backgroundColor": '#F5F5F5'}}>
+                    <Col span={24} className="mt-16 max-width-1080 pb-30">
                         <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />} {...settings}>
                             {carouselSchemaList}
                         </CarouselWrapper>
