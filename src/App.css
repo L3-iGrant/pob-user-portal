@@ -54,6 +54,10 @@
         }
 }
 
+body {
+  background-color: #F5F5F5;
+}
+
 
 
 
@@ -132,4 +136,8 @@ body {
 
 .ant-drawer-body {
   padding: 20px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px;
 }
