@@ -9,7 +9,7 @@ class CompanyService {
         let certificateSchemaIdList: any[] = [];
         try {
             const response = await axiosService.get(`${ApiRouteConfig.certificatesSchemaRoute}?organisation_id=${organisationId}`);
-            certificateSchemaIdList = response.data.results.map( (x:any)=> x.schema_id );
+            certificateSchemaIdList = response.data.results.map((x: any) => x.schema_id);
         }
         catch (e: any) {
             console.log(e);
@@ -88,6 +88,21 @@ class CompanyService {
         return null;
     }
 
+    public async getDefaultConnections() {
+        try {
+            const response = await axiosService.get(ApiRouteConfig.getDefaultConnection);
+            const status = response?.status;
+            if (status === 200) {
+                return response.data
+            }
+            return null;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return null;
+    }
+
     public async checkCertificate(certificateID: string) {
         try {
             const response = await axiosService.get(ApiRouteConfig.checkCertificate +
@@ -102,6 +117,17 @@ class CompanyService {
             console.log(e);
         }
         return null;
+    }
+
+    public async deleteCertificate(organisationId: string, referent: string) {
+        try {
+            await axiosService.delete(`${ApiRouteConfig.deleteCertificate}?organisation_id=${organisationId}&referent=${referent}`);
+            return true;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return false;
     }
 
 

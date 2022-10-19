@@ -160,7 +160,9 @@ export const LandingPage = () => {
     const [selectedSchemaTitle, setSelectedSchemaTitle] = useState<string>('');
     const [credentialRequestProgressMessage, setCredentialRequestProgressMessage] = useState<string>('');
     const [selectedViewCredentialAttributes, setSelectedViewCredentialAttributes] = useState<any>({});
+    const [selectedViewCredentialReferent, setSelectedViewCredentialReferent] = useState<any>('');
     const [walletData, setWalletData] = useState({});
+    const [defaultWalletData, setDefaultWalletData] = useState({});
     const [certificates, setCertificates] = useState<string[]>([]);
     const [lastCertificateData, setLastCertificateData] = useState<any>({});
     const history = useHistory();
@@ -177,6 +179,7 @@ export const LandingPage = () => {
 
     useEffect(() => {
         setTimeout(() => {
+            getDefaultConnections();
             getConnections();
             getCertificates()
         }, 500)
@@ -201,9 +204,13 @@ export const LandingPage = () => {
 
     const getConnections = async () => {
         const data = await companyService.getConnections();
-        setWalletData(data);
-        return;
+        if(data) setWalletData(data);
     };
+
+    const getDefaultConnections = async () => {
+        const data = await companyService.getDefaultConnections();
+        if(data) setDefaultWalletData(data);
+    }
 
     const getCertificates = async () => {
         const data = await companyService.getCertificates();
@@ -212,8 +219,8 @@ export const LandingPage = () => {
         console.log({ data });
     }
 
-    const openNotification = (message: string, description: string) => {
-        notification['success']({ message, description });
+    const openSuccessNotification = (message: string, description: string) => {
+        notification.success({ message, description });
     };
 
     const fetchSchemasByIdAndUpdateCarouselSchemaList = async () => {
@@ -352,7 +359,7 @@ export const LandingPage = () => {
         setCredentialRequestProgressMessage('Your request is being processed. Once processed, your configured wallet will be notified.');
         setTimeout(() => {
             setCredentialRequestProgressMessage('');
-            openNotification('Successfully requested credentials', 'New certificate in your wallet. Click your wallet to view.');
+            openSuccessNotification('Successfully requested credentials', 'New certificate in your wallet. Click your wallet to view.');
         }, 5000);
     }
 
@@ -497,10 +504,10 @@ export const LandingPage = () => {
             </div>
             <FooterView />
             <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} organisationId={selectedOrganisationId} schemaId={selectedSchemaId} schemaTitle={selectedSchemaTitle} onRequestCredentialSubmit={onRequestCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer}/>
-            <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} showWalletConfigurationsDrawer={showWalletConfigurationsDrawer} walletData={walletData} />
+            <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} showWalletConfigurationsDrawer={showWalletConfigurationsDrawer} walletData={walletData} defaultWalletData={defaultWalletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} showWalletDetailsDrawer={showWalletDetailsDrawer} />
-            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} />
-            <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialsDrawer} selectedViewCredentialAttributes={selectedViewCredentialAttributes} onViewCredentialsDrawerClose={onViewCredentialsDrawerClose} />
+            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} setSelectedViewCredentialReferent={setSelectedViewCredentialReferent} openViewSelectedCredentialsDrawer={openViewSelectedCredentialsDrawer}/>
+            <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialsDrawer} selectedViewCredentialAttributes={selectedViewCredentialAttributes} selectedViewCredentialReferent={selectedViewCredentialReferent} onViewCredentialsDrawerClose={onViewCredentialsDrawerClose} />
         </StyledLayout>
     );
 };
