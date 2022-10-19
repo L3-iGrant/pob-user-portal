@@ -36,7 +36,7 @@ DOCKER_TAG := $(GIT_BRANCH)-$(shell date +%Y%m%d%H%M%S)-$(GIT_COMMIT)
 .PHONY: help
 help:
 	@echo "------------------------------------------------------------------------"
-	@echo "iGrant dashboard"
+	@echo "Bolagsverket (Proof Of Business) - MyCompany Portal"
 	@echo "------------------------------------------------------------------------"
 	@grep -E '^[0-9a-zA-Z_/%\-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
