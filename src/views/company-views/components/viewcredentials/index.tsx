@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import companyService from 'services/companyService';
 import styled from "styled-components";
 import credentialLogo from '../../../../assets/img/icons/bolagsverket.png';
-import {CloseCircleOutlined} from "@ant-design/icons";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 const StyledSubheader = styled.div`
     font-size: 13px;
@@ -39,19 +39,24 @@ const StyledActionButton = styled.div`
     width: 100%;
 `;
 
-export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showViewSelectedCredentialDrawer: any; setSelectedViewCredentialAttributes: any; }) => {
+export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showViewSelectedCredentialDrawer: any; setSelectedViewCredentialAttributes: any; openViewSelectedCredentialsDrawer: boolean; setSelectedViewCredentialReferent: any; }) => {
     const [credentialList, setCredentialList] = useState<any[]>([]);
 
     useEffect(() => {
-        getCertificatesAndUpdateList();
+        if (props.open) getCertificatesAndUpdateList();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [props.open]);
+
+    useEffect(() => {
+        if (!props.openViewSelectedCredentialsDrawer) getCertificatesAndUpdateList();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.openViewSelectedCredentialsDrawer]);
 
     const getCertificatesAndUpdateList = async () => {
         const response = await companyService.getCertificates();
         console.log(response.results);
-        const certifcatesDataList = response.results.map((item: any, index: number) => { return { title: item.schema_id.split(':')[2], index, attributes: item.attrs } });
-        updateCredentialsList(certifcatesDataList);
+        const certificatesDataList = response.results.map((item: any, index: number) => { return { title: item.schema_id.split(':')[2], index, attributes: item.attrs, referent: item.referent } });
+        updateCredentialsList(certificatesDataList);
     };
 
     const footerActionButtons = () => {
@@ -74,6 +79,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
                         <StyledCredentialCard onClick={() => {
                             props.showViewSelectedCredentialDrawer();
                             props.setSelectedViewCredentialAttributes(item.attributes);
+                            props.setSelectedViewCredentialReferent(item.referent);
                         }}>
                             <Row>
                                 <Col span={20}>
@@ -106,9 +112,9 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
 
     return (
         <Drawer title="MY WALLET - VIEW CREDENTIALS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}
-         closable={false}  extra={
-            <CloseCircleOutlined onClick={props.onClose}/>
-         }>
+            closable={false} extra={
+                <CloseCircleOutlined onClick={props.onClose} />
+            }>
             <p>
                 <StyledSubheader>Below is the list of available credentials in your wallet.</StyledSubheader>
             </p>
