@@ -82,7 +82,7 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                                 <StyledWalletDiv>Ledger URL: <StyledAnchor href={defaultWalletData.LedgerURL}>{defaultWalletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
                             </StyledContainer> : null}
                         <div style={{ marginTop: '10px' }}>
-                            <Radio value="b">{Object.keys(walletData).length !== 0 ? 'Own Wallet (Configured)' : 'Not Configured (Configure)'}</Radio>
+                            <Radio value="b">{Object.keys(walletData).length !== 0 ? 'Own External Wallet' : 'Own External Wallet'}</Radio>
                         </div>
                         {Object.keys(walletData).length !== 0 && selectedValue === 'b' ?
                             <StyledContainer>
@@ -93,7 +93,7 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                                     <StyledAnchor>{walletData.AgentServiceEndpoint}</StyledAnchor>
                                 </StyledWalletDiv>
                                 <StyledWalletDiv>Ledger Name: {walletData.LedgerName}</StyledWalletDiv>
-                                <StyledWalletDiv>Ledger URL: <StyledAnchor href={walletData.LedgerURL}>{walletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
+                                <StyledWalletDiv>Ledger URL: <StyledAnchor href={walletData.LedgerURL} target="_blank">{walletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
                             </StyledContainer> : null}
                     </Space>
                 </Radio.Group>

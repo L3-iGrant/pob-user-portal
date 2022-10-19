@@ -21,11 +21,11 @@
     }
 
     .slick-prev { 
-        left: -20px !important;       
+        left: -15px !important;       
     }
 
     .slick-next {
-        right: -15px !important;
+        right: -5px !important;
     }
 }
 
@@ -41,4 +41,12 @@
         padding-top: 30px !important;
     }
 }
+
+@media all and (max-device-width: 576px) {
+    .landing-card {
+        height: 200px !important;
+    }
+}
+
+
 
