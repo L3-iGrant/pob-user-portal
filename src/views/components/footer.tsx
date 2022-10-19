@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Col, Row, Layout, Divider } from 'antd';
+import './footer.scss';
 
 const { Footer } = Layout;
 
@@ -16,7 +17,7 @@ const StyledFooterLink = styled.a`
 
 export const FooterView = () => {
     return (
-        <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)' }}>
+        <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)', zIndex: 10000 }} className="footer-container">
             <Divider></Divider>
             <Footer style={{ textAlign: 'center', backgroundColor: 'rgb(18, 6, 57)' }}>
                 <Row>
