@@ -70,7 +70,8 @@ setup                          Sets up development environment
 ```bash
 make setup 
 ```
-1. When the previous run has been completed, build the project to generate transpiled file.
+
+5. When the previous run has been completed, build the project to generate transpiled file.
 
 ```bash
 make build
