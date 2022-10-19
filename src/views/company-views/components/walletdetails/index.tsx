@@ -26,8 +26,9 @@ const StyledActionButton = styled.div`
 
 export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWalletConfigurationsDrawer: any; walletData: any; defaultWalletData: any; }) => {
 
-    const { walletData, defaultWalletData } = props;
+    const { defaultWalletData } = props;
     const [selectedValue, setSelectedValue] = useState('a');
+    const walletData:any = {};
 
     useEffect(() => {
         setSelectedValue('a');

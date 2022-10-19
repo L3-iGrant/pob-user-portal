@@ -1,5 +1,11 @@
-@media all and (max-device-width: 375px) {
+@media all and (max-device-width: 390px) {
   .footer-container {
     position: inherit !important;
     }
+}
+
+@media all and (max-device-width: 375px) {
+  .ant-divider.ant-divider-horizontal {
+    margin-top: 0px;
+  }
 }

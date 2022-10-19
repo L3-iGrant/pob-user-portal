@@ -59,8 +59,6 @@ body {
 }
 
 
-
-
 /*Animation Keyframes*/
 @-moz-keyframes blink {0%{opacity:1;} 50%{opacity:0.5;} 100%{opacity:1;}} /* Firefox */
 @-webkit-keyframes blink {0%{opacity:1;} 50%{opacity:0.5;} 100%{opacity:1;}} /* Webkit */
@@ -138,6 +136,6 @@ body {
   padding: 20px !important;
 }
 
-.pb-30 {
-  padding-bottom: 30px;
+.pb-54 {
+  padding-bottom: 54px;
 }
