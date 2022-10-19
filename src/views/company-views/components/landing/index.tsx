@@ -363,6 +363,14 @@ export const LandingPage = () => {
         }, 5000);
     }
 
+    const contentStyle: React.CSSProperties = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+    };
+
     const accountPopOverContent = () => {
         return (
             <div className='account-popup-content'>
@@ -387,6 +395,42 @@ export const LandingPage = () => {
             </div>
         );
     }
+
+    var settings = {
+      dots: true,
+      infinite: false,
+      initialSlide: 0,
+      responsive: [
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+          }
+        },
+        {
+          breakpoint: 820,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+          }
+        },
+        {
+          breakpoint: 576,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ]
+    };
 
     return (
         <StyledLayout>
@@ -448,7 +492,7 @@ export const LandingPage = () => {
                     <Col span={24} className="max-width-1080 mt-16">
                         <Row gutter={[16, 16]}>
                             <Col md={12} xs={24}>
-                                <StyledCardDefault>
+                                <StyledCardDefault className="landing-card">
                                     <Row style={{ marginBottom: '10px', marginTop: '50px' }}>
                                         <Col span={24} style={{ textAlign: 'center' }}>
                                             <StyledRequestCompanyCertificateTitle>Request Company Certificate</StyledRequestCompanyCertificateTitle>
@@ -471,7 +515,7 @@ export const LandingPage = () => {
                                 </StyledCardDefault>
                             </Col>
                             <Col md={12} xs={24}>
-                                <StyledCardDefault>
+                                <StyledCardDefault className="landing-card">
                                     <Row>
                                         <Col span={2} offset={22}>
                                             <StyledSettingOutlined onClick={showWalletDetailsDrawer} />
@@ -495,8 +539,8 @@ export const LandingPage = () => {
                     </Col>
                 </Row>
                 <Row gutter={[16, 16]}>
-                    <Col span={24} className="carousel-coloumn-width mt-16">
-                        <CarouselWrapper infinite={false} slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} dots={true} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />}>
+                    <Col span={24} className="mt-16 max-width-1080">
+                        <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />} {...settings}>
                             {carouselSchemaList}
                         </CarouselWrapper>
                     </Col>

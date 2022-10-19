@@ -85,7 +85,7 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
             extra={
                 <Space>
                     <Popconfirm
-                        title="Are you sure you want to delete this certificate?"
+                        title="Are you sure you want to delete this credential?"
                         open={open}
                         onOpenChange={(newOpen: boolean) => { setOpen(newOpen); }}
                         onConfirm={async () => {
