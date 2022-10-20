@@ -11,7 +11,7 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   GKE_ZONE: europe-west3-c
   GKE_CLUSTER: igrant-cluster
-  IMAGE: igrant-privacy
+  IMAGE: igrant-pob-wallet
   REGISTRY_HOSTNAME: eu.gcr.io
 
 jobs:
