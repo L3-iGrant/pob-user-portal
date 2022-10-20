@@ -49,7 +49,7 @@ jobs:
       # Replace the API URL to demo
       - name: Replace the API URL to demo
         run: |
-          sed -i "" "s/https:\/\/staging-pob-api.igrant.io/https:\/\/demo-pob-api.igrant.io/g" src/configs/AppConfig.ts
+          sed -i "s/https:\/\/staging-pob-api.igrant.io/https:\/\/demo-pob-api.igrant.io/g" src/configs/AppConfig.ts
 
       # Build docker image, publish docker image to gcp container registry, deploy to production
       - name: Build docker image, publish docker image to gcp container registry, deploy to production
