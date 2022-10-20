@@ -10,8 +10,7 @@ import { HOME_PREFIX_PATH, AUTH_PREFIX_PATH, COMPANY_PREFIX_PATH, PROCUREMENT_BU
 export const Views = (props: Record<string, any>) => {
     return (
         <Switch>
-            <Route exact path={HOME_PREFIX_PATH} render={() => (<Redirect to={AUTH_PREFIX_PATH} />)} />
-            <Route path={AUTH_PREFIX_PATH}>
+            <Route exact path={AUTH_PREFIX_PATH}>
                 <AuthView {...props} />
             </Route>
             <Route path={COMPANY_PREFIX_PATH}>
