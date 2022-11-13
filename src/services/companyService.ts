@@ -1,5 +1,6 @@
 import axiosService from './axiosService';
 import ApiRouteConfig from "configs/ApiRouteConfig";
+import {ConnectionInvitation} from "../interfaces/connectioninvitation";
 
 class CompanyService {
     private static _instance: CompanyService;
@@ -128,6 +129,21 @@ class CompanyService {
             console.log(e);
         }
         return false;
+    }
+
+    public async createInvitation() {
+        let invitation: ConnectionInvitation = {};
+        try {
+            const response = await axiosService.post(ApiRouteConfig.createInvitation, null);
+            const status = response?.status;
+            if (status === 200) {
+                invitation = response.data;
+            }
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return invitation;
     }
 
 

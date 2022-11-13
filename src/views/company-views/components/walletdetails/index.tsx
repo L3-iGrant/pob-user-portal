@@ -1,8 +1,11 @@
-import { Alert, Button, Drawer, Radio, Row, Space } from 'antd';
+import { Alert, Button, Drawer, Radio, Row, Space, Input } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { CloseCircleOutlined } from "@ant-design/icons";
+import companyService from "../../../../services/companyService";
+
+const { TextArea } = Input;
 
 const StyledWalletDiv = styled.div`
     font-size: 12px;
@@ -28,11 +31,20 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
 
     const { defaultWalletData } = props;
     const [selectedValue, setSelectedValue] = useState('a');
+    const [connectionUrl, setConnectionUrl] = useState<any>('');
     const walletData:any = {};
+
+    const createInvitation = async () => {
+        const res = await companyService.createInvitation()
+        if (res) {
+            setConnectionUrl(res.invitation_url);
+        }
+    }
 
     useEffect(() => {
         setSelectedValue('a');
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        createInvitation().then();
     }, [props.open]);
 
     const handleChange = (event: RadioChangeEvent) => {
@@ -80,7 +92,8 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                                     <StyledAnchor>{defaultWalletData.AgentServiceEndpoint}</StyledAnchor>
                                 </StyledWalletDiv>
                                 <StyledWalletDiv>Ledger Name: {defaultWalletData.LedgerName}</StyledWalletDiv>
-                                <StyledWalletDiv>Ledger URL: <StyledAnchor href={defaultWalletData.LedgerURL}>{defaultWalletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
+                                <StyledWalletDiv>Ledger URL: <StyledAnchor target={"_blank"} href={defaultWalletData.LedgerURL}>{defaultWalletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
+                                <StyledWalletDiv>Connection URL: <TextArea rows={4} bordered={true} style={{border: "0.5px solid black", fontSize: "12px"}} size={"large"} value={connectionUrl} /></StyledWalletDiv>
                             </StyledContainer> : null}
                         <div style={{ marginTop: '10px' }}>
                             <Radio value="b">{Object.keys(walletData).length !== 0 ? 'Own External Wallet' : 'Own External Wallet'}</Radio>
