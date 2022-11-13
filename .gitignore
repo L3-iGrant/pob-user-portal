@@ -47,3 +47,4 @@ yarn-error.log*
 
 .bootstrap/
 deploy_version
+.idea/
