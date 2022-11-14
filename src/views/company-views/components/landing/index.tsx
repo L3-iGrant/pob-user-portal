@@ -100,6 +100,11 @@ const StyledCarouselCard = styled(Card)`
 const StyledCarouselCardTitle = styled.div`
     font-size: 12px;
     font-weight: bold;
+    text-transform: uppercase;
+    width: 220px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const StyledCarouselCardSubTitle = styled.div`
