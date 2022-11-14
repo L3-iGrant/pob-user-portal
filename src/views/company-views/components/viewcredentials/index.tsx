@@ -18,7 +18,8 @@ const StyledCredentialCard = styled(Card)`
 `;
 
 const StyledCredentialCardTitle = styled.div`
-    font-size: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
 `;
 
 const StyledCredentialCardSubTitle = styled.div`
@@ -76,7 +77,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
             return (
                 <Row >
                     <Col span={24}>
-                        <StyledCredentialCard onClick={() => {
+                        <StyledCredentialCard bodyStyle={{padding: "17px"}} onClick={() => {
                             props.showViewSelectedCredentialDrawer();
                             props.setSelectedViewCredentialAttributes(item.attributes);
                             props.setSelectedViewCredentialReferent(item.referent);
