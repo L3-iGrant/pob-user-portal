@@ -97,7 +97,7 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
             <p>
                 You are about to request credentials from Bolagsverket, Sweden. Confirm the details below and click submit the request to issue credentials.
             </p>
-            <p>{`Requested credential: ${props.schemaTitle}`}</p>
+            <p>Requested credential: <span style={{textTransform: "uppercase"}}>{props.schemaTitle}</span></p>
             <p>Once submitted, the requested credentials will be issued to the <StyledLink onClick={()=>{
                 props.showWalletDetailsDrawer();
                 props.onClose();
