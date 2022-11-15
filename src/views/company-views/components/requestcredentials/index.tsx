@@ -4,6 +4,8 @@ import { Key, useEffect, useState } from 'react';
 import companyService from 'services/companyService';
 import styled from "styled-components";
 import {CloseCircleOutlined} from "@ant-design/icons";
+import { useDispatch } from 'react-redux';
+import { updateIsLoadingForFetchStoredCertificates } from 'views/company-views/companySlice';
 
 const StyledActionButton = styled.div`
     margin-bottom: 10px;
@@ -46,6 +48,7 @@ const camelToTitle = (camelCase: string) => camelCase
 export const RequestCredentialsPage = (props: { onClose: any; open: boolean; organisationId: string; schemaId: string; schemaTitle: string; onRequestCredentialSubmit: any; showWalletDetailsDrawer: any; }) => {
     const [dataAttributes, setDataAttributes] = useState<any[]>([]);
     const [submitLoader, setSubmitLoader] = useState<boolean>(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setDataAttributes([]);
@@ -79,6 +82,7 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
                             const response = await companyService.submitCredentialRequest();
                             setSubmitLoader(false);
                             if (response) {
+                                dispatch(updateIsLoadingForFetchStoredCertificates(true))
                                 props.onClose();
                                 props.onRequestCredentialSubmit(props.organisationId, props.schemaId);
                             }

@@ -11,12 +11,16 @@ import { useHistory } from "react-router-dom";
 import FooterView from 'views/components/footer';
 import headerLogo from '../../../../assets/img/icons/pob_logo.png';
 import walletIcon from '../../../../assets/img/icons/wallet.png';
+import walletFullIcon from '../../../../assets/img/icons/wallet-full.png';
 import bolagsverketLogo from '../../../../assets/img/icons/bolagsverket.png';
 import skatteverketLogo from '../../../../assets/img/icons/skatteverket_logo.jpg'
 import companyService from '../../../../services/companyService';
 import { BOLAGSVERKET_ID, SKATTEVERKET_ID } from 'configs/AppConfig';
 import './index.scss';
 import ViewSelectedCredentialPage from '../viewselectedcredential';
+import { useListStoredCertificatesQuery } from 'services/company.rtk';
+import { useSelector } from 'react-redux';
+import { selectFetchStoredCertificates, selectWalletEmpty } from 'views/company-views/companySlice';
 
 const { Search } = Input;
 
@@ -172,11 +176,20 @@ export const LandingPage = () => {
     const [certificates, setCertificates] = useState<string[]>([]);
     const [lastCertificateData, setLastCertificateData] = useState<any>({});
     const history = useHistory();
+    const fetchStoredCertificates = useSelector(selectFetchStoredCertificates)
+    const walletEmpty = useSelector(selectWalletEmpty)
+    const { data, error, isLoading } = useListStoredCertificatesQuery(undefined, {
+        pollingInterval: fetchStoredCertificates.pollingInterval,
+    })
 
     useEffect(() => {
         fetchSchemasByIdAndUpdateCarouselSchemaList();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        console.log("Data: ", data);
+    }, [data])
 
     useEffect(() => {
         updateCarouselSchemaList();
@@ -530,7 +543,11 @@ export const LandingPage = () => {
                                     <Row style={{ marginTop: '30px' }} justify="center">
                                         <Col style={{ cursor: 'pointer' }} onClick={showViewCredentialsDrawer}>
                                             <Space>
-                                                <img src={walletIcon} alt={'wallet_icon'} />
+                                                {
+                                                    walletEmpty ?
+                                                    <img src={walletIcon} alt={'wallet_icon'} /> :
+                                                    <img src={walletFullIcon} alt={'wallet_icon'} />
+                                                }
                                                 <div>
                                                     <StyledMyWalletTitle>MyCompany Wallet</StyledMyWalletTitle>
                                                     <StyledMyWalletSubTitle>Bygg AB</StyledMyWalletSubTitle>

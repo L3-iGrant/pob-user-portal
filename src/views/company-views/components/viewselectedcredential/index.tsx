@@ -4,6 +4,7 @@ import { LeftOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { CloseCircleOutlined } from "@ant-design/icons";
 import companyService from "services/companyService";
+import { useListStoredCertificatesQuery } from "services/company.rtk";
 
 const columns: any[] = [
     {
@@ -35,6 +36,7 @@ const StyledDeleteOutlined = styled(DeleteOutlined)`
 
 
 export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean; selectedViewCredentialAttributes: any; onViewCredentialsDrawerClose: any; selectedViewCredentialReferent: string; }) => {
+    const { data, error, isLoading, refetch } = useListStoredCertificatesQuery(undefined)
 
     const footerActionButtons = () => {
         return (
@@ -91,6 +93,7 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
                         onConfirm={async () => {
                             const response = await companyService.deleteCertificate('6343ecbb6de5d70001ac038e', props.selectedViewCredentialReferent);
                             if (response) {
+                                refetch()
                                 openSuccessNotification('Delete successful', `Successfully deleted certificate`);
                                 props.onClose();
                             } else {

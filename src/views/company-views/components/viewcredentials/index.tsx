@@ -4,6 +4,7 @@ import companyService from 'services/companyService';
 import styled from "styled-components";
 import credentialLogo from '../../../../assets/img/icons/bolagsverket.png';
 import { CloseCircleOutlined } from "@ant-design/icons";
+import { useListStoredCertificatesQuery } from 'services/company.rtk';
 
 const StyledSubheader = styled.div`
     font-size: 13px;
@@ -42,6 +43,11 @@ const StyledActionButton = styled.div`
 
 export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showViewSelectedCredentialDrawer: any; setSelectedViewCredentialAttributes: any; openViewSelectedCredentialsDrawer: boolean; setSelectedViewCredentialReferent: any; }) => {
     const [credentialList, setCredentialList] = useState<any[]>([]);
+    const { data, error, isLoading, refetch } = useListStoredCertificatesQuery(undefined)
+
+    useEffect(()=>{
+        console.log(data);
+    }, [isLoading,data])
 
     useEffect(() => {
         if (props.open) getCertificatesAndUpdateList();
@@ -56,6 +62,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
     const getCertificatesAndUpdateList = async () => {
         const response = await companyService.getCertificates();
         console.log(response.results);
+        refetch()
         const certificatesDataList = response.results.map((item: any, index: number) => { return { title: item.schema_id.split(':')[2], index, attributes: item.attrs, referent: item.referent } });
         updateCredentialsList(certificatesDataList);
     };
