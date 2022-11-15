@@ -1,5 +1,5 @@
 <h1 align="center">
-    Bolagsverket (Proof of Business) - MyCompany Wallet Portal
+    Bolagsverket (Proof of Business) - MyCompany Wallet
 </h1>
 
 <p align="center">
@@ -52,7 +52,7 @@ The following commands are currently supported
 
 ```bash
 ------------------------------------------------------------------------
-Bolagsverket (Proof Of Business) - MyCompany Portal
+Bolagsverket (Proof Of Business) - MyCompany Wallet
 ------------------------------------------------------------------------
 bootstrap                      Boostraps development environment
 build/docker/deployable        Builds deployable docker image for preview, staging and production
