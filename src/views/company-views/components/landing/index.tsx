@@ -447,7 +447,7 @@ export const LandingPage = () => {
                             <Col md={12} xs={24}>
                                 <Space>
                                     <StyledCompanyLogo src={headerLogo} alt="header" />
-                                    <StyledCompanyHeader>MyCompany Wallet Portal</StyledCompanyHeader>
+                                    <StyledCompanyHeader>MyCompany Wallet</StyledCompanyHeader>
                                 </Space>
                             </Col>
                             <Col md={6} offset={6} xs={0}>

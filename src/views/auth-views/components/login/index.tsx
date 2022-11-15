@@ -40,7 +40,7 @@ export const LoginPage = () => {
         <div className="login-container">
             <div className='login-container-main'>
                 <div className='logo'><img src={defaultLogo} alt={'logo'} /></div>
-                <p className="login-title">{"Login to MyCompany Wallet Portal"}</p>
+                <p className="login-title">{"Login to MyCompany Wallet"}</p>
                 <Form className="login-form">
                     <div className='login-input-group'>
                         <Form.Item>
