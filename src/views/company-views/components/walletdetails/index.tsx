@@ -102,17 +102,25 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                                 </StyledWalletDiv>
                                 <StyledWalletDiv>Ledger Name: {defaultWalletData.LedgerName}</StyledWalletDiv>
                                 <StyledWalletDiv>Ledger URL: <StyledAnchor target={"_blank"} href={defaultWalletData.LedgerURL}>{defaultWalletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
-                                <StyledWalletDiv>Connection URL: </StyledWalletDiv>
-                                <StyledWalletDiv><TextArea rows={4} bordered={true} style={{border: "0.5px solid black", fontSize: "12px"}} size={"large"} value={connectionUrl} /></StyledWalletDiv>
-                                <StyledWalletDiv style={{display: 'flex', justifyContent: 'flex-end', marginTop: '10px'}}>
-                                    <CopyToClipboard 
-                                        text={connectionUrl} 
-                                        onCopy={() => setCopied(true)}>
-                                        <Tooltip placement="top" trigger={"click"} title={"Copied"}>
-                                            <CopyOutlined style={{ fontSize: '18px', cursor: 'pointer' }}/>
-                                        </Tooltip>
-                                    </CopyToClipboard>
+                                <StyledWalletDiv style={{display: 'flex', justifyContent: 'space-between'}}>
+                                    <span>Connection URL:</span>
+                                        <CopyToClipboard 
+                                            text={connectionUrl}
+                                            onCopy={() => setCopied(true)}>
+                                            <Tooltip placement="top" trigger={"click"} title={"Copied"}>
+                                                <span style={{cursor: 'pointer'}}>
+                                                <Space>
+                                                    <span>Copy wallet link</span>   
+                                                    <CopyOutlined style={{ fontSize: '18px' }}/> 
+                                                </Space>
+                                                </span>
+                                            </Tooltip>
+                                        </CopyToClipboard> 
                                 </StyledWalletDiv>
+                                <StyledWalletDiv><TextArea rows={4} bordered={true} style={{border: "0.5px solid black", fontSize: "12px"}} size={"large"} value={connectionUrl} /></StyledWalletDiv>
+                                {/* <StyledWalletDiv style={{display: 'flex', justifyContent: 'flex-end', marginTop: '10px'}}>
+                                    
+                                </StyledWalletDiv> */}
                             </StyledContainer> : null}
                         <div style={{ marginTop: '10px' }}>
                             <Radio value="b">{Object.keys(walletData).length !== 0 ? 'Own External Wallet' : 'Own External Wallet'}</Radio>

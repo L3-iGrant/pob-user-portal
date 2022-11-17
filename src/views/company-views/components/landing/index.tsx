@@ -400,7 +400,7 @@ export const LandingPage = () => {
                 </Row>
                 <Row>
                     <Col style={{ textAlign: 'center' }} span={24}>
-                        <StyledAccountPopoverSubTitle>Finance AB</StyledAccountPopoverSubTitle>
+                        <StyledAccountPopoverSubTitle>Solceller AB</StyledAccountPopoverSubTitle>
                     </Col>
                 </Row>
                 <Row>

@@ -23,7 +23,7 @@ export const FooterView = () => {
                 <Row>
                     <Col span={24}>
                         <div style={{ fontWeight: "bold", color: 'white', fontSize: '10px' }}>
-                            Bolagsverket SE -851 81 Sundsvall Sweden
+                            Proof of Business demo
                         </div>
                     </Col>
                 </Row>
