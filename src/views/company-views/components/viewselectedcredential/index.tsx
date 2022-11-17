@@ -8,12 +8,12 @@ import { useListStoredCertificatesQuery } from "services/company.rtk";
 
 const columns: any[] = [
     {
-        title: <h3>{'Attribute'}</h3>,
+        title: 'Attribute',
         dataIndex: 'attribute',
         key: 'attribute',
     },
     {
-        title: <h3>{'Value'}</h3>,
+        title: 'Value',
         dataIndex: 'value',
         key: 'value',
     }
@@ -22,6 +22,10 @@ const columns: any[] = [
 const StyledTable = styled(Table)`
     border: 1px solid #ddd;
     border-radius: 5px;
+    
+    tr > th, tr > td {
+        padding: 10px 10px;
+    }
 `
 
 const StyledActionButton = styled.div`

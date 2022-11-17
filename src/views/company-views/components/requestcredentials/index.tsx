@@ -24,17 +24,21 @@ const StyledLink = styled.a`
 const StyledTable = styled(Table)`
     border: 1px solid #ddd;
     border-radius: 5px;
+
+    tr > th, tr > td {
+        padding: 10px 10px;
+    }
 `;
 
 const columns: any[] = [
     {
-        title: <h3>{'Select'}</h3>,
+        title: 'Select',
         dataIndex: 'select',
         key: 'select',
         render: (keyVal: string) => <Checkbox key={keyVal} checked={true} disabled={true} />
     },
     {
-        title: <h3>{'Data Attributes'}</h3>,
+        title: 'Data Attributes',
         dataIndex: 'dataattributes',
         key: 'dataattributes',
     }
