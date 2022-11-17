@@ -569,6 +569,7 @@ export const LandingPage = () => {
                         </CarouselWrapper>
                     </Col>
                 </Row>
+                <div className="push"></div>
             </div>
             <FooterView />
             <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} organisationId={selectedOrganisationId} schemaId={selectedSchemaId} schemaTitle={selectedSchemaTitle} onRequestCredentialSubmit={onRequestCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer}/>

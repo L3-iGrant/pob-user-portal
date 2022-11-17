@@ -5,9 +5,11 @@ import './footer.scss';
 const { Footer } = Layout;
 
 const StyledFooter = styled.div`
-    position: fixed;
-    bottom: 0;
+    position: static;
+    // bottom: 0;
     width: 100%;
+    height: 150px;
+    margin-top: 70px;
 `;
 
 const StyledFooterLink = styled.a`
