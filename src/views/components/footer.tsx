@@ -8,7 +8,7 @@ const StyledFooter = styled.div`
     position: static;
     // bottom: 0;
     width: 100%;
-    height: 150px;
+    height: 100px;
     margin-top: 70px;
 `;
 
@@ -20,7 +20,20 @@ const StyledFooterLink = styled.a`
 export const FooterView = () => {
     return (
         <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)'}} className="footer-container">
-            <Footer style={{ textAlign: 'center', backgroundColor: 'rgb(18, 6, 57)' }}>
+            <Footer 
+            
+            style={{
+                textAlign: 'center',
+                backgroundColor: 'rgb(18, 6, 57)',
+                padding: '10px 0px',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                alignItems: 'center' 
+            }}
+            
+            >
                 
                 <Row>
                     <Col span={24}>
@@ -38,7 +51,7 @@ export const FooterView = () => {
                 </Row>
                 <Row>
                     <Col span={24}>
-                        <div style={{ color: 'gray', fontSize: '8px', marginTop: '15px' }}>
+                        <div style={{ color: 'gray', fontSize: '8px', marginTop: 0 }}>
                             Powered by iGrant.io
                         </div>
                         
