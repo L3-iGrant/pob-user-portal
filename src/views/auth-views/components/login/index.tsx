@@ -1,6 +1,6 @@
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import styled from "styled-components";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import authService from "services/authService";
 import '../../../../styles/components/login.css';
@@ -10,6 +10,7 @@ import { antIcon } from "../graphic/antIcon";
 import { Logo } from '../graphic/Logo';
 import { Form, Input, Checkbox, Divider, Spin } from "antd";
 import { Link } from "react-router-dom";
+import { getAuthTokenFromLocalStorage } from 'utils/localStorage';
 
 const StyledLink = styled(Link)`
     color: #40a9ff;
@@ -22,6 +23,17 @@ export const LoginPage = () => {
     const [email, setEmail] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
     const [loginMessage, setLoginMessage] = useState<string>('');
+
+    useEffect(() => {
+
+        let authToken: string | null = getAuthTokenFromLocalStorage();
+        if (authToken !== null) {
+            history.push(`/company/`);
+        }
+
+
+        return () => { };
+    })
 
     const onSignInClick = async (email: string, password: string) => {
         setLoginMessage('');
