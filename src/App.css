@@ -127,6 +127,12 @@ body {
     text-shadow: none;
     box-shadow: none;
 }
+.ant-dropdown-menu-title-content{
+  color:gray
+}
+.ant-dropdown-menu-item:hover{
+  background-color: lightcyan ;
+}
 
 .ant-drawer-body {
   padding: 20px !important;

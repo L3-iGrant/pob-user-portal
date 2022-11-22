@@ -10,6 +10,9 @@ import { antIcon } from "../graphic/antIcon";
 import { Logo } from '../graphic/Logo';
 import { Form, Input, Checkbox, Divider, Spin } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import '../../../../localization/i18n';
+import LanguageSelector from "../../../../localization/languageselector/menu";
 import { getAuthTokenFromLocalStorage } from 'utils/localStorage';
 
 const StyledLink = styled(Link)`
@@ -22,8 +25,8 @@ export const LoginPage = () => {
     const [loginLoaderState, setLoginLoaderState] = useState(false);
     const [email, setEmail] = useState<string | undefined>(undefined);
     const [password, setPassword] = useState<string | undefined>(undefined);
-    const [loginMessage, setLoginMessage] = useState<string>('');
-
+    const [loginMessage, setLoginMessage] = useState<any>('');
+    const { t, i18n } = useTranslation();
     useEffect(() => {
 
         let authToken: string | null = getAuthTokenFromLocalStorage();
@@ -34,7 +37,6 @@ export const LoginPage = () => {
 
         return () => { };
     })
-
     const onSignInClick = async (email: string, password: string) => {
         setLoginMessage('');
         setLoginLoaderState(true);
@@ -44,15 +46,14 @@ export const LoginPage = () => {
             const responseUserType = await authService.getUserType(email);
             history.push(`/${responseUserType.toLowerCase()}/`);
         } else {
-            setLoginMessage('Failed to login');
+            setLoginMessage(t('Failed to login'));
         }
     }
-
     return (
         <div className="login-container">
             <div className='login-container-main'>
                 <div className='logo'><img src={defaultLogo} alt={'logo'} /></div>
-                <p className="login-title">{"Login to MyCompany Wallet"}</p>
+                <p className="login-title">{t('Login to MyCompany Wallet')}</p>
                 <Form className="login-form">
                     <div className='login-input-group'>
                         <Form.Item>
@@ -60,8 +61,7 @@ export const LoginPage = () => {
                                 prefix={
                                     <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                                 }
-                                placeholder={"Email"}
-                                size="large"
+                                placeholder={'Email'}
                                 className="username-input"
                                 onChange={(e: any) => { setEmail(e.target.value); }}
                             />
@@ -91,14 +91,17 @@ export const LoginPage = () => {
                     {loginMessage !== '' && <div className='login-error'>{loginMessage}</div>}
                     <Form.Item>
                         <div className="login-checkbox">
-                            {(<Checkbox defaultChecked={true}>{"Remember me"}</Checkbox>)}
+                            {(<Checkbox defaultChecked={true}>{t("Remember me")}</Checkbox>)}
                         </div>
                     </Form.Item>
                 </Form>
             </div>
             <div className='login-footer-container'>
                 <div className="login-footer">
-                    <p className='copyright'> Copyright © 2023-2025 Bolagsverket, Sweden. All rights reserved.</p>
+                    <p className='copyright'>{t('Copyright')} © 2023-2025 Bolagsverket, Sweden.{t('All rights reserved')}.</p> 
+                    <div style={{paddingBottom:10}}>
+                        <LanguageSelector/>
+                    </div>                
                     <Logo />
                 </div>
             </div>

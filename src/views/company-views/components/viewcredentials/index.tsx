@@ -5,6 +5,7 @@ import styled from "styled-components";
 import credentialLogo from '../../../../assets/img/icons/bolagsverket.png';
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { useListStoredCertificatesQuery } from 'services/company.rtk';
+import { useTranslation } from 'react-i18next';
 
 const StyledSubheader = styled.div`
     font-size: 13px;
@@ -44,6 +45,7 @@ const StyledActionButton = styled.div`
 export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showViewSelectedCredentialDrawer: any; setSelectedViewCredentialAttributes: any; openViewSelectedCredentialsDrawer: boolean; setSelectedViewCredentialReferent: any; }) => {
     const [credentialList, setCredentialList] = useState<any[]>([]);
     const { data, error, isLoading, refetch } = useListStoredCertificatesQuery(undefined)
+    const { t, i18n } = useTranslation();
 
     useEffect(()=>{
         console.log(data);
@@ -72,7 +74,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
             <div>
                 <Row>
                     <StyledActionButton>
-                        <Button block size={"middle"} onClick={props.onClose}>Cancel</Button>
+                        <Button block size={"middle"} onClick={props.onClose}>{t("Cancel")}</Button>
                     </StyledActionButton>
                 </Row>
             </div>
@@ -103,7 +105,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
                                     </Row>
                                     <Row>
                                         <Col span={24} style={{ textAlign: 'left' }}>
-                                            <StyledCredentialCardDescription>Issued by: Bolagsverket, Sweden</StyledCredentialCardDescription>
+                                            <StyledCredentialCardDescription>{t("Issued by")}: Bolagsverket, Sweden</StyledCredentialCardDescription>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -119,18 +121,18 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
     }
 
     return (
-        <Drawer title="MY WALLET - VIEW CREDENTIALS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}
+        <Drawer title={t('MY WALLET - VIEW CREDENTIALS')} placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}
             closable={false} extra={
                 <CloseCircleOutlined onClick={props.onClose} />
             }>
             <p>
-                <StyledSubheader>Below is the list of available credentials in your wallet.</StyledSubheader>
+                <StyledSubheader>{t('Below is the list of available credentials in your wallet')}.</StyledSubheader>
             </p>
             {credentialList.length > 0 ? <p>
                 {credentialList}
             </p> :
                 <p>
-                    <StyledEmptyCredentialMessage>Empty, no credentials existing</StyledEmptyCredentialMessage>
+                    <StyledEmptyCredentialMessage>{t('Empty, no credentials existing')}</StyledEmptyCredentialMessage>
                 </p>}
         </Drawer>
     );

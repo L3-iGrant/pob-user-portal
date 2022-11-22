@@ -21,6 +21,7 @@ import ViewSelectedCredentialPage from '../viewselectedcredential';
 import { useListStoredCertificatesQuery } from 'services/company.rtk';
 import { useSelector } from 'react-redux';
 import { selectFetchStoredCertificates, selectWalletEmpty } from 'views/company-views/companySlice';
+import { useTranslation } from 'react-i18next';
 
 const { Search } = Input;
 
@@ -168,7 +169,7 @@ export const LandingPage = () => {
     const [selectedOrganisationId, setSelectedOrganisationId] = useState<string>('');
     const [selectedSchemaId, setSelectedSchemaId] = useState<string>('');
     const [selectedSchemaTitle, setSelectedSchemaTitle] = useState<string>('');
-    const [credentialRequestProgressMessage, setCredentialRequestProgressMessage] = useState<string>('');
+    const [credentialRequestProgressMessage, setCredentialRequestProgressMessage] = useState<any>('');
     const [selectedViewCredentialAttributes, setSelectedViewCredentialAttributes] = useState<any>({});
     const [selectedViewCredentialReferent, setSelectedViewCredentialReferent] = useState<any>('');
     const [walletData, setWalletData] = useState({});
@@ -181,6 +182,7 @@ export const LandingPage = () => {
     const { data, error, isLoading } = useListStoredCertificatesQuery(undefined, {
         pollingInterval: fetchStoredCertificates.pollingInterval,
     })
+    const { t, i18n } = useTranslation<string>('');
 
     useEffect(() => {
         fetchSchemasByIdAndUpdateCarouselSchemaList();
@@ -375,13 +377,12 @@ export const LandingPage = () => {
     const onRequestCredentialSubmit = (organisationId: string, schemaId: string) => {
         console.log(organisationId);
         console.log(schemaId);
-        setCredentialRequestProgressMessage('Your request is being processed. Once processed, your configured wallet will be notified.');
+        setCredentialRequestProgressMessage(t('Your request is being processed. Once processed, your configured wallet will be notified.'));
         setTimeout(() => {
             setCredentialRequestProgressMessage('');
-            openSuccessNotification('Successfully requested credentials', 'New certificate in your wallet. Click your wallet to view.');
+            openSuccessNotification(t('Successfully requested credentials'), t('New certificate in your wallet. Click your wallet to view.'));
         }, 5000);
     }
-
     const contentStyle: React.CSSProperties = {
     height: '160px',
     color: '#fff',
@@ -404,11 +405,8 @@ export const LandingPage = () => {
                     </Col>
                 </Row>
                 <Row>
-                    <Divider />
-                </Row>
-                <Row>
                     <Col style={{ textAlign: 'center' }} span={24}>
-                        <StyledPopoverLogout onClick={onLogoutClick}>Sign Out</StyledPopoverLogout>
+                        <StyledPopoverLogout onClick={onLogoutClick}>{t('Sign Out')}</StyledPopoverLogout>
                     </Col>
                 </Row>
             </div>
@@ -460,7 +458,7 @@ export const LandingPage = () => {
                             <Col md={12} xs={24}>
                                 <Space>
                                     <StyledCompanyLogo src={headerLogo} alt="header" />
-                                    <StyledCompanyHeader>MyCompany Wallet</StyledCompanyHeader>
+                                    <StyledCompanyHeader>{t('MyCompany Wallet')}</StyledCompanyHeader>
                                 </Space>
                             </Col>
                             <Col md={6} offset={6} xs={0}>
@@ -476,7 +474,7 @@ export const LandingPage = () => {
                                 <Col span={24} className="max-width-1080">
                                     <Row>
                                         <Col md={12} xs={21}>
-                                            <StyledSubheaderText>Welcome Johan Eriksson!</StyledSubheaderText>
+                                            <StyledSubheaderText>{t("Welcome")} Johan Eriksson!</StyledSubheaderText>
                                         </Col>
                                         <Col md={12} xs={0}>
                                             <Row>
@@ -514,13 +512,13 @@ export const LandingPage = () => {
                                 <StyledCardDefault className="landing-card">
                                     <Row style={{ marginBottom: '10px', marginTop: '50px' }}>
                                         <Col span={24} style={{ textAlign: 'center' }}>
-                                            <StyledRequestCompanyCertificateTitle>Request Company Certificate</StyledRequestCompanyCertificateTitle>
+                                            <StyledRequestCompanyCertificateTitle>{t("Request Company Certificate")}</StyledRequestCompanyCertificateTitle>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col span={24} style={{ textAlign: 'center' }}>
                                             <StyledCredentialIssuerSelect defaultValue="allissuersSchemasById" onChange={(value) => { handleChange(value as string); }} showSearch>
-                                                <Option value="allissuersSchemasById">All Issuers</Option>
+                                                <Option value="allissuersSchemasById">{t("All Issuers")}</Option>
                                                 <Option value="bolagsverketSchemasById">Bolagsverket, Sweden</Option>
                                                 <Option value="skatteverketSchemasById">Skatteverket, Sweden</Option>
                                             </StyledCredentialIssuerSelect>
@@ -549,7 +547,7 @@ export const LandingPage = () => {
                                                     <img src={walletFullIcon} alt={'wallet_icon'} />
                                                 }
                                                 <div>
-                                                    <StyledMyWalletTitle>MyCompany Wallet</StyledMyWalletTitle>
+                                                    <StyledMyWalletTitle>{t('MyCompany Wallet')}</StyledMyWalletTitle>
                                                     <StyledMyWalletSubTitle>Bygg AB</StyledMyWalletSubTitle>
                                                 </div>
                                             </Space>
