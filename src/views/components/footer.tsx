@@ -11,7 +11,7 @@ const StyledFooter = styled.div`
     // bottom: 0;
     width: 100%;
     height: 100px;
-    margin-top: 70px;
+    margin-top: 50px;
 `;
 
 const StyledFooterLink = styled.a`
@@ -45,8 +45,6 @@ export const FooterView = () => {
                             {t('Proof of Business demo')}
                         </div>
                     </Col>
-                </Row>
-                <Row>
                     <Col span={24}>
                         <div style={{ color: 'white', fontSize: '10px' }}>
                             © Bolagsverket, Sweden
