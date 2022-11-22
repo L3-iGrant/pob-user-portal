@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { CloseCircleOutlined, CopyOutlined } from "@ant-design/icons";
 import companyService from "../../../../services/companyService";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
 
 const { TextArea } = Input;
 
@@ -35,6 +36,7 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
     const [connectionUrl, setConnectionUrl] = useState<any>('');
     const [copied, setCopied] = useState(false);
     const walletData:any = {};
+    const { t, i18n } = useTranslation();
 
     const createInvitation = async () => {
         const res = await companyService.createInvitation()
@@ -64,7 +66,7 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                     <StyledActionButton>
                         <Button block size={"middle"} onClick={() => {
                             props.onClose();
-                        }}>Cancel</Button>
+                        }}>{t("Cancel")}</Button>
                     </StyledActionButton>
                 </Row>
             </div>
@@ -72,12 +74,12 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
     }
 
     return (
-        <Drawer title="MY WALLET - SETTINGS" placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}
+        <Drawer title={t('MY WALLET - SETTINGS')} placement="right" onClose={props.onClose} open={props.open} footer={footerActionButtons()}
             closable={false} extra={
                 <CloseCircleOutlined onClick={props.onClose} />
             }>
             <p>
-                This is the details of your company wallet which you can use to share your credentials with any third-party.
+            {t('This is the details of your company wallet which you can use to share your credentials with any third-party.')}
             </p>
             <p>
                 <Radio.Group style={{width: "100%"}} onChange={handleChange} value={selectedValue}>
@@ -85,7 +87,7 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                         <Row>
                             <Col span={24}>
                             <div>
-                            <Radio value="a">Default Wallet (Provided by Bolagsverket)</Radio>
+                            <Radio value="a">{t('Default Wallet (Provided by Bolagsverket)')}</Radio>
                         </div>
                         {Object.keys(defaultWalletData).length !== 0 && selectedValue === 'a' ?
                             <StyledContainer style={{
@@ -95,22 +97,22 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                                 height: '260px'
                             }}>
                                 <p style={{ marginBottom: '0px' }}>
-                                    <strong>Wallet Details</strong>
+                                    <strong>{t('Wallet Details')}</strong>
                                 </p>
                                 <StyledWalletDiv>
-                                    Agent URL: <StyledAnchor style={{wordBreak: 'break-word'}}>{defaultWalletData.AgentServiceEndpoint}</StyledAnchor>
+                                {t('Agent URL')}: <StyledAnchor style={{wordBreak: 'break-word'}}>{defaultWalletData.AgentServiceEndpoint}</StyledAnchor>
                                 </StyledWalletDiv>
-                                <StyledWalletDiv>Ledger Name: {defaultWalletData.LedgerName}</StyledWalletDiv>
-                                <StyledWalletDiv>Ledger URL: <StyledAnchor target={"_blank"} href={defaultWalletData.LedgerURL}>{defaultWalletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
+                                <StyledWalletDiv>{t('Ledger Name')}: {defaultWalletData.LedgerName}</StyledWalletDiv>
+                                <StyledWalletDiv>{t('Ledger URL ')}:<StyledAnchor target={"_blank"} href={defaultWalletData.LedgerURL}>{defaultWalletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
                                 <StyledWalletDiv style={{display: 'flex', justifyContent: 'space-between'}}>
-                                    <span>Connection URL:</span>
+                                    <span>{t('Connection URL')}:</span>
                                         <CopyToClipboard 
                                             text={connectionUrl}
                                             onCopy={() => setCopied(true)}>
-                                            <Tooltip placement="top" trigger={"click"} title={"Copied"}>
+                                            <Tooltip placement="top" trigger={"click"} title={t("Copied")}>
                                                 <span style={{cursor: 'pointer'}}>
                                                 <Space>
-                                                    <span>Copy wallet link</span>   
+                                                    <span>{t('Copy wallet link')}</span>   
                                                     <CopyOutlined style={{ fontSize: '18px' }}/> 
                                                 </Space>
                                                 </span>
@@ -123,18 +125,18 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                                 </StyledWalletDiv> */}
                             </StyledContainer> : null}
                         <div style={{ marginTop: '10px' }}>
-                            <Radio value="b">{Object.keys(walletData).length !== 0 ? 'Own External Wallet' : 'Own External Wallet'}</Radio>
+                            <Radio value="b">{Object.keys(walletData).length !== 0 ? t('Own External Wallet') : t('Own External Wallet')}</Radio>
                         </div>
                         {Object.keys(walletData).length !== 0 && selectedValue === 'b' ?
                             <StyledContainer>
                                 <p style={{ marginBottom: '0px' }}>
-                                    <strong>Wallet Details</strong>
+                                    <strong>{t('Wallet Details')}</strong>
                                 </p>
                                 <StyledWalletDiv>
                                     <StyledAnchor>{walletData.AgentServiceEndpoint}</StyledAnchor>
                                 </StyledWalletDiv>
-                                <StyledWalletDiv>Ledger Name: {walletData.LedgerName}</StyledWalletDiv>
-                                <StyledWalletDiv>Ledger URL: <StyledAnchor href={walletData.LedgerURL} target="_blank">{walletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
+                                <StyledWalletDiv>{t('Ledger Name')}: {walletData.LedgerName}</StyledWalletDiv>
+                                <StyledWalletDiv>{t('Ledger URL')}: <StyledAnchor href={walletData.LedgerURL} target="_blank">{walletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
                             </StyledContainer> : null}
                             </Col>
                         </Row>

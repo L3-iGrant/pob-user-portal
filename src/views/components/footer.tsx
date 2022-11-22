@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Col, Row, Layout, Divider } from 'antd';
 import './footer.scss';
+import { LanguageSelector } from "../../localization/languageselector/menu";
+import { useTranslation } from 'react-i18next';
 
 const { Footer } = Layout;
 
@@ -18,6 +20,8 @@ const StyledFooterLink = styled.a`
 `;
 
 export const FooterView = () => {
+    const { t, i18n } = useTranslation();
+
     return (
         <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)'}} className="footer-container">
             <Footer 
@@ -38,7 +42,7 @@ export const FooterView = () => {
                 <Row>
                     <Col span={24}>
                         <div style={{ fontWeight: "bold", color: 'white', fontSize: '10px' }}>
-                            Proof of Business demo
+                            {t('Proof of Business demo')}
                         </div>
                     </Col>
                 </Row>

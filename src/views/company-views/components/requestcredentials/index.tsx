@@ -1,11 +1,12 @@
 import { Drawer, Button, Row, Table, Checkbox } from 'antd';
 import { REQUEST_CREDENTIAL_SUBMIT_ENABLED } from 'configs/AppConfig';
-import { Key, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import companyService from 'services/companyService';
 import styled from "styled-components";
 import {CloseCircleOutlined} from "@ant-design/icons";
 import { useDispatch } from 'react-redux';
 import { updateIsLoadingForFetchStoredCertificates } from 'views/company-views/companySlice';
+import { useTranslation } from 'react-i18next';
 
 const StyledActionButton = styled.div`
     margin-bottom: 10px;
@@ -30,20 +31,6 @@ const StyledTable = styled(Table)`
     }
 `;
 
-const columns: any[] = [
-    {
-        title: 'Select',
-        dataIndex: 'select',
-        key: 'select',
-        render: (keyVal: string) => <Checkbox key={keyVal} checked={true} disabled={true} />
-    },
-    {
-        title: 'Data Attributes',
-        dataIndex: 'dataattributes',
-        key: 'dataattributes',
-    }
-];
-
 const camelToTitle = (camelCase: string) => camelCase
     .replace(/([A-Z])/g, (match) => ` ${match}`)
     .replace(/^./, (match) => match.toUpperCase())
@@ -53,6 +40,21 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
     const [dataAttributes, setDataAttributes] = useState<any[]>([]);
     const [submitLoader, setSubmitLoader] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const { t, i18n } = useTranslation();
+
+    const columns: any[] = [
+        {
+            title: t('Select'),
+            dataIndex: 'select',
+            key: 'select',
+            render: (keyVal: string) => <Checkbox key={keyVal} checked={true} disabled={true} />
+        },
+        {
+            title: t('Data Attributes'),
+            dataIndex: 'dataattributes',
+            key: 'dataattributes',
+        }
+    ];
 
     useEffect(() => {
         setDataAttributes([]);
@@ -76,7 +78,7 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
             <div>
                 <Row>
                     <StyledActionButton>
-                        <Button block size={"middle"} onClick={props.onClose}>Cancel</Button>
+                        <Button block size={"middle"} onClick={props.onClose}>{t("Cancel")}</Button>
                     </StyledActionButton>
                 </Row>
                 <Row>
@@ -90,7 +92,7 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
                                 props.onClose();
                                 props.onRequestCredentialSubmit(props.organisationId, props.schemaId);
                             }
-                        }}>Submit</StyledButton>
+                        }}>{t("Submit")}</StyledButton>
                     </StyledActionButton>
                 </Row>
             </div>
@@ -98,18 +100,18 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
     }
 
     return (
-        <Drawer title="REQUEST CREDENTIALS" placement="right" closable={false} onClose={props.onClose} open={props.open} footer={footerActionButtons()}
+        <Drawer title={t("REQUEST CREDENTIALS")} placement="right" closable={false} onClose={props.onClose} open={props.open} footer={footerActionButtons()}
          extra={
             <CloseCircleOutlined onClick={props.onClose}/>
          }>
             <p>
-                You are about to request credentials from Bolagsverket, Sweden. Confirm the details below and click submit the request to issue credentials.
+            {t("You are about to request credentials from Bolagsverket, Sweden. Confirm the details below and click submit the request to issue credentials.")}
             </p>
-            <p>Requested credential: <span style={{textTransform: "uppercase"}}>{props.schemaTitle}</span></p>
-            <p>Once submitted, the requested credentials will be issued to the <StyledLink onClick={()=>{
+            <p>{t("Requested credential")}: <span style={{textTransform: "uppercase"}}>{props.schemaTitle}</span></p>
+            <p>{t("Once submitted, the requested credentials will be issued to the")} <StyledLink onClick={()=>{
                 props.showWalletDetailsDrawer();
                 props.onClose();
-            }}>configured wallet</StyledLink>.</p>
+            }}>{t("configured wallet")}</StyledLink>.</p>
             <p>
                 <StyledTable columns={columns} dataSource={dataAttributes} bordered pagination={false} />
             </p>

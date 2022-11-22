@@ -1,8 +1,9 @@
 import { LeftCircleOutlined, LeftOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { Button, Drawer, Input, Row, Space } from 'antd';
+import { Button, Drawer, Input, message, Row, Space } from 'antd';
 import { useState } from 'react';
 import companyService from 'services/companyService';
 import styled from "styled-components";
+import { useTranslation } from 'react-i18next';
 
 const { TextArea } = Input;
 
@@ -37,19 +38,19 @@ const StyledLeftCircleOutlined = styled(LeftCircleOutlined)`
     cursor: pointer;
 `;
 
-export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; showWalletDetailsDrawer: any; }) => {
+export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; showWalletDetailsDrawer: any;}) => {
 
     const [invitationUrl, setInvitationUrl] = useState('');
     const [acceptInvitationStatus, setAcceptInvitationStatus] = useState<boolean>(false);
-    const [acceptInvitationMessage, setAcceptInvitationMessage] = useState<string>('');
+    const [acceptInvitationMessage, setAcceptInvitationMessage] = useState<any>('');
     const [loadStatus, setLoadStatus] = useState<boolean>(false);
-
+    const { t, i18n } = useTranslation();
     const footerActionButtons = () => {
         return (
             <div>
                 <Row>
                     <StyledActionButton>
-                        <Button block size={"middle"} disabled={loadStatus} onClick={props.onClose}>Cancel</Button>
+                        <Button block size={"middle"} disabled={loadStatus} onClick={props.onClose}>{t("Cancel")}</Button>
                     </StyledActionButton>
                 </Row>
                 <Row>
@@ -59,15 +60,15 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
                             setLoadStatus(true);
                             const response = await companyService.acceptInvitation(invitationUrl);
                             if (response) {
-                                setAcceptInvitationMessage('Connection successful');
+                                setAcceptInvitationMessage(t('Connection successful'));
                                 setAcceptInvitationStatus(true);
                             } else {
-                                setAcceptInvitationMessage('Connection failed');
+                                setAcceptInvitationMessage(t('Connection failed'));
                                 setAcceptInvitationStatus(false);
                             }
                             setLoadStatus(false);
                         }}
-                        >CONNECT</StyledButton>
+                        >{t('CONNECT')}</StyledButton>
                     </StyledActionButton>
                 </Row>
             </div>
@@ -75,23 +76,23 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
     }
 
     return (
-        <Drawer title="MY WALLET - CONFIGURE" placement="right" onClose={()=>{
+        <Drawer title={t("MY WALLET - CONFIGURE")} placement="right" onClose={()=>{
             props.onClose();
             props.showWalletDetailsDrawer();
         }} open={props.open} footer={footerActionButtons()}  closable={true} closeIcon={<LeftOutlined/>}  extra={
             <CloseCircleOutlined onClick={props.onClose}/>
          }>
             <p>
-                <StyledTitle>Here, you can configure your wallet, save your credentials to your mobile wallet etc.</StyledTitle>
+                <StyledTitle>{t('Here, you can configure your wallet, save your credentials to your mobile wallet etc')}</StyledTitle>
             </p>
             <p>
-                <StyledSubTitle>Wallet Configurations</StyledSubTitle>
+                <StyledSubTitle>{t('Wallet Configurations')}</StyledSubTitle>
             </p>
             <p>
-                <StyledDescription>Connection URL</StyledDescription>
+                <StyledDescription>{t('Connection URL')}</StyledDescription>
             </p>
             <p>
-                <TextArea rows={5} placeholder="Connection Invitation URL" onChange={(e) => { setInvitationUrl(e.target.value) }} />
+                <TextArea rows={5} placeholder={"Connection Invitation URL"} onChange={(e) => { setInvitationUrl(e.target.value) }} />
             </p>
             <p>
                 <StyledMessage status={acceptInvitationStatus}>{acceptInvitationMessage}</StyledMessage>
