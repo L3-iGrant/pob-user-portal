@@ -43,7 +43,7 @@ export const WalletSettingsPage = (props: { onClose: any; open: boolean; }) => {
             {t('Here, you can configure your wallet, save your credentials to your mobile wallet etc')}.
             </p>
             <p>
-                <TextArea rows={20} placeholder="Wallet Configurations" />
+                <TextArea rows={20} placeholder={t("Wallet Configurations") || ''} />
             </p>
         </Drawer>
     );

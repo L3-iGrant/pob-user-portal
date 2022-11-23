@@ -61,7 +61,7 @@ export const LoginPage = () => {
                                 prefix={
                                     <UserOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                                 }
-                                placeholder={'Email'}
+                                placeholder={t('Email') || ''}
                                 className="username-input"
                                 onChange={(e: any) => { setEmail(e.target.value); }}
                             />
@@ -73,7 +73,7 @@ export const LoginPage = () => {
                                     <LockOutlined style={{ color: "rgba(0,0,0,.25)" }} />
                                 }
                                 type="password"
-                                placeholder={"Password"}
+                                placeholder={t("Password") || ''}
                                 size="large"
                                 className="password-input"
                                 suffix={

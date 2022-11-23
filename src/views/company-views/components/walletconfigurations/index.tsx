@@ -92,7 +92,7 @@ export const WalletConfigurationsPage = (props: { onClose: any; open: boolean; s
                 <StyledDescription>{t('Connection URL')}</StyledDescription>
             </p>
             <p>
-                <TextArea rows={5} placeholder={"Connection Invitation URL"} onChange={(e) => { setInvitationUrl(e.target.value) }} />
+                <TextArea rows={5} placeholder={t("Connection Invitation URL") || ''} onChange={(e) => { setInvitationUrl(e.target.value) }} />
             </p>
             <p>
                 <StyledMessage status={acceptInvitationStatus}>{acceptInvitationMessage}</StyledMessage>

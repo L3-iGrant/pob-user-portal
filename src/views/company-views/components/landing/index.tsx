@@ -314,7 +314,7 @@ export const LandingPage = () => {
             const logo = issuerID === BOLAGSVERKET_ID ? bolagsverketLogo : skatteverketLogo
             return {
                 title: item.split('%')[0].split(':')[2],
-                subTitle: `Issued by: ${capitalizeFirstLetter(issuer)}, Sweden`,
+                subTitle: `${t('Issued by')}: ${capitalizeFirstLetter(issuer)}, Sweden`,
                 schemaId: item.split('%')[0], organisationId: item.split('%')[1],
                 logo
             };
