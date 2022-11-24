@@ -98,7 +98,7 @@ export const LoginPage = () => {
             </div>
             <div className='login-footer-container'>
                 <div className="login-footer">
-                    <p className='copyright'>{t('Copyright')} © 2023-2025 Bolagsverket, Sweden.{t('All rights reserved')}.</p> 
+                    <p className='copyright'>Copyright © 2023-2025 Bolagsverket, Sweden.{t('All rights reserved')}.</p> 
                     <div style={{paddingBottom:10}}>
                         <LanguageSelector/>
                     </div>                

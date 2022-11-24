@@ -1,7 +1,11 @@
+import { useTranslation } from 'react-i18next';
+
 export const LandingPage = () => {
+    const { t, i18n } = useTranslation();
+
     return (
         <div>
-            Procurement buyer
+            {t('Procurement buyer')}
         </div>
     );
 };

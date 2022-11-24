@@ -42,7 +42,7 @@ export const FooterView = () => {
                 <Row>
                     <Col span={24}>
                         <div style={{ fontWeight: "bold", color: 'white', fontSize: '10px' }}>
-                            {t('Proof of Business demo')}
+                            Proof of Business
                         </div>
                     </Col>
                     <Col span={24}>
