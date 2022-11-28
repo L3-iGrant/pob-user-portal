@@ -19,10 +19,10 @@ export const LanguageSelector = () => {
       label:"Swedish",
        key:"sw"
       },
-    // {
-    //   label:"Finnish",
-    //    key:"fn"
-    // },
+    {
+      label:"Finnish",
+       key:"fn"
+    },
     // {
     //   label:"Norwegian",
     //    key:"ng"
