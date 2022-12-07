@@ -30,10 +30,10 @@ class CompanyService {
         return certificateSchemaAttribute;
     }
 
-    public async submitCredentialRequest() {
+    public async submitCredentialRequest(certificateName: string) {
         let submitCredentialRequestState: boolean = false;
         try {
-            await axiosService.get(ApiRouteConfig.certificateRequestRoute);
+            await axiosService.get(`${ApiRouteConfig.certificateRequestRoute}?certificate=${certificateName}`);
             submitCredentialRequestState = true;
         }
         catch (e: any) {

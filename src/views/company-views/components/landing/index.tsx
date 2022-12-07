@@ -15,13 +15,16 @@ import walletFullIcon from '../../../../assets/img/icons/wallet-full.png';
 import bolagsverketLogo from '../../../../assets/img/icons/bolagsverket.png';
 import skatteverketLogo from '../../../../assets/img/icons/skatteverket_logo.jpg'
 import companyService from '../../../../services/companyService';
-import { BOLAGSVERKET_ID, SKATTEVERKET_ID } from 'configs/AppConfig';
+import { BOLAGSVERKET_ID, FRIA_ID, ORNEN_ID, SKATTEVERKET_ID } from 'configs/AppConfig';
 import './index.scss';
 import ViewSelectedCredentialPage from '../viewselectedcredential';
 import { useListStoredCertificatesQuery } from 'services/company.rtk';
 import { useSelector } from 'react-redux';
 import { selectFetchStoredCertificates, selectWalletEmpty } from 'views/company-views/companySlice';
 import { useTranslation } from 'react-i18next';
+import { Grid } from 'antd';
+
+const { useBreakpoint } = Grid;
 
 const { Search } = Input;
 
@@ -168,6 +171,7 @@ export const LandingPage = () => {
     const [issuerSelected, setIssuerSelected] = useState('allissuersSchemasById');
     const [selectedOrganisationId, setSelectedOrganisationId] = useState<string>('');
     const [selectedSchemaId, setSelectedSchemaId] = useState<string>('');
+    const [selectedIssuer, setSelectedIssuer] = useState<string>('');
     const [selectedSchemaTitle, setSelectedSchemaTitle] = useState<string>('');
     const [credentialRequestProgressMessage, setCredentialRequestProgressMessage] = useState<any>('');
     const [selectedViewCredentialAttributes, setSelectedViewCredentialAttributes] = useState<any>({});
@@ -183,6 +187,7 @@ export const LandingPage = () => {
         pollingInterval: fetchStoredCertificates.pollingInterval,
     })
     const { t, i18n } = useTranslation<string>('');
+    const { xs } = useBreakpoint();
 
     useEffect(() => {
         fetchSchemasByIdAndUpdateCarouselSchemaList();
@@ -225,12 +230,12 @@ export const LandingPage = () => {
 
     const getConnections = async () => {
         const data = await companyService.getConnections();
-        if(data) setWalletData(data);
+        if (data) setWalletData(data);
     };
 
     const getDefaultConnections = async () => {
         const data = await companyService.getDefaultConnections();
-        if(data) setDefaultWalletData(data);
+        if (data) setDefaultWalletData(data);
     }
 
     const getCertificates = async () => {
@@ -254,7 +259,11 @@ export const LandingPage = () => {
         const bolagsverketSchemasById = bolagsverketSchemasResponse.map((item: string) => { return `${item}%${BOLAGSVERKET_ID}` });
         const skatteverketSchemasresponse = await companyService.getCertificateSchemaIdByOrganisationId(SKATTEVERKET_ID);
         const skatteverketSchemasById = skatteverketSchemasresponse.map((item: string) => { return `${item}%${SKATTEVERKET_ID}` });
-        setSchemasById({ bolagsverketSchemasById, skatteverketSchemasById });
+        const friaSchemasresponse = await companyService.getCertificateSchemaIdByOrganisationId(FRIA_ID);
+        const friaSchemasById = friaSchemasresponse.map((item: string) => { return `${item}%${FRIA_ID}` });
+        const ornenSchemasresponse = await companyService.getCertificateSchemaIdByOrganisationId(ORNEN_ID);
+        const ornenSchemasById = ornenSchemasresponse.map((item: string) => { return `${item}%${ORNEN_ID}` });
+        setSchemasById({ bolagsverketSchemasById, skatteverketSchemasById, friaSchemasById, ornenSchemasById });
     };
 
     const capitalizeFirstLetter = (data: string) => {
@@ -262,14 +271,22 @@ export const LandingPage = () => {
     }
 
     const updateCarouselCards = (carouselSchemaList: any[]) => {
+        // Need page refresh for span to be reflected.
+        let colProps = xs ? {
+            span: 24
+        } : {
+            span: carouselSchemaList.length === 1 ? 10 : 22
+        }
+
         const carouselCardArray = carouselSchemaList.map((item: any) => {
             return (
-                <Row >
-                    <Col span={carouselSchemaList.length === 1 ? 7 : 22} offset={carouselSchemaList.length === 1 ? 0 : 1}>
+                <>
+                    <Col {...colProps} offset={carouselSchemaList.length === 1 ? 0 : 1}>
                         <StyledCarouselCard onClick={() => {
                             setSelectedOrganisationId(item.organisationId);
                             setSelectedSchemaId(item.schemaId);
                             setSelectedSchemaTitle(item.title);
+                            setSelectedIssuer(item.issuer);
                             showRequestCredentialsDrawer();
                         }}>
                             <Row>
@@ -291,7 +308,8 @@ export const LandingPage = () => {
                             </Row>
                         </StyledCarouselCard>
                     </Col>
-                </Row>);
+                </>
+            );
         });
         setCarouselSchemaList(carouselCardArray);
     }
@@ -310,10 +328,32 @@ export const LandingPage = () => {
         }
         const carouselSchemaListTemp = carouselSchemaListVariable.map((item: string) => {
             const issuerID = item.split(':')[3].split('%')[1]
-            const issuer = issuerID === BOLAGSVERKET_ID ? 'Bolagsverket' : 'Skatteverket'
-            const logo = issuerID === BOLAGSVERKET_ID ? bolagsverketLogo : skatteverketLogo
+            let issuer = '';
+            let logo = '';
+            switch (issuerID) {
+                case BOLAGSVERKET_ID:
+                    issuer = 'Bolagsverket'
+                    logo = bolagsverketLogo
+                    break;
+                case SKATTEVERKET_ID:
+                    issuer = 'Skatteverket'
+                    logo = skatteverketLogo
+                    break;
+                case ORNEN_ID:
+                    issuer = 'Örnen'
+                    logo = 'https://staging-api.igrant.io/v1/organizations/638f5b102f5d17000144320f/image/638f5b412f5d170001443211/web'
+                    break;
+                case FRIA_ID:
+                    issuer = 'Fria försäkringar'
+                    logo = 'https://staging-api.igrant.io/v1/organizations/638f370c2f5d17000144320a/image/638f39752f5d17000144320d/web'
+                    break;
+            }
+
+            // const issuer = issuerID === BOLAGSVERKET_ID ? 'Bolagsverket' : 'Skatteverket'
+            // const logo = issuerID === BOLAGSVERKET_ID ? bolagsverketLogo : skatteverketLogo
             return {
                 title: item.split('%')[0].split(':')[2],
+                issuer: `${capitalizeFirstLetter(issuer)}, Sweden`,
                 subTitle: `${t('Issued by')}: ${capitalizeFirstLetter(issuer)}, Sweden`,
                 schemaId: item.split('%')[0], organisationId: item.split('%')[1],
                 logo
@@ -384,11 +424,11 @@ export const LandingPage = () => {
         }, 5000);
     }
     const contentStyle: React.CSSProperties = {
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
+        height: '160px',
+        color: '#fff',
+        lineHeight: '160px',
+        textAlign: 'center',
+        background: '#364d79',
     };
 
     const accountPopOverContent = () => {
@@ -414,39 +454,39 @@ export const LandingPage = () => {
     }
 
     var settings = {
-      dots: true,
-      infinite: false,
-      initialSlide: 0,
-      responsive: [
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 3,
-          }
-        },
-        {
-          breakpoint: 820,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          }
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-          }
-        },
-        {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-      ]
+        dots: true,
+        infinite: false,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                }
+            },
+            {
+                breakpoint: 820,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                }
+            },
+            {
+                breakpoint: 576,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     };
 
     return (
@@ -496,7 +536,7 @@ export const LandingPage = () => {
                                         </Col>
                                         <Col xs={3} md={0} style={{ textAlign: 'right' }}>
                                             <Popover placement="bottomRight" content={accountPopOverContent()} trigger="click" overlayClassName='account-popup'>
-                                                <MenuOutlined size={18}/>
+                                                <MenuOutlined size={18} />
                                             </Popover>
                                         </Col>
                                     </Row>
@@ -521,6 +561,8 @@ export const LandingPage = () => {
                                                 <Option value="allissuersSchemasById">{t("All Issuers")}</Option>
                                                 <Option value="bolagsverketSchemasById">Bolagsverket, Sweden</Option>
                                                 <Option value="skatteverketSchemasById">Skatteverket, Sweden</Option>
+                                                <Option value="friaSchemasById">Fria försäkringar, Sweden</Option>
+                                                <Option value="ornenSchemasById">Örnen, Sweden</Option>
                                             </StyledCredentialIssuerSelect>
                                         </Col>
                                     </Row>
@@ -543,8 +585,8 @@ export const LandingPage = () => {
                                             <Space>
                                                 {
                                                     walletEmpty ?
-                                                    <img src={walletIcon} alt={'wallet_icon'} /> :
-                                                    <img src={walletFullIcon} alt={'wallet_icon'} />
+                                                        <img src={walletIcon} alt={'wallet_icon'} /> :
+                                                        <img src={walletFullIcon} alt={'wallet_icon'} />
                                                 }
                                                 <div>
                                                     <StyledMyWalletTitle>{t('MyCompany Wallet')}</StyledMyWalletTitle>
@@ -560,8 +602,8 @@ export const LandingPage = () => {
                     </Col>
                 </Row>
                 <Row gutter={[16, 16]}>
-                    <Col span={24} className="mt-16 max-width-1080 pb-54" 
-                    style={{ "backgroundColor": '#F5F5F5'}}>
+                    <Col span={24} className="mt-16 max-width-1080 pb-54"
+                        style={{ "backgroundColor": '#F5F5F5' }}>
                         <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />} {...settings}>
                             {carouselSchemaList}
                         </CarouselWrapper>
@@ -570,10 +612,10 @@ export const LandingPage = () => {
                 <div className="push"></div>
             </div>
             <FooterView />
-            <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} organisationId={selectedOrganisationId} schemaId={selectedSchemaId} schemaTitle={selectedSchemaTitle} onRequestCredentialSubmit={onRequestCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer}/>
+            <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} organisationId={selectedOrganisationId} schemaId={selectedSchemaId} schemaTitle={selectedSchemaTitle} onRequestCredentialSubmit={onRequestCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer} issuer={selectedIssuer} />
             <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} showWalletConfigurationsDrawer={showWalletConfigurationsDrawer} walletData={walletData} defaultWalletData={defaultWalletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} showWalletDetailsDrawer={showWalletDetailsDrawer} />
-            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} setSelectedViewCredentialReferent={setSelectedViewCredentialReferent} openViewSelectedCredentialsDrawer={openViewSelectedCredentialsDrawer}/>
+            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} setSelectedViewCredentialReferent={setSelectedViewCredentialReferent} openViewSelectedCredentialsDrawer={openViewSelectedCredentialsDrawer} />
             <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialsDrawer} selectedViewCredentialAttributes={selectedViewCredentialAttributes} selectedViewCredentialReferent={selectedViewCredentialReferent} onViewCredentialsDrawerClose={onViewCredentialsDrawerClose} />
         </StyledLayout>
     );

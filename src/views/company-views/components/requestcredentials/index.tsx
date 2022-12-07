@@ -36,7 +36,7 @@ const camelToTitle = (camelCase: string) => camelCase
     .replace(/^./, (match) => match.toUpperCase())
     .trim();
 
-export const RequestCredentialsPage = (props: { onClose: any; open: boolean; organisationId: string; schemaId: string; schemaTitle: string; onRequestCredentialSubmit: any; showWalletDetailsDrawer: any; }) => {
+export const RequestCredentialsPage = (props: { onClose: any; open: boolean; organisationId: string; schemaId: string; schemaTitle: string; onRequestCredentialSubmit: any; showWalletDetailsDrawer: any; issuer: any;}) => {
     const [dataAttributes, setDataAttributes] = useState<any[]>([]);
     const [submitLoader, setSubmitLoader] = useState<boolean>(false);
     const dispatch = useDispatch();
@@ -83,9 +83,23 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
                 </Row>
                 <Row>
                     <StyledActionButton>
-                        <StyledButton disabled={props.schemaId !== REQUEST_CREDENTIAL_SUBMIT_ENABLED} loading={submitLoader} type="primary" block size={"middle"} onClick={async () => {
+                        <StyledButton disabled={!REQUEST_CREDENTIAL_SUBMIT_ENABLED.includes(props.schemaId.split(":")[2])} loading={submitLoader} type="primary" block size={"middle"} onClick={async () => {
                             setSubmitLoader(true);
-                            const response = await companyService.submitCredentialRequest();
+
+                            let certificateName = '';
+                            switch(props.schemaId.split(":")[2]) {
+                                case 'Certificate Of Registration':
+                                    certificateName = 'certificate_of_registration';
+                                    break;
+                                case 'Ecolabel':
+                                    certificateName = 'ecolabel';
+                                    break;
+                                case 'Real estate insurance':
+                                    certificateName = 'real_estate_insurance';
+                                    break;
+                            }
+
+                            const response = await companyService.submitCredentialRequest(certificateName);
                             setSubmitLoader(false);
                             if (response) {
                                 dispatch(updateIsLoadingForFetchStoredCertificates(true))
@@ -105,7 +119,7 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
             <CloseCircleOutlined onClick={props.onClose}/>
          }>
             <p>
-            {t("You are about to request credentials from Bolagsverket, Sweden. Confirm the details below and click submit the request to issue credentials.")}
+            {`${t('You are about to request credentials from')} ${props.issuer}. ${t('Confirm the details below and click submit the request to issue credentials.')}`}
             </p>
             <p>{t("Requested credential")}: <span style={{textTransform: "uppercase"}}>{props.schemaTitle}</span></p>
             <p>{t("Once submitted, the requested credentials will be issued to the")} <StyledLink onClick={()=>{
