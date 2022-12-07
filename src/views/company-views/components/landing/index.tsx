@@ -341,11 +341,11 @@ export const LandingPage = () => {
                     break;
                 case ORNEN_ID:
                     issuer = 'Örnen'
-                    logo = 'https://staging-api.igrant.io/v1/organizations/638f5b102f5d17000144320f/image/638f5b412f5d170001443211/web'
+                    logo = 'https://staging-api.igrant.io/v1/organizations/638f5b102f5d17000144320f/image/63909c302f5d170001443214/web'
                     break;
                 case FRIA_ID:
                     issuer = 'Fria försäkringar'
-                    logo = 'https://staging-api.igrant.io/v1/organizations/638f370c2f5d17000144320a/image/638f39752f5d17000144320d/web'
+                    logo = 'https://staging-api.igrant.io/v1/organizations/638f370c2f5d17000144320a/image/63909baf2f5d170001443213/web'
                     break;
             }
 
@@ -560,9 +560,9 @@ export const LandingPage = () => {
                                             <StyledCredentialIssuerSelect defaultValue="allissuersSchemasById" onChange={(value) => { handleChange(value as string); }} showSearch>
                                                 <Option value="allissuersSchemasById">{t("All Issuers")}</Option>
                                                 <Option value="bolagsverketSchemasById">Bolagsverket, Sweden</Option>
-                                                <Option value="skatteverketSchemasById">Skatteverket, Sweden</Option>
                                                 <Option value="friaSchemasById">Fria försäkringar, Sweden</Option>
                                                 <Option value="ornenSchemasById">Örnen, Sweden</Option>
+                                                <Option value="skatteverketSchemasById">Skatteverket, Sweden</Option>
                                             </StyledCredentialIssuerSelect>
                                         </Col>
                                     </Row>
