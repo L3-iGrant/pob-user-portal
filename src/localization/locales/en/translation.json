@@ -55,5 +55,7 @@
 	"Procurement buyer":"Procurement buyer",
 	"Procurement supplier":"Procurement supplier",
 	"Failed to login":"Failed to login",
-    "Copied":"Copied"
+    "Copied":"Copied",
+    "You are about to request all available company credentials":"You are about to request all available company credentials",
+    "Request available company certificates":"Request available company certificates"
 }

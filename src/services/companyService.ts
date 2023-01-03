@@ -42,6 +42,18 @@ class CompanyService {
         return submitCredentialRequestState;
     }
 
+    public async submitAllCredentialRequest() {
+        let submitCredentialRequestState: boolean = false;
+        try {
+            await axiosService.get(`${ApiRouteConfig.certificateRequestRoute}?certificate=all`);
+            submitCredentialRequestState = true;
+        }
+        catch (e: any) {
+            console.log(e);
+        }
+        return submitCredentialRequestState;
+    }
+
     public async getCertificates() {
         try {
             const response = await axiosService.get(ApiRouteConfig.getCertificates);

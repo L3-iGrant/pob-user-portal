@@ -56,6 +56,8 @@
 	"Procurement supplier":"Upphandlingsleverantör",
 	"Failed to login":"Misslyckades med att logga in",
     "Copied":"Kopierade",
-    "Wallet Configurations": "Konfigurationer av plånbok"
+    "Wallet Configurations": "Konfigurationer av plånbok",
+    "You are about to request all available company credentials":"Du är på väg att begära alla tillgängliga företag verifierbara bevis",
+    "Request available company certificates":"Begär de tillgängliga företagsintygen"
 
 }
