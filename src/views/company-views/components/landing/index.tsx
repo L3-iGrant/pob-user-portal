@@ -1,7 +1,8 @@
-import { Col, Row, Card, Input, Avatar, Space, Select, Carousel, Popover, Divider, notification } from 'antd';
-import { SettingOutlined, DownOutlined, LeftOutlined, RightOutlined, MenuOutlined } from '@ant-design/icons';
+import { Col, Row, Card, Input, Avatar, Space, Select, Carousel, Popover, Divider, notification,Tooltip ,Button} from 'antd';
+import { SettingOutlined, DownOutlined, LeftOutlined, RightOutlined, MenuOutlined} from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import RequestCredentialsPage from "../requestcredentials";
+import RequestAllCredentialsPage from "../requestallcredentials";
 import WalletDetailsPage from '../walletdetails';
 import WalletConfigurationsPage from '../walletconfigurations';
 import ViewCredentialsPage from '../viewcredentials';
@@ -23,6 +24,7 @@ import { useSelector } from 'react-redux';
 import { selectFetchStoredCertificates, selectWalletEmpty } from 'views/company-views/companySlice';
 import { useTranslation } from 'react-i18next';
 import { Grid } from 'antd';
+import loginIcon from '../../../../assets/img/login/arrow.png';
 
 const { useBreakpoint } = Grid;
 
@@ -34,7 +36,8 @@ const StyledLayout = styled.div`
     background-color: #F5F5F5;
     height: 100%;
 `;
-
+const StyledButton = styled(Button)`
+`;
 const StyledCardDefault = styled(Card)`
     border-radius: 1.25rem;
     height: 220px;
@@ -95,7 +98,7 @@ const StyledRequestCompanyCertificateTitle = styled.div`
 `;
 
 const StyledCredentialIssuerSelect = styled(Select)`
-    width: 250px;
+    width: 200px;
 `;
 
 const StyledCarouselCard = styled(Card)`
@@ -162,6 +165,7 @@ const StyledRequestCredentialProgressMessage = styled.div`
 
 export const LandingPage = () => {
     const [openRequestCredentialsDrawer, setOpenRequestCredentialsDrawer] = useState(false);
+    const [openRequestAllCredentialsDrawer, setOpenRequestAllCredentialsDrawer] = useState(false);
     const [openWalletDetailsDrawer, setOpenWalletDetailsDrawer] = useState(false);
     const [openWalletConfigurationsDrawer, setOpenWalletConfigurationsDrawer] = useState(false);
     const [openViewCredentialsDrawer, setOpenViewCredentialsDrawer] = useState(false);
@@ -376,6 +380,14 @@ export const LandingPage = () => {
         setOpenRequestCredentialsDrawer(false);
     };
 
+    const showRequestAllCredentialsDrawer = () => {
+        setOpenRequestAllCredentialsDrawer(true);
+    };
+
+    const onRequestAllCredentialsDrawerClose = () => {
+        setOpenRequestAllCredentialsDrawer(false);
+    };
+
     const showWalletDetailsDrawer = () => {
         setOpenWalletDetailsDrawer(true);
     };
@@ -417,6 +429,14 @@ export const LandingPage = () => {
     const onRequestCredentialSubmit = (organisationId: string, schemaId: string) => {
         console.log(organisationId);
         console.log(schemaId);
+        setCredentialRequestProgressMessage(t('Your request is being processed. Once processed, your configured wallet will be notified.'));
+        setTimeout(() => {
+            setCredentialRequestProgressMessage('');
+            openSuccessNotification(t('Successfully requested credentials'), t('New certificate in your wallet. Click your wallet to view.'));
+        }, 5000);
+    }
+
+    const onRequestAllCredentialSubmit = () => {
         setCredentialRequestProgressMessage(t('Your request is being processed. Once processed, your configured wallet will be notified.'));
         setTimeout(() => {
             setCredentialRequestProgressMessage('');
@@ -557,6 +577,7 @@ export const LandingPage = () => {
                                     </Row>
                                     <Row>
                                         <Col span={24} style={{ textAlign: 'center' }}>
+
                                             <StyledCredentialIssuerSelect defaultValue="allissuersSchemasById" onChange={(value) => { handleChange(value as string); }} showSearch>
                                                 <Option value="allissuersSchemasById">{t("All Issuers")}</Option>
                                                 <Option value="bolagsverketSchemasById">Bolagsverket, Sweden</Option>
@@ -564,8 +585,19 @@ export const LandingPage = () => {
                                                 <Option value="ornenSchemasById">Örnen, Sweden</Option>
                                                 <Option value="skatteverketSchemasById">Skatteverket, Sweden</Option>
                                             </StyledCredentialIssuerSelect>
+
+                                            <Tooltip placement="topLeft"  trigger={"hover"} title={t("Request available company certificates")}>
+                                                <span style={{cursor: 'pointer'}}>
+                                                    <StyledButton type="link" disabled={issuerSelected !='allissuersSchemasById'}>
+                                                    <div><img className='login-btn right-arrow' onClick={() => { showRequestAllCredentialsDrawer()}}
+                                                    src={loginIcon} alt={'login_logo'}/></div>
+                                                    </StyledButton>
+                                                </span>
+                                            </Tooltip>
+
                                         </Col>
                                     </Row>
+
                                     <Row>
                                         <Col span={24} style={{ textAlign: 'center' }}>
                                             <StyledRequestCredentialProgressMessage>{credentialRequestProgressMessage}</StyledRequestCredentialProgressMessage>
@@ -613,6 +645,7 @@ export const LandingPage = () => {
             </div>
             <FooterView />
             <RequestCredentialsPage onClose={onRequestCredentialsDrawerClose} open={openRequestCredentialsDrawer} organisationId={selectedOrganisationId} schemaId={selectedSchemaId} schemaTitle={selectedSchemaTitle} onRequestCredentialSubmit={onRequestCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer} issuer={selectedIssuer} />
+            <RequestAllCredentialsPage onClose={onRequestAllCredentialsDrawerClose} open={openRequestAllCredentialsDrawer} onRequestCredentialSubmit={onRequestAllCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer} issuer={selectedIssuer} />
             <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} showWalletConfigurationsDrawer={showWalletConfigurationsDrawer} walletData={walletData} defaultWalletData={defaultWalletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} showWalletDetailsDrawer={showWalletDetailsDrawer} />
             <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} setSelectedViewCredentialReferent={setSelectedViewCredentialReferent} openViewSelectedCredentialsDrawer={openViewSelectedCredentialsDrawer} />
