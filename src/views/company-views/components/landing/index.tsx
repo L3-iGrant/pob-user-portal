@@ -10,7 +10,7 @@ import styled from "styled-components";
 import authService from 'services/authService';
 import { useHistory } from "react-router-dom";
 import FooterView from 'views/components/footer';
-import headerLogo from '../../../../assets/img/icons/pob_logo.png';
+import headerLogo from '../../../../assets/img/icons/pob_logo_1.png';
 import walletIcon from '../../../../assets/img/icons/wallet.png';
 import walletFullIcon from '../../../../assets/img/icons/wallet-full.png';
 import bolagsverketLogo from '../../../../assets/img/icons/bolagsverket.png';
@@ -50,13 +50,15 @@ const StyledSubheaderText = styled.div`
 `;
 
 const StyledCompanyHeader = styled.div`
+    padding-top:5px;
+    color:white;
     font-size: 18px;
     font-weight: 600;
     font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 `;
 
 const StyledCompanyLogo = styled.img`
-    width: 30px;
+    width: 190px;
 `;
 
 const StyledSubHeaderCard = styled(Card)`
@@ -512,7 +514,7 @@ export const LandingPage = () => {
     return (
         <StyledLayout>
             <div className='fix-width'>
-                <Row gutter={[16, 16]}>
+                <Row gutter={[16, 16]} style={{background: "#002857",paddingBottom:'20px'}}>
                     <Col span={24} className="max-width-1080 mt-16">
                         <Row>
                             <Col md={12} xs={24}>
@@ -635,7 +637,7 @@ export const LandingPage = () => {
                 </Row>
                 <Row gutter={[16, 16]}>
                     <Col span={24} className="mt-16 max-width-1080 pb-54"
-                        style={{ "backgroundColor": '#F5F5F5' }}>
+                        style={{ "backgroundColor": '#F3FAFD' }}>
                         <CarouselWrapper slidesToShow={carouselSchemaList.length === 1 ? 1 : carouselSchemaList.length === 2 ? 2 : 3} arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />} {...settings}>
                             {carouselSchemaList}
                         </CarouselWrapper>

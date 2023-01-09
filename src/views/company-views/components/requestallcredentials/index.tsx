@@ -73,7 +73,7 @@ export const RequestAllCredentialsPage = (props: { onClose: any; open: boolean; 
                 props.onClose();
             }}>{t("configured wallet")}</StyledLink>.</p>
             <Row style={{ marginTop: "5px" }}>
-                <Card style={{ width: "100%", border: "0", backgroundColor: "#f7f6f6" }}>
+                <Card style={{ width: "100%", border: "0",  backgroundColor: '#F3FAFD' }} >
                     <Space direction='vertical' size={"large"} style={{ width: "100%" }}>
 
                         <Row gutter={[16, 16]} style={{ display: "flex", alignItems: "center" }}>

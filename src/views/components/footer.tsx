@@ -23,12 +23,12 @@ export const FooterView = () => {
     const { t, i18n } = useTranslation();
 
     return (
-        <StyledFooter style={{ backgroundColor: 'rgb(18, 6, 57)'}} className="footer-container">
+        <StyledFooter style={{ backgroundColor: 'rgb(254, 203, 0)'}} className="footer-container">
             <Footer 
             
             style={{
                 textAlign: 'center',
-                backgroundColor: 'rgb(18, 6, 57)',
+                backgroundColor: 'rgb(254, 203, 0)',
                 padding: '10px 0px',
                 height: '100%',
                 display: 'flex',
@@ -41,19 +41,19 @@ export const FooterView = () => {
                 
                 <Row>
                     <Col span={24}>
-                        <div style={{ fontWeight: "bold", color: 'white', fontSize: '10px' }}>
+                        <div style={{ fontWeight: "bold", color: 'black', fontSize: '10px' }}>
                             Proof of Business
                         </div>
                     </Col>
                     <Col span={24}>
-                        <div style={{ color: 'white', fontSize: '10px' }}>
+                        <div style={{ color: 'black', fontSize: '10px' }}>
                             © Bolagsverket, Sweden
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col span={24}>
-                        <div style={{ color: 'gray', fontSize: '8px', marginTop: 0 }}>
+                        <div style={{ color: 'black', fontSize: '8px', marginTop: 0 }}>
                             Powered by iGrant.io
                         </div>
                         
