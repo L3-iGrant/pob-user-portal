@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import authService from "services/authService";
 import '../../../../styles/components/login.css';
 import loginIcon from '../../../../assets/img/login/arrow.png';
-import defaultLogo from '../../../../assets/img/icons/pob_logo.png';
+import defaultLogo from '../../../../assets/img/icons/pob_logo_01.png';
 import { antIcon } from "../graphic/antIcon";
 import { Logo } from '../graphic/Logo';
 import { Form, Input, Checkbox, Divider, Spin } from "antd";

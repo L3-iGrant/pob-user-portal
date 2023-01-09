@@ -29,6 +29,9 @@ const StyledTable = styled(Table)`
     tr > th, tr > td {
         padding: 10px 10px;
     }
+    && tbody > tr:hover > td {
+        background:#F3FAFD;
+    }
 `;
 
 const camelToTitle = (camelCase: string) => camelCase
