@@ -49,6 +49,18 @@ const StyledSubheaderText = styled.div`
     font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 `;
 
+const StyledLogoText = styled.div`
+    font-size: 16px;
+    font-weight: 500;
+    font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: white;
+    padding-top:8px;
+`;
+
+const StyledLink = styled.a`
+color: #40a9ff;
+`;
+
 const StyledCompanyHeader = styled.div`
     padding-top:5px;
     color:white;
@@ -521,6 +533,7 @@ export const LandingPage = () => {
                                 <Space>
                                     <StyledCompanyLogo src={headerLogo} alt="header" />
                                     <StyledCompanyHeader>{t('MyCompany Wallet')}</StyledCompanyHeader>
+                                    <StyledLogoText>(Powered by <StyledLink style={{margin:0}} target='_blank' href='https://igrant.io'>iGrant.io</StyledLink>)</StyledLogoText>
                                 </Space>
                             </Col>
                             <Col md={6} offset={6} xs={0}>
