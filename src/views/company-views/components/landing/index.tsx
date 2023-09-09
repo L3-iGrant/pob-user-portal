@@ -54,7 +54,7 @@ const StyledLogoText = styled.div`
     font-weight: 500;
     font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
     color: white;
-    padding-top:8px;
+    padding-top:9px;
 `;
 
 const StyledLink = styled.a`
@@ -62,15 +62,15 @@ color: #40a9ff;
 `;
 
 const StyledCompanyHeader = styled.div`
-    padding-top:5px;
+    padding-top:7px;
     color:white;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     font-family: SF Pro Display,SF Pro Icons,Helvetica Neue,Helvetica,Arial,sans-serif;
 `;
 
 const StyledCompanyLogo = styled.img`
-    width: 190px;
+    width: 185px;
 `;
 
 const StyledSubHeaderCard = styled(Card)`
@@ -532,8 +532,7 @@ export const LandingPage = () => {
                             <Col md={12} xs={24}>
                                 <Space>
                                     <StyledCompanyLogo src={headerLogo} alt="header" />
-                                    <StyledCompanyHeader>{t('MyCompany Wallet')}</StyledCompanyHeader>
-                                    <StyledLogoText>(Powered by <StyledLink style={{margin:0}} target='_blank' href='https://igrant.io'>iGrant.io</StyledLink>)</StyledLogoText>
+                                    <StyledCompanyHeader>{t('MyCompany Wallet')}</StyledCompanyHeader><StyledLogoText className='powered-by-logo-text'>(Powered by <StyledLink target='_blank' href='https://igrant.io'>iGrant.io</StyledLink>)</StyledLogoText>
                                 </Space>
                             </Col>
                             <Col md={6} offset={6} xs={0}>
