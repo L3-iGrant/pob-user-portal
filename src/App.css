@@ -71,6 +71,9 @@
     padding-left: 24px !important;
     padding-right: 24px !important;
   }
+  .powered-by-logo-text{
+    display:none;
+  }
 }
 
 @media all and (max-device-width: 768px) {
