@@ -116,7 +116,7 @@ export const RequestAllCredentialsPage = (props: { onClose: any; open: boolean; 
                                             </div>
                                         </Col>
                                         <Col span={6} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                            <img src='https://staging-api.igrant.io/v1/organizations/638f5b102f5d17000144320f/image/63909c302f5d170001443214/web' style={{ width: "40px" }} alt="credential" />
+                                            <img src='https://staging-api.igrant.io/v2/onboard/image/63909c302f5d170001443214/web' style={{ width: "40px" }} alt="credential" />
                                         </Col>
                                     </Row>
                                 </Card>
@@ -139,7 +139,7 @@ export const RequestAllCredentialsPage = (props: { onClose: any; open: boolean; 
                                             </div>
                                         </Col>
                                         <Col span={6} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                            <img src='https://staging-api.igrant.io/v1/organizations/638f370c2f5d17000144320a/image/63909baf2f5d170001443213/web' style={{ width: "40px" }} alt="credential" />
+                                            <img src='https://staging-api.igrant.io/v2/onboard/image/63909baf2f5d170001443213/web' style={{ width: "40px" }} alt="credential" />
                                         </Col>
                                     </Row>
                                 </Card>

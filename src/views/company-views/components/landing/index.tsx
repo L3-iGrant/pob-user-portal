@@ -359,11 +359,11 @@ export const LandingPage = () => {
                     break;
                 case ORNEN_ID:
                     issuer = 'Örnen'
-                    logo = 'https://staging-api.igrant.io/v1/organizations/638f5b102f5d17000144320f/image/63909c302f5d170001443214/web'
+                    logo = 'https://staging-api.igrant.io/v2/onboard/image/63909c302f5d170001443214/web'
                     break;
                 case FRIA_ID:
                     issuer = 'Fria försäkringar'
-                    logo = 'https://staging-api.igrant.io/v1/organizations/638f370c2f5d17000144320a/image/63909baf2f5d170001443213/web'
+                    logo = 'https://staging-api.igrant.io/v2/onboard/image/63909baf2f5d170001443213/web'
                     break;
             }
 
