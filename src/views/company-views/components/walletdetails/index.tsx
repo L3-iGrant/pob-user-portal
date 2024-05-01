@@ -100,10 +100,10 @@ export const WalletDetailsPage = (props: { onClose: any; open: boolean; showWall
                                     <strong>{t('Wallet Details')}</strong>
                                 </p>
                                 <StyledWalletDiv>
-                                {t('Agent URL')}: <StyledAnchor style={{wordBreak: 'break-word'}}>{defaultWalletData.AgentServiceEndpoint}</StyledAnchor>
+                                {t('Agent URL')}: <StyledAnchor style={{wordBreak: 'break-word'}}>{defaultWalletData.agentServiceEndpoint}</StyledAnchor>
                                 </StyledWalletDiv>
-                                <StyledWalletDiv>{t('Ledger Name')}: {defaultWalletData.LedgerName}</StyledWalletDiv>
-                                <StyledWalletDiv>{t('Ledger URL')}:<StyledAnchor target={"_blank"} href={defaultWalletData.LedgerURL}>{defaultWalletData.LedgerURL}</StyledAnchor></StyledWalletDiv>
+                                <StyledWalletDiv>{t('Ledger Name')}: {defaultWalletData.ledgerName}</StyledWalletDiv>
+                                <StyledWalletDiv>{t('Ledger URL')}: <StyledAnchor target={"_blank"} href={defaultWalletData.ledgerURL}>{defaultWalletData.ledgerURL}</StyledAnchor></StyledWalletDiv>
                                 <StyledWalletDiv style={{display: 'flex', justifyContent: 'space-between'}}>
                                     <span>{t('Connection URL')}:</span>
                                         <CopyToClipboard 
