@@ -100,6 +100,9 @@ export const RequestCredentialsPage = (props: { onClose: any; open: boolean; org
                                 case 'Real estate insurance':
                                     certificateName = 'real_estate_insurance';
                                     break;
+                                case 'Legal Personal Identification Data (LPID)':
+                                    certificateName = 'lpid';
+                                    break;
                             }
 
                             const response = await companyService.submitCredentialRequest(certificateName);

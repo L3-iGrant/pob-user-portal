@@ -98,6 +98,10 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
                     issuer = 'Fria försäkringar, Sweden'
                     logo = 'https://staging-api.igrant.io/v2/onboard/image/63909baf2f5d170001443213/web'
                     break;
+                case 'Legal Personal Identification Data (LPID)':
+                    issuer = 'Bolagsverket, Sweden'
+                    logo = credentialLogo;
+                    break;
             }
 
             return (
