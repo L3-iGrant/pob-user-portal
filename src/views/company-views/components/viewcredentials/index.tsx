@@ -42,14 +42,14 @@ const StyledActionButton = styled.div`
     width: 100%;
 `;
 
-export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showViewSelectedCredentialDrawer: any; setSelectedViewCredentialAttributes: any; openViewSelectedCredentialsDrawer: boolean; setSelectedViewCredentialReferent: any; }) => {
+export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showViewSelectedCredentialDrawer: any; setSelectedViewCredentialAttributes: any; openViewSelectedCredentialsDrawer: boolean; setSelectedViewCredentialReferent: any; setCredentialJwt: any; }) => {
     const [credentialList, setCredentialList] = useState<any[]>([]);
     const { data, error, isLoading, refetch } = useListStoredCertificatesQuery(undefined)
     const { t, i18n } = useTranslation();
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(data);
-    }, [isLoading,data])
+    }, [isLoading, data])
 
     useEffect(() => {
         if (props.open) getCertificatesAndUpdateList();
@@ -65,7 +65,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
         const response = await companyService.getCertificates();
         console.log(response.results);
         refetch()
-        const certificatesDataList = response.results.map((item: any, index: number) => { return { title: item.schema_id.split(':')[2], index, attributes: item.attrs, referent: item.referent } });
+        const certificatesDataList = response.results.map((item: any, index: number) => { return { title: item.schema_id.split(':')[2], index, attributes: item.attrs, referent: item.referent, credentialJwt: item.credentialJwt } });
         updateCredentialsList(certificatesDataList);
     };
 
@@ -85,7 +85,7 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
         const credentialCardArray = credentialSchemaList.map((item: any) => {
             let issuer = '';
             let logo = '';
-            switch(item.title) {
+            switch (item.title) {
                 case 'Certificate Of Registration':
                     issuer = 'Bolagsverket, Sweden'
                     logo = credentialLogo;
@@ -107,10 +107,14 @@ export const ViewCredentialsPage = (props: { onClose: any; open: boolean; showVi
             return (
                 <Row >
                     <Col span={24}>
-                        <StyledCredentialCard bodyStyle={{padding: "17px"}} onClick={() => {
+                        <StyledCredentialCard bodyStyle={{ padding: "17px" }} onClick={() => {
                             props.showViewSelectedCredentialDrawer();
                             props.setSelectedViewCredentialAttributes(item.attributes);
                             props.setSelectedViewCredentialReferent(item.referent);
+                            if (item.credentialJwt !== undefined || item.credentialJwt !== null) {
+                                props.setCredentialJwt(item.credentialJwt);
+                            }
+
                         }}>
                             <Row>
                                 <Col span={20}>

@@ -193,6 +193,7 @@ export const LandingPage = () => {
     const [selectedSchemaTitle, setSelectedSchemaTitle] = useState<string>('');
     const [credentialRequestProgressMessage, setCredentialRequestProgressMessage] = useState<any>('');
     const [selectedViewCredentialAttributes, setSelectedViewCredentialAttributes] = useState<any>({});
+    const [credentialJwt, setCredentialJwt] = useState<any>('');
     const [selectedViewCredentialReferent, setSelectedViewCredentialReferent] = useState<any>('');
     const [walletData, setWalletData] = useState({});
     const [defaultWalletData, setDefaultWalletData] = useState({});
@@ -670,8 +671,8 @@ export const LandingPage = () => {
             <RequestAllCredentialsPage onClose={onRequestAllCredentialsDrawerClose} open={openRequestAllCredentialsDrawer} onRequestCredentialSubmit={onRequestAllCredentialSubmit} showWalletDetailsDrawer={showWalletDetailsDrawer} issuer={selectedIssuer} />
             <WalletDetailsPage onClose={onWalletDetailsDrawerClose} open={openWalletDetailsDrawer} showWalletConfigurationsDrawer={showWalletConfigurationsDrawer} walletData={walletData} defaultWalletData={defaultWalletData} />
             <WalletConfigurationsPage onClose={onWalletConfigurationsDrawerClose} open={openWalletConfigurationsDrawer} showWalletDetailsDrawer={showWalletDetailsDrawer} />
-            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} setSelectedViewCredentialReferent={setSelectedViewCredentialReferent} openViewSelectedCredentialsDrawer={openViewSelectedCredentialsDrawer} />
-            <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialsDrawer} selectedViewCredentialAttributes={selectedViewCredentialAttributes} selectedViewCredentialReferent={selectedViewCredentialReferent} onViewCredentialsDrawerClose={onViewCredentialsDrawerClose} />
+            <ViewCredentialsPage onClose={onViewCredentialsDrawerClose} open={openViewCredentialsDrawer} showViewSelectedCredentialDrawer={showViewSelectedCredentialDrawer} setSelectedViewCredentialAttributes={setSelectedViewCredentialAttributes} setCredentialJwt={setCredentialJwt} setSelectedViewCredentialReferent={setSelectedViewCredentialReferent} openViewSelectedCredentialsDrawer={openViewSelectedCredentialsDrawer} />
+            <ViewSelectedCredentialPage onClose={onViewSelectedCredentialDrawerClose} open={openViewSelectedCredentialsDrawer} selectedViewCredentialAttributes={selectedViewCredentialAttributes} selectedViewCredentialReferent={selectedViewCredentialReferent} onViewCredentialsDrawerClose={onViewCredentialsDrawerClose} credentialJwt={credentialJwt}/>
         </StyledLayout>
     );
 };

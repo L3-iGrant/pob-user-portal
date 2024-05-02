@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { Drawer, Alert, Row, Table, Col, Popconfirm, Button, Space, notification } from 'antd';
-import { LeftOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Drawer, Alert, Row, Table, Col, Popconfirm, Button, Space, notification, Tooltip } from 'antd';
+import { LeftOutlined, DeleteOutlined, CopyOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { CloseCircleOutlined } from "@ant-design/icons";
 import companyService from "services/companyService";
 import { useListStoredCertificatesQuery } from "services/company.rtk";
 import { useTranslation } from 'react-i18next';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const StyledTable = styled(Table)`
     border: 1px solid #ddd;
@@ -29,10 +30,16 @@ const StyledDeleteOutlined = styled(DeleteOutlined)`
     cursor: pointer;
 `;
 
+const StyledCopyOutlined = styled(CopyOutlined)`
+    font-size: 15px;
+    cursor: pointer;
+`;
 
-export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean; selectedViewCredentialAttributes: any; onViewCredentialsDrawerClose: any; selectedViewCredentialReferent: string; }) => {
+
+export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean; selectedViewCredentialAttributes: any; onViewCredentialsDrawerClose: any; selectedViewCredentialReferent: string; credentialJwt: string; }) => {
     const { data, error, isLoading, refetch } = useListStoredCertificatesQuery(undefined)
-    const { t , i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const [copied, setCopied] = useState(false);
 
     const footerActionButtons = () => {
         return (
@@ -60,7 +67,7 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
             key: 'value',
         }
     ];
-    
+
     const [open, setOpen] = useState(false);
 
     const camelToTitle = (camelCase: string) => camelCase
@@ -95,6 +102,7 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
             open={props.open}
             extra={
                 <Space>
+
                     <Popconfirm
                         title={t('Are you sure you want to delete this credential?')}
                         open={open}
@@ -127,6 +135,26 @@ export const ViewSelectedCredentialPage = (props: { onClose: any; open: boolean;
             <p>
                 <StyledTable columns={columns} dataSource={updateAttributesTable(props.selectedViewCredentialAttributes)} bordered pagination={false} />
             </p>
+            {
+                
+                props.credentialJwt && (
+                    <p style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <CopyToClipboard
+                            text={props.credentialJwt}
+                            onCopy={() => setCopied(true)}>
+                            <Tooltip placement="top" trigger={"click"} title={t("Copied")}>
+                                <span style={{ cursor: 'pointer' }}>
+                                    <Space>
+                                        <span>{"Copy credential"}</span>
+                                        <CopyOutlined style={{ fontSize: '18px' }} />
+                                    </Space>
+                                </span>
+                            </Tooltip>
+                        </CopyToClipboard>
+                    </p>  
+                )
+            }
+            
         </Drawer>
     );
 }
