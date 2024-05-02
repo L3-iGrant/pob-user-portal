@@ -443,11 +443,19 @@ export const LandingPage = () => {
     const onRequestCredentialSubmit = (organisationId: string, schemaId: string) => {
         console.log(organisationId);
         console.log(schemaId);
-        setCredentialRequestProgressMessage(t('Your request is being processed. Once processed, your configured wallet will be notified.'));
-        setTimeout(() => {
-            setCredentialRequestProgressMessage('');
-            openSuccessNotification(t('Successfully requested credentials'), t('New certificate in your wallet. Click your wallet to view.'));
-        }, 5000);
+        if (schemaId === "H3DW1MUWZyBkP5LG4rTYRH:2:Legal Personal Identification Data (LPID):8.0.0") {
+            setCredentialRequestProgressMessage(t('A request has been sent to the issuer. You will be notified once your request is processed.'));
+            setTimeout(() => {
+                setCredentialRequestProgressMessage('');
+            }, 5000);
+        } else {
+            setCredentialRequestProgressMessage(t('Your request is being processed. Once processed, your configured wallet will be notified.'));
+            setTimeout(() => {
+                setCredentialRequestProgressMessage('');
+                openSuccessNotification(t('Successfully requested credentials'), t('New certificate in your wallet. Click your wallet to view.'));
+            }, 5000);
+        }
+        
     }
 
     const onRequestAllCredentialSubmit = () => {
