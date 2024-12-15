@@ -1,5 +1,6 @@
 import axiosService from './axiosService';
 import ApiRouteConfig from "configs/ApiRouteConfig";
+import { doLogout, getToken, keycloak } from './keycloakService';
 
 class AuthService {
     private static _instance: AuthService;
@@ -8,10 +9,10 @@ class AuthService {
     private _permissions: Array<any> = [];
     private constructor() {
         const authToken = localStorage.getItem('authToken');
-        if(authToken) {
+        if (authToken) {
             axiosService.setAuthToken(authToken);
         }
-     }
+    }
 
     public async loginUser(email: string, password: string) {
         try {
@@ -51,6 +52,16 @@ class AuthService {
     }
 
     public async logoutUser() {
+        const token = getToken();
+        const isKeycloakToken = token && token.split('.').length === 3;
+
+        if (isKeycloakToken) {
+            // Perform Keycloak back channel logout
+            const success = await doLogout();
+            if (!success) {
+                console.error('Keycloak logout failed');
+            }
+        }
         axiosService.deleteUserEmail();
         axiosService.deleteAuthToken();
         this._loginState = false;
@@ -468,6 +479,47 @@ class AuthService {
 
     public static get Instance() {
         return this._instance || (this._instance = new this());
+    }
+
+    public async loginWithKeycloak() {
+        try {
+            const token = getToken();
+            if (token) {
+                axiosService.setAuthToken(token);
+                localStorage.setItem('authToken', token);
+                this._loginState = true;
+
+                // You might want to fetch additional user info here
+                const userInfo = await keycloak.loadUserInfo();
+                if (userInfo && (userInfo as any).email) {
+                    axiosService.setUserEmail((userInfo as any).email);
+                }
+            }
+
+            // Setup token refresh
+            this.setupTokenRefresh();
+        } catch (e: any) {
+            this._loginState = false;
+            console.error('Failed to login with Keycloak:', e);
+        }
+        return this._loginState;
+    }
+
+    // Add token refresh logic
+    public setupTokenRefresh() {
+        setInterval(() => {
+            keycloak.updateToken(70).then((refreshed: any) => {
+                if (refreshed) {
+                    const token = getToken();
+                    if (token) {
+                        axiosService.setAuthToken(token);
+                        localStorage.setItem('authToken', token);
+                    }
+                }
+            }).catch(() => {
+                console.error('Failed to refresh token');
+            });
+        }, 60000); // Check token every minute
     }
 }
 

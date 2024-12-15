@@ -27,11 +27,22 @@ class AxiosService {
 
     public setAuthToken(authToken: string) {
         window.sessionStorage.setItem('authToken', authToken);
+        // Check if it's a Keycloak token (JWT format)
+        const isKeycloakToken = this.isJwtToken(authToken);
+
+        // Set the appropriate authorization header prefix
+        const prefix = isKeycloakToken ? 'Bearer' : 'Token';
+
         this._config = {
             headers: {
-                Authorization: `Token ${authToken}`,
+                'Authorization': `${prefix} ${authToken}`
             }
-        }
+        };
+    }
+
+    private isJwtToken(token: string): boolean {
+        // Simple check if token is in JWT format (three parts separated by dots)
+        return token.split('.').length === 3;
     }
 
     public deleteAuthToken() {

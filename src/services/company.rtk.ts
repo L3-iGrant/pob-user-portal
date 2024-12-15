@@ -13,7 +13,9 @@ export const storedCertificatesApi = createApi({
         prepareHeaders: (headers) => {
             const token = axiosService.getAuthToken()
             if (token) {
-                headers.set('authorization', `Token ${token}`)
+                const isKeycloakToken = token.split('.').length === 3;
+                const prefix = isKeycloakToken ? 'Bearer' : 'Token';
+                headers.set('authorization', `${prefix} ${token}`);
             }
             return headers
         },
@@ -21,13 +23,13 @@ export const storedCertificatesApi = createApi({
     endpoints: (builder) => ({
         listStoredCertificates: builder.query<any, any>({
             query: () => `${ApiRouteConfig.getCertificates}`,
-            transformResponse: (response: {data: ListCertificatesResponse }) => {
+            transformResponse: (response: { data: ListCertificatesResponse }) => {
                 return response
             },
-            async onQueryStarted(id, {dispatch, queryFulfilled}) {
+            async onQueryStarted(id, { dispatch, queryFulfilled }) {
                 try {
-                    const {data} = await queryFulfilled
-                    if (data.results!.length > 0){
+                    const { data } = await queryFulfilled
+                    if (data.results!.length > 0) {
                         dispatch(updateIsLoadingForFetchStoredCertificates(false))
                         dispatch(updateWalletEmpty(false))
                     } else {
